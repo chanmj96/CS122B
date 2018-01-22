@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS movies (
 CREATE TABLE IF NOT EXISTS stars (
   id varchar(10) NOT NULL,
   name varchar(100) NOT NULL,
-  birthYear integer,
+  birthYear integer DEFAULT NULL,
   PRIMARY KEY(id)
 );
 
