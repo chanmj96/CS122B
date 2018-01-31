@@ -18,3 +18,29 @@ h1 {
 	margin-left: auto;
 	margin-right: auto;
 }
+/* === Search Page === */
+#search-wrap {
+	background-color: #FDF5E6;
+	text-align: center;
+}
+#search-container {
+	margin: 0 auto;
+	padding: 2%;
+}
+#search-header h1{
+	margin: 0 auto;
+}
+.title {
+	display: block;
+	margin: 0 auto;
+	font-size: 110%;
+}
+.functions {
+	display: inline-block;
+	margin: 0 auto;
+	text-align: right;
+	padding-right: 5%;	
+}
+#submit {
+	text-align: center;
+}
