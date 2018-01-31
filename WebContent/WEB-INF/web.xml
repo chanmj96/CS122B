@@ -10,7 +10,7 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-	<servlet-name>MovieListServlet</servlet-name>
+    <servlet-name>MovieListServlet</servlet-name>
     <servlet-class>MovieList</servlet-class>
   </servlet>
   <servlet-mapping>
