@@ -23,8 +23,8 @@ public class MovieList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginUser = "root"; // Change to 'sam' for AWS
-		String loginPasswd = "klefstad";
+		String loginUser = "testuser";
+		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		
 		response.setContentType("text/html");
