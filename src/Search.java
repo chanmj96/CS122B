@@ -56,7 +56,7 @@ public class Search extends HttpServlet {
 						+ "INNER JOIN stars s ON s.id=sim.starId ";
 				
 				if(title != "") {
-					query += "WHERE title='" + title + "'";
+					query += "WHERE title LIKE '%" + title + "%'";
 				}
 				if(year != "") {
 					if(query.contains("WHERE")) {

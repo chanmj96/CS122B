@@ -59,27 +59,27 @@ public class ShowSearch extends HttpServlet {
 						+ "INNER JOIN stars s ON s.id=sim.starId ";
 				
 				if(title != "") {
-					query += "WHERE title='" + title + "'";
+					query += "WHERE title LIKE '%" + title + "%'";
 				}
 				if(year != "") {
 					if(query.contains("WHERE")) {
-						query += " AND year='" + year + "'";
+						query += " AND year LIKE '%" + year + "%'";
 					}  else {
-						query += "WHERE year='" + year + "'";
+						query += "WHERE year LIKE '%" + year + "%'";
 					}
 				}
 				if(director != "") {
 					if(query.contains("WHERE")) {
-						query += " AND director='" + director + "'";
+						query += " AND director LIKE '%" + director + "%'";
 					}  else {
-						query += "WHERE director='" + director + "'";
+						query += "WHERE director LIKE '%" + director + "%'";
 					}
 				}
 				if(name != "") {
 					if(query.contains("WHERE")) {
-						query += " AND name='" + name + "'";
+						query += " AND name LIKE '%" + name + "%'";
 					}  else {
-						query += "WHERE name='" + name + "'";
+						query += "WHERE name LIKE '%" + name + "%'";
 					}
 				}
 				
