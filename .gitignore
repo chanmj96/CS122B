@@ -163,7 +163,7 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
-# Mac #
+### MacOS ###
 .DS_Store
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
@@ -172,4 +172,3 @@ buildNumber.properties
 
 # End of https://www.gitignore.io/api/java,maven,eclipse,java-web,intellij
 
-/build/
