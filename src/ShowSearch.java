@@ -53,8 +53,7 @@ public class ShowSearch extends HttpServlet {
             String name = request.getParameter("name");
 			
             if(title != "" || year != "" || director != "" || name != "") {
-            		out.println("Check 0: Passed <br/>");
-				String query = "SELECT DISTINCT m.title FROM movies m "
+				String query = "SELECT m.*, s.name FROM movies m "
 						+ "INNER JOIN stars_in_movies sim ON m.id=sim.movieId "
 						+ "INNER JOIN stars s ON s.id=sim.starId ";
 				
@@ -87,16 +86,18 @@ public class ShowSearch extends HttpServlet {
 				
 				JsonArray jsonArray = new JsonArray();
 				while(result.next()) {
+					String rid = result.getString("id");
 					String rtitle = result.getString("title");
 					String ryear = result.getString("year");
 					String rdirector = result.getString("director");
 					String rname = result.getString("name");
 					
 					JsonObject obj = new JsonObject();
-	                obj.addProperty("title", rtitle);
-	                obj.addProperty("year", ryear);
-	                obj.addProperty("director", rdirector);
-	                obj.addProperty("cast", rname);
+					obj.addProperty("id", rid);
+	                	obj.addProperty("title", rtitle);
+	                	obj.addProperty("year", ryear);
+	                	obj.addProperty("director", rdirector);
+	                	obj.addProperty("cast", rname);
 	                
 	                jsonArray.add(obj);
 				}
