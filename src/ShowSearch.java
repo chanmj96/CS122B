@@ -101,8 +101,7 @@ public class ShowSearch extends HttpServlet {
 	                
 	                jsonArray.add(obj);
 				}
-				
-	            
+					            
 	            out.write(jsonArray.toString());
 
 	            result.close();
