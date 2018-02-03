@@ -3,9 +3,7 @@
  */
 
 function handleSearchResult(result){
-	console.log("Handling search result...");
-	console.log(result);
-	
+	console.log("Handling search result...");	
 	jQuery("#functions").css("display", "none");
 	
 	var element_head = jQuery("#search_result_head");
