@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 /**
  * Servlet implementation class ShowSearch
@@ -41,7 +46,6 @@ public class ShowSearch extends HttpServlet {
 		response.setContentType("application/json");
 		
 		PrintWriter out = response.getWriter();
-		
 		try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
@@ -84,7 +88,7 @@ public class ShowSearch extends HttpServlet {
 				
 				ResultSet result = statement.executeQuery(query);
 				
-				JsonArray jsonArray = new JsonArray();
+				JsonArray movieArray = new JsonArray();
 				while(result.next()) {
 					String rid = result.getString("id");
 					String rtitle = result.getString("title");
@@ -92,19 +96,40 @@ public class ShowSearch extends HttpServlet {
 					String rdirector = result.getString("director");
 					String rname = result.getString("name");
 					
-					JsonObject obj = new JsonObject();
-					obj.addProperty("id", rid);
-	                	obj.addProperty("title", rtitle);
-	                	obj.addProperty("year", ryear);
-	                	obj.addProperty("director", rdirector);
-	                	obj.addProperty("cast", rname);
-	                
-	                jsonArray.add(obj);
+					boolean exists = false;
+					for(int i = 0; i < movieArray.size(); ++i) {
+						JsonObject obj = (JsonObject) movieArray.get(i);
+						Set<Map.Entry<String, JsonElement>> entries = obj.entrySet();
+						for(Map.Entry<String, JsonElement> entry : entries) {
+							if(entry.getKey().equals(rid)) {
+								obj.getAsJsonObject(rid).getAsJsonArray("cast").add(rname);
+								exists = true;
+								break;
+							}
+						}
+						if(exists) {
+							break;
+						}
+					}
+					if(!exists) {
+						JsonArray cast = new JsonArray();
+						cast.add(new JsonPrimitive(rname));
+						
+						JsonObject movieData = new JsonObject();
+						movieData.addProperty("title", rtitle);
+						movieData.addProperty("year",  ryear);
+						movieData.addProperty("director", rdirector);
+						movieData.add("cast",  cast);
+						
+						JsonObject movie = new JsonObject();
+						movie.add(rid, movieData);
+						
+						movieArray.add(movie);
+					}
+					
 				}
+				out.write(movieArray.toString());
 				
-	            
-	            out.write(jsonArray.toString());
-
 	            result.close();
 	            statement.close();
 	            dbcon.close();
