@@ -57,9 +57,11 @@ public class ShowSearch extends HttpServlet {
             String name = request.getParameter("name");
 			
             if(title != "" || year != "" || director != "" || name != "") {
-				String query = "SELECT m.*, s.name FROM movies m "
+				String query = "SELECT m.*, g.name AS genre, s.name FROM movies m "
 						+ "INNER JOIN stars_in_movies sim ON m.id=sim.movieId "
-						+ "INNER JOIN stars s ON s.id=sim.starId ";
+						+ "INNER JOIN stars s ON s.id=sim.starId "
+						+ "INNER JOIN genres_in_movies gim ON m.id=gim.movieId "
+						+ "INNER JOIN genres g ON gim.genreId=g.id ";
 				
 				if(title != "") {
 					query += "WHERE title LIKE '%" + title + "%'";
@@ -85,7 +87,6 @@ public class ShowSearch extends HttpServlet {
 						query += "WHERE name LIKE '%" + name + "%'";
 					}
 				}
-				
 				ResultSet result = statement.executeQuery(query);
 				
 				JsonArray movieArray = new JsonArray();
@@ -95,34 +96,53 @@ public class ShowSearch extends HttpServlet {
 					String ryear = result.getString("year");
 					String rdirector = result.getString("director");
 					String rname = result.getString("name");
+					String rgenre = result.getString("genre");
 					
 					boolean exists = false;
 					for(int i = 0; i < movieArray.size(); ++i) {
 						JsonObject obj = (JsonObject) movieArray.get(i);
-						Set<Map.Entry<String, JsonElement>> entries = obj.entrySet();
-						for(Map.Entry<String, JsonElement> entry : entries) {
-							if(entry.getKey().equals(rid)) {
-								obj.getAsJsonObject(rid).getAsJsonArray("cast").add(rname);
-								exists = true;
-								break;
+						if(obj.get("id").getAsString().equals(rid)) {
+							boolean genreExists = false;
+							boolean nameExists = false;
+							
+							for(JsonElement k : obj.getAsJsonArray("genres")) {
+								if(k.getAsString().equals(rgenre)) {
+									genreExists = true;
+									break;
+								}
 							}
-						}
-						if(exists) {
+							if(!genreExists) {
+								obj.getAsJsonArray("genres").add(rgenre);
+							}
+							for(JsonElement k : obj.getAsJsonArray("cast")) {
+								if(k.getAsString().equals(rname)) {
+									nameExists = true;
+									break;
+								}
+							}
+							if(!nameExists) {
+								obj.getAsJsonArray("cast").add(rname);
+							}
+							
+							exists = true;
 							break;
+							
 						}
 					}
 					if(!exists) {
 						JsonArray cast = new JsonArray();
 						cast.add(new JsonPrimitive(rname));
 						
-						JsonObject movieData = new JsonObject();
-						movieData.addProperty("title", rtitle);
-						movieData.addProperty("year",  ryear);
-						movieData.addProperty("director", rdirector);
-						movieData.add("cast",  cast);
+						JsonArray genres = new JsonArray();
+						genres.add(new JsonPrimitive(rgenre));
 						
 						JsonObject movie = new JsonObject();
-						movie.add(rid, movieData);
+						movie.addProperty("id",  rid);
+						movie.addProperty("title", rtitle);
+						movie.addProperty("year",  ryear);
+						movie.addProperty("director", rdirector);
+						movie.add("cast",  cast);
+						movie.add("genres", genres);
 						
 						movieArray.add(movie);
 					}
