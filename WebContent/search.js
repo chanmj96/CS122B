@@ -64,10 +64,16 @@ function paginate(result){
 function submitSearchForm(formSubmitEvent){
 	console.log("Search form submitted.");
 	formSubmitEvent.preventDefault();
-	
+
 	var params = jQuery("#search_form").serialize();
+	params = params + "&perpage=10";
+	var new_url = [location.protocol, '//', location.host, location.pathname].join('');
+	// Attempt at supporting browser back function;
+	new_url += "?" + params;
+	window.history.pushState(null, null, new_url);
+	
 	jQuery.get("/CS122B/ShowSearch", params, (data)=>showResult(data, params));
-	jQuery.get("/CS122B/Count", params, (data)=>paginate(data));
+	//jQuery.get("/CS122B/Count", params, (data)=>paginate(data));
 }
 
 jQuery("#search_form").submit((event) => submitSearchForm(event));
