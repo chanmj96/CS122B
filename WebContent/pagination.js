@@ -1,7 +1,7 @@
 /**
  * 
  */
-$(".pagination a").click(function(e){
+$(".pagination a").click(function(event){
     e.preventDefault();
     var tag = $(this);
     alert(" click on "+tag.text());

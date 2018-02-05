@@ -65,6 +65,16 @@ h1 {
     padding: 8px 16px;
     text-decoration: none;
 }
+#search-wrap #search-result #search_result_table {
+	table-layout: fixed;
+	width: 100%;
+}
+#search-wrap #search-result #search_result_head {
+	font-size: 100%;
+}
+#search-wrap #search-result #search_result_body {
+	font-size: 80%;
+}
 #search-wrap .pagination a.active {
     background-color: #a9afb9;
     color: white;
