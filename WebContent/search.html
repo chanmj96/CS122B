@@ -18,28 +18,38 @@
 		<div class="title">
 			<h3><b> Advanced Search </b></h3>
 		</div>
+		<br>
 		
-		<div id="functions">
-			<form id="search_form" action="#" method="GET">
-				<strong> Title: </strong><input type="text" name='title'><br>
-				<strong> Year: </strong><input type="text" name='year'><br>
-				<strong> Director: </strong><input type="text" name='director'><br>
-				<strong> Cast Member: </strong><input type="text" name='name'><br><br>
-				
-				<div id="submit">			
-					<input type="submit" value="submit">
-				</div>
-			</form>
-		</div>
+		<form id="search_form" action="#" method="GET">
+			<div id="functions">
+				<strong> Title </strong><input type="text" name='title'><br>
+				<strong> Year </strong><input type="text" name='year'><br>
+				<strong> Director </strong><input type="text" name='director'><br>
+				<strong> Cast Member </strong><input type="text" name='name'><br><br>
+			</div>
+			
+			<div id="submit">			
+				<input type="submit" value="submit">
+			</div>
+		</form>
 		
 		<br>
-		<div id="search_result">
+		<div id="search-result">
 			<table id="search_result_table" class="table table-striped">
 				<thead id=search_result_head></thead>
 				<tbody id=search_result_body></tbody>
 			</table>
 			<div id="search_error_message"></div>
 		</div>
+		<br>
+		<br>
+		<ul class="pagination">
+ 			<li><a href="?title=forbidden&year=&director=&name=#">&laquo;</a></li>
+  			<li><a href="?title=forbidden&year=&director=&name=&page=2">1</a></li>
+  			<li><a href="#" class="active">2</a></li>
+  			<li><a href="#">3</a></li>
+		  	<li><a href="#">&raquo;</a></li>
+		</ul>
 		
 	
 	<!-- include jQuery and Bootstrap JS -->

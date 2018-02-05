@@ -1,9 +1,15 @@
-/**
- * 
- */
+function parseURL(query, key){
+	var params = query.split("&");
+	for(var i = 0; i < params.length; ++i){
+		var tag = params[i].split("=");
+		if(tag[0] == key){
+			return tag[1];
+		}
+	}
+}
 
 function handleSearchResult(result){
-	console.log("Handling search result...");	
+	console.log("Handling search result.");	
 	jQuery("#functions").css("display", "none");
 	
 	var element_head = jQuery("#search_result_head");
@@ -40,14 +46,32 @@ function handleSearchResult(result){
 	}
 }
 
+function paginate(result){
+	var pagination = jQuery("#pagination");
+	pagination = pagination / 10; // Offset
+	
+	var head = "";
+	head += "<"
+}
+
 
 function submitSearchForm(formSubmitEvent){
 	console.log("Search form submitted.");
 	formSubmitEvent.preventDefault();
+	console.log(jQuery("#search_form").serialize());
 	
 	jQuery.get(
 			"/CS122B/ShowSearch",
 			jQuery("#search_form").serialize(),
 			(resultDataString) => handleSearchResult(resultDataString));
+	jQuery.get(
+			"/CS122B/Count",
+			jQuery("#search_form").serialize(),
+			(result) => paginate(result));
 }
 jQuery("#search_form").submit((event) => submitSearchForm(event));
+$("ul.pagination li a").click(function(e){
+    e.preventDefault();
+    var tag = $(this);
+    alert(" click on "+tag.text());
+});
