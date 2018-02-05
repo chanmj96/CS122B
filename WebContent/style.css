@@ -50,7 +50,7 @@ h1 {
 	text-align: center;
 }
 #search-wrap .pagination {
-	display: inline-block;
+	display: none;	
 }
 #search-wrap .pagination a {
     color: black;

@@ -8,9 +8,11 @@ function parseURL(query, key){
 	}
 }
 
-function handleSearchResult(result){
+function showResult(result){
 	console.log("Handling search result.");	
-	jQuery("#functions").css("display", "none");
+	
+	// Hide Search Functionality
+	jQuery("#search_form").hide();
 	
 	var element_head = jQuery("#search_result_head");
 	var head = "";
@@ -54,24 +56,17 @@ function paginate(result){
 	head += "<"
 }
 
-
 function submitSearchForm(formSubmitEvent){
 	console.log("Search form submitted.");
 	formSubmitEvent.preventDefault();
-	console.log(jQuery("#search_form").serialize());
 	
 	jQuery.get(
 			"/CS122B/ShowSearch",
 			jQuery("#search_form").serialize(),
-			(resultDataString) => handleSearchResult(resultDataString));
+			(resultDataString) => showResult(resultDataString));
 	jQuery.get(
 			"/CS122B/Count",
 			jQuery("#search_form").serialize(),
 			(result) => paginate(result));
 }
 jQuery("#search_form").submit((event) => submitSearchForm(event));
-$("ul.pagination li a").click(function(e){
-    e.preventDefault();
-    var tag = $(this);
-    alert(" click on "+tag.text());
-});
