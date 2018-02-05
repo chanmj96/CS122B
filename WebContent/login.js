@@ -26,7 +26,7 @@ function submitLoginForm(formSubmitEvent) {
 	formSubmitEvent.preventDefault();
 		
 	jQuery.post(
-		"/project2/Login", 
+		"/Login", 
 		// serialize the login form to the data sent by POST request
 		jQuery("#login_form").serialize(),
 		(resultDataString) => handleLoginResult(resultDataString));
