@@ -18,6 +18,11 @@ h1 {
 	margin-left: auto;
 	margin-right: auto;
 }
+.inline_text{
+	margin-left: 45%;
+	overflow: auto;
+	display: inline-block;
+}
 /* === Search Page === */
 #search-wrap {
 	background-color: #FDF5E6;

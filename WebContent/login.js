@@ -8,7 +8,7 @@ function handleLoginResult(resultDataString) {
 
 	// if login success, redirect to index.html page
 	if (resultDataJson["status"] == "success") {
-		window.location.replace("/project2/main.html");
+		window.location.replace("index.html");
 	} else {
 		console.log("show error message");
 		console.log(resultDataJson["message"]);
