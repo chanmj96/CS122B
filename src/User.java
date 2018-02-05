@@ -8,11 +8,19 @@
 public class User {
 	
 	private final String email;
+	private boolean access;
 	
 	public User(String email) {
 		this.email = email;
+		access = false;
 	}
 	
+	public boolean hasAccess() {
+		return access;
+	}
+	public void setAccess(boolean b) {
+		access = b;
+	}
 	public String getEmail() {
 		return this.email;
 	}

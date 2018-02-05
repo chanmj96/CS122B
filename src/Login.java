@@ -47,7 +47,6 @@ public class Login extends HttpServlet {
 		// this example only allows username/password to be test/test
 		// in the real project, you should talk to the database to verify username/password
 		
-		request.getSession().setAttribute("user", new User(email));
 		JsonObject responseJsonObject = new JsonObject();
 		
 		PrintWriter out = response.getWriter();
@@ -56,6 +55,7 @@ public class Login extends HttpServlet {
 			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 			stmt = dbcon.createStatement();
 			
+			request.getSession().setAttribute("user", new User(email));
 			 // Emails should be unique to users as a login requirement.
 			 // test with (cc@msn.com, 1111)
 			 String query = "SELECT * from customers c WHERE c.email=\"" + email + "\"";
@@ -75,6 +75,7 @@ public class Login extends HttpServlet {
 					 responseJsonObject.addProperty("status", "success");
 					 responseJsonObject.addProperty("message", "success");
 					 out.write(responseJsonObject.toString());
+					 ((User)request.getSession().getAttribute("user")).setAccess(true);
 				 }
 				 else
 				 { 
