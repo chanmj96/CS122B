@@ -1,19 +1,10 @@
-function parseURL(query, key){
-	var params = query.split("&");
-	for(var i = 0; i < params.length; ++i){
-		var tag = params[i].split("=");
-		if(tag[0] == key){
-			return tag[1];
-		}
-	}
-}
-
-function showResult(result){
+function showResult(result, params){
 	console.log("Handling search result.");	
 	
 	// Hide Search Functionality
 	jQuery("#search_form").hide();
 	
+	// Create table column titles
 	var element_head = jQuery("#search_result_head");
 	var head = "";
 	head += "<tr>";
@@ -25,6 +16,7 @@ function showResult(result){
 	head += "</th>";
 	element_head.append(head);
 	
+	// Populate table
 	var element_body = jQuery("#search_result_body");
 	for(var i = 0; i < result.length; ++i){
 		var row = "";
@@ -50,23 +42,32 @@ function showResult(result){
 
 function paginate(result){
 	var pagination = jQuery("#pagination");
-	pagination = pagination / 10; // Offset
+	var perpage = 10;
 	
-	var head = "";
-	head += "<"
+	// Create pagination 
+	$("#search-wrap .pagination").css('display', 'inline-block');
+
+	var element_pagination = jQuery(".pagination");
+	var page = 1;
+	var link = "";
+	if(page == 1){
+		link += "<a href=\"#\">Next</a>";
+	} else {
+		link += "<a href=\"#\">Previous</a>";
+		if(page < Math.ceil(result / perpage)){
+			link += "<a href=\"#\">Next</a>";
+		}
+	}
+	element_pagination.append(link);
 }
 
 function submitSearchForm(formSubmitEvent){
 	console.log("Search form submitted.");
 	formSubmitEvent.preventDefault();
 	
-	jQuery.get(
-			"/CS122B/ShowSearch",
-			jQuery("#search_form").serialize(),
-			(resultDataString) => showResult(resultDataString));
-	jQuery.get(
-			"/CS122B/Count",
-			jQuery("#search_form").serialize(),
-			(result) => paginate(result));
+	var params = jQuery("#search_form").serialize();
+	jQuery.get("/CS122B/ShowSearch", params, (data)=>showResult(data, params));
+	jQuery.get("/CS122B/Count", params, (data)=>paginate(data));
 }
+
 jQuery("#search_form").submit((event) => submitSearchForm(event));

@@ -82,9 +82,9 @@ public class ShowSearch extends HttpServlet {
 				}
 				if(name != "") {
 					if(query.contains("WHERE")) {
-						query += " AND name LIKE '%" + name + "%'";
+						query += " AND s.name LIKE '%" + name + "%'";
 					}  else {
-						query += "WHERE name LIKE '%" + name + "%'";
+						query += "WHERE s.name LIKE '%" + name + "%'";
 					}
 				}
 				ResultSet result = statement.executeQuery(query);

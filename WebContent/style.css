@@ -50,7 +50,9 @@ h1 {
 	text-align: center;
 }
 #search-wrap .pagination {
-	display: none;	
+	text-align: center;
+	display: none;
+	border: solid black 1px;
 }
 #search-wrap .pagination a {
     color: black;
@@ -68,5 +70,5 @@ h1 {
 #search-wrap .pagination a:hover:not(.active) {
     background-color: #ddd;
     border-radius: 5px;
-}
+}s
 /* === End Search Page === */
