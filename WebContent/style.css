@@ -1,4 +1,6 @@
 @charset "UTF-8";
+
+/* === Overall === */
 body {
 	background-color: #FDF5E6;
 }
@@ -7,10 +9,10 @@ h1 {
 	font-size: 300%;
 	text-align: center;
 }
-#btn-container{
+#btn-container {
 	text-align: center;
 }
-.button{
+.button {
 	background-color: black;
 	border: none;
 	color: white;
@@ -23,6 +25,8 @@ h1 {
 	overflow: auto;
 	display: inline-block;
 }
+/* === End Overall === */
+
 /* === Search Page === */
 #search-wrap {
 	background-color: #FDF5E6;
@@ -40,13 +44,34 @@ h1 {
 	display: inline-block;
 	margin: 0 auto;
 	text-align: right;
-	padding-right: 5%;	
+	padding-right: 3%;		
 }
 #submit {
-	text-align: center;
+	display: block;
+	text-align: center;	
 }
-#search_result {
+#search-result {
 	display: inline-block;
 	text-align: center;
+}
+#search-wrap .pagination {
+	text-align: center;
+	display: none;
+	border: solid black 1px;
+}
+#search-wrap .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+#search-wrap .pagination a.active {
+    background-color: #a9afb9;
+    color: white;
+    border-radius: 5px;
+}
+#search-wrap .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
 }
 /* === End Search Page === */
