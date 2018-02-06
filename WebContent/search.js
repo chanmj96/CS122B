@@ -28,7 +28,7 @@ function showResult(result){
 	for(var i = 0; i < result.length; ++i){
 		var row = "";
 		row += "<tr>";
-		row += "<th>" + result[i]["title"] + "</th>";
+		row += "<th><a href=" + result[i]["id"] + ">" +  result[i]["title"] + "</a></th>";
 		row += "<th>" + result[i]["year"] + "</th>";
 		row += "<th>" + result[i]["director"] + "</th>";
 
@@ -49,6 +49,11 @@ function showResult(result){
 	$("#search-wrap .pagination").css('display', 'inline-block');
 	$("#search-wrap .pagination #next").css('display', 'inline');
 	$("#search-wrap .pagination #previous").css('display', 'inline');
+	
+	$("#search_result_body a").click(function(event){
+		event.preventDefault();
+		console.log("This move has ID: " + $(this));
+	});
 
 }
 function nextResult(result){
@@ -57,7 +62,7 @@ function nextResult(result){
 	for(var i = 0; i < result.length; ++i){
 		var row = "";
 		row += "<tr>";
-		row += "<th>" + result[i]["title"] + "</th>";
+		row += "<th><a href=" + result[i]["id"] + ">" + result[i]["title"] + "</a></th>";
 		row += "<th>" + result[i]["year"] + "</th>";
 		row += "<th>" + result[i]["director"] + "</th>";
 
@@ -74,6 +79,11 @@ function nextResult(result){
 		row += "</th></tr>"
 		element_body.append(row);
 	}
+	
+	$("#search_result_body a").click(function(event){
+		event.preventDefault();
+		console.log("This move has ID: " + $(this));
+	});
 }
 function paginate(result, params){
 	var page = parseInt(params.split("page=").pop());
