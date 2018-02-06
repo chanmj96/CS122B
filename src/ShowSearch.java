@@ -56,7 +56,6 @@ public class ShowSearch extends HttpServlet {
             String director = request.getParameter("director");
             String name = request.getParameter("name");
             String limit = request.getParameter("display");
-            String offset = request.getParameter("offset");
             String page = request.getParameter("page");
 			
             if(title != "" || year != "" || director != "" || name != "") {
@@ -95,13 +94,14 @@ public class ShowSearch extends HttpServlet {
 				}
 				query += " GROUP BY m.id ";
 				query += " LIMIT " + limit;
-				if(offset != "") {
-					query += " OFFSET " + (Integer.parseInt(limit) * Integer.parseInt(page));
+				if(Integer.parseInt(page) > 1) {
+					query += " OFFSET " + (Integer.parseInt(limit) * (Integer.parseInt(page) - 1));
 				}
 				ResultSet result = statement.executeQuery(query);
-				
+								
 				JsonArray movieArray = new JsonArray();
 				while(result.next()) {
+					System.out.println("Hi, it got here\n");
 					String rid = result.getString("id");
 					String rtitle = result.getString("title");
 					String ryear = result.getString("year");

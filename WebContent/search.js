@@ -43,11 +43,7 @@ function showResult(result){
 		row += "</th></tr>"
 		element_body.append(row);
 	}
-	
-	$("#search-wrap .pagination").css('display', 'inline-block');
-	$("#search-wrap .pagination #next").css('display', 'inline');
-	$("#search-wrap .pagination #previous").css('display', 'inline');
-	
+		
 	$("#search_result_body a.title").click(function(event){
 		event.preventDefault();
 		console.log("This movie has ID: " + $(this).attr("value"));
@@ -61,7 +57,7 @@ function showResult(result){
 function paginate(result, params){
 	var page = parseInt(params.split("page=").pop());
 	var display = parseInt(params.split("display=").pop().substring(0,2));
-	if(page >= Math.floor(result / display)){
+	if(page >= Math.ceil(result / display)){
 		$("#search-wrap .pagination #next").css('display', 'none');
 	} else {
 		$("#search-wrap .pagination #next").css('display', 'inline');
@@ -86,9 +82,11 @@ function submitSearchForm(formSubmitEvent){
 	var new_url = [location.protocol, '//', location.host, location.pathname].join('');
 	new_url += "?" + params;
 	window.history.pushState(null, null, new_url);
-	
-	jQuery.get("ShowSearch", params, (data)=>showResult(data));
-	jQuery.get("Count", params, (data)=>paginate(data, params));
+
+	$("#search-wrap .pagination").css('display', 'inline-block');
+
+	$.get("ShowSearch", params, (data)=>showResult(data));
+	$.get("Count", params, (data)=>paginate(data, params));
 }
 
 jQuery("#search_form").submit((event) => submitSearchForm(event));
