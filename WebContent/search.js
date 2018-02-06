@@ -15,7 +15,7 @@ function showResult(result){
 	var element_head = jQuery("#search_result_head");
 	var head = "";
 	head += "<tr>";
-	head += "<th>Title</th>";
+	head += "<th><a href=title>Title</a></th>";
 	head += "<th>Release Date</th>";
 	head += "<th>Director</th>";
 	head += "<th>Genres</th>";
@@ -24,11 +24,13 @@ function showResult(result){
 	element_head.append(head);
 	
 	// Populate table
+	$("#search_result_body").empty();
 	var element_body = jQuery("#search_result_body");
 	for(var i = 0; i < result.length; ++i){
 		var row = "";
 		row += "<tr>";
-		row += "<th><a href=" + result[i]["id"] + ">" +  result[i]["title"] + "</a></th>";
+		row += "<th><a class=\"title\" value=\"" + result[i]["id"] 
+			+ "\" href=\"#\">" + result[i]["title"] + "</a></th>";
 		row += "<th>" + result[i]["year"] + "</th>";
 		row += "<th>" + result[i]["director"] + "</th>";
 
@@ -39,8 +41,15 @@ function showResult(result){
 		row += "</th>"
 		
 		row += "<th>";
+		
 		for(var j = 0; j < result[i]["cast"].length; ++j){
-			row += result[i]["cast"][j] + "<br>";
+			var cast_list = result[i]["cast"][j].split(",");
+			var row_str = "";
+			for(var k = 0; k < cast_list.length; ++k){
+				row_str += "<a class=\"castmember\" value=\"" + cast_list[k]
+						+ "\" href=\"#\">" + cast_list[k] + "</a><br>";
+			}
+			row += row_str + "<br>";
 		}
 		row += "</th></tr>"
 		element_body.append(row);
@@ -50,9 +59,14 @@ function showResult(result){
 	$("#search-wrap .pagination #next").css('display', 'inline');
 	$("#search-wrap .pagination #previous").css('display', 'inline');
 	
-	$("#search_result_body a").click(function(event){
+	$("#search_result_body a.title").click(function(event){
 		event.preventDefault();
-		console.log("This move has ID: " + $(this));
+		console.log("This movie has ID: " + $(this).attr("value"));
+
+	});
+	$("#search_result_body a.castmember").click(function(event){
+		event.preventDefault();
+		console.log("This cast member's name is " + $(this).attr("value"));
 	});
 
 }
@@ -62,7 +76,8 @@ function nextResult(result){
 	for(var i = 0; i < result.length; ++i){
 		var row = "";
 		row += "<tr>";
-		row += "<th><a href=" + result[i]["id"] + ">" + result[i]["title"] + "</a></th>";
+		row += "<th><a class=\"title\" value=\"" + result[i]["id"] 
+			+ "\" href=\"#\">" + result[i]["title"] + "</a></th>";
 		row += "<th>" + result[i]["year"] + "</th>";
 		row += "<th>" + result[i]["director"] + "</th>";
 
@@ -74,15 +89,26 @@ function nextResult(result){
 		
 		row += "<th>";
 		for(var j = 0; j < result[i]["cast"].length; ++j){
-			row += result[i]["cast"][j] + "<br>";
+			var cast_list = result[i]["cast"][j].split(",");
+			var row_str = "";
+			for(var k = 0; k < cast_list.length; ++k){
+				row_str += "<a class=\"castmember\" value=\"" + cast_list[k]
+						+ "\" href=\"#\">" + cast_list[k] + "</a><br>";
+			}
+			row += row_str + "<br>";
 		}
 		row += "</th></tr>"
 		element_body.append(row);
 	}
 	
-	$("#search_result_body a").click(function(event){
+	$("#search_result_body a.title").click(function(event){
 		event.preventDefault();
-		console.log("This move has ID: " + $(this));
+		console.log("This movie has ID: " + $(this).attr("value"));
+
+	});
+	$("#search_result_body a.castmember").click(function(event){
+		event.preventDefault();
+		console.log("This cast member's name is " + $(this).attr("value"));
 	});
 }
 function paginate(result, params){
@@ -104,6 +130,7 @@ function submitSearchForm(formSubmitEvent){
 	formSubmitEvent.preventDefault();
 
 	var params = jQuery("#search_form").serialize();
+	params += "&sort=";
 	params += "&display=10"; // Need to eventually allow user to specify
 	params += "&page=1";
 	// look into HTML select tag
