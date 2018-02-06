@@ -93,7 +93,6 @@ public class ShowSearch extends HttpServlet {
 						query += "WHERE s.name LIKE '%" + name + "%'";
 					}
 				}
-				System.out.println(limit);
 				query += " GROUP BY m.id ";
 				query += " LIMIT " + limit;
 				if(offset != "") {

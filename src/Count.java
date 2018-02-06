@@ -55,9 +55,15 @@ public class Count extends HttpServlet {
             String year = request.getParameter("year");
             String director = request.getParameter("director");
             String name = request.getParameter("name");
+            String limit = request.getParameter("display");
+            String offset = request.getParameter("offset");
+            String page = request.getParameter("page");
 			
             if(title != "" || year != "" || director != "" || name != "") {
-				String query = "SELECT COUNT(DISTINCT m.title) AS COUNT FROM movies m "
+				String query = "SELECT m.*, "
+						+ "GROUP_CONCAT(DISTINCT g.name) AS genre, "
+						+ "GROUP_CONCAT(DISTINCT s.name) AS cast "
+						+ "FROM movies m "
 						+ "INNER JOIN stars_in_movies sim ON m.id=sim.movieId "
 						+ "INNER JOIN stars s ON s.id=sim.starId "
 						+ "INNER JOIN genres_in_movies gim ON m.id=gim.movieId "
@@ -87,9 +93,14 @@ public class Count extends HttpServlet {
 						query += "WHERE s.name LIKE '%" + name + "%'";
 					}
 				}
-				ResultSet result = statement.executeQuery(query);
+				query += " GROUP BY m.id ";
+				
+				String extended_query = "SELECT COUNT(*) AS total "
+						+ "FROM (" + query + ") AS result "; 
+				
+				ResultSet result = statement.executeQuery(extended_query);
 				result.next();
-				out.write(result.getString("COUNT"));
+				out.write(result.getString("total"));
 				
 	            result.close();
 	            statement.close();

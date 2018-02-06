@@ -5,7 +5,7 @@ function getFullURL(){
 	return window.location.href;
 }
 
-function showResult(result, params){
+function showResult(result){
 	console.log("Handling search result.");	
 	
 	// Hide Search Functionality
@@ -48,8 +48,10 @@ function showResult(result, params){
 	
 	$("#search-wrap .pagination").css('display', 'inline-block');
 	$("#search-wrap .pagination #next").css('display', 'inline');
+	$("#search-wrap .pagination #previous").css('display', 'inline');
+
 }
-function nextResult(result, params){
+function nextResult(result){
 	$("#search_result_body").empty();
 	var element_body = $("#search_result_body");
 	for(var i = 0; i < result.length; ++i){
@@ -73,30 +75,19 @@ function nextResult(result, params){
 		element_body.append(row);
 	}
 }
-function paginate(result){
-	//var pagination = jQuery(".pagination");
-	//var display = 10;
-	
-	// Show pagination 
-
-
-	
-	//var element_pagination = jQuery(".pagination");
-	//var page = 1;
-	//var link = "";
-	
-	/*
-	if(page == 1){
-		//link += "<a href=\"#\">Next</a>";
-		$("#search-wrap .pagination #next").css('display', 'inline');
+function paginate(result, params){
+	var page = parseInt(params.split("page=").pop());
+	var display = parseInt(params.split("display=").pop().substring(0,2));
+	if(page >= Math.floor(result / display)){
+		$("#search-wrap .pagination #next").css('display', 'none');
 	} else {
-		link += "<a href=\"#\">Previous</a>";
-		if(page < Math.ceil(result / display)){
-			link += "<a href=\"#\">Next</a>";
-		}
+		$("#search-wrap .pagination #next").css('display', 'inline');
 	}
-	*///old stuff, will delete
-	//element_pagination.append(link);
+	if(page <= 1){
+		$("#search-wrap .pagination #previous").css('display', 'none');
+	} else {
+		$("#search-wrap .pagination #previous").css('display', 'inline');
+	}
 }
 function submitSearchForm(formSubmitEvent){
 	console.log("Search form submitted.");
@@ -112,7 +103,8 @@ function submitSearchForm(formSubmitEvent){
 	new_url += "?" + params;
 	window.history.pushState(null, null, new_url);
 	
-	jQuery.get("ShowSearch", params, (data)=>showResult(data, params));
+	jQuery.get("ShowSearch", params, (data)=>showResult(data));
+	jQuery.get("Count", params, (data)=>paginate(data, params));
 }
 
 jQuery("#search_form").submit((event) => submitSearchForm(event));
@@ -131,9 +123,6 @@ $(".pagination a").click(function(event){
 	window.history.pushState(null, null, url);
 	
 	var params = url.split("?").pop();
-	$.get("ShowSearch", params, (data) => nextResult(data, params));
-
-    
-    //link += "<a href=\"search.html?" + params + "&page=" + page-1 + "\">Previous</a><";
-	//link += "<a href=\"search.html?" + params + "&page=" + page+1 + "\">Next</a>";
+	$.get("ShowSearch", params, (data) => nextResult(data));
+	$.get("Count", params, (data) => paginate(data, params));
 });
