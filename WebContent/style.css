@@ -71,6 +71,7 @@ h1 {
 	width: 100%;
 }
 #search-wrap #search-result #search_result_head {
+	display: none;
 	font-size: 100%;
 }
 #search-wrap #search-result #search_result_body {

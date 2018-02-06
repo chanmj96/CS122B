@@ -10,7 +10,9 @@ function showResult(result){
 	
 	// Hide Search Functionality
 	jQuery("#search_form").hide();
+	jQuery("#search_result_head").css('display', 'table-header-group');
 	
+	/*
 	// Create table column titles
 	var element_head = jQuery("#search_result_head");
 	var head = "";
@@ -22,6 +24,7 @@ function showResult(result){
 	head += "<th>Cast</th>";
 	head += "</th>";
 	element_head.append(head);
+	*/
 	
 	// Populate table
 	$("#search_result_body").empty();
