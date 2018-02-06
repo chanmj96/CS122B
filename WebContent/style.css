@@ -54,10 +54,11 @@ h1 {
 	display: inline-block;
 	text-align: center;
 }
-#search-wrap .pagination {
+#search-wrap .pagination #previous, #next {
 	text-align: center;
 	display: none;
 	border: solid black 1px;
+	border-radius: 5px;
 }
 #search-wrap .pagination a {
     color: black;

@@ -1,8 +1,8 @@
 /**
  * 
  */
-$(".pagination a").click(function(event){
-    e.preventDefault();
+$("#pagination a").click(function(event){
+    event.preventDefault();
     var tag = $(this);
     alert(" click on "+tag.text());
     console.log("This is the pagination file");
