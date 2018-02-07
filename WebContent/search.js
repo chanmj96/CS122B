@@ -44,13 +44,15 @@ function showResult(result){
 			var cast_list = result[i]["cast"][j].split(",");
 			var row_str = "";
 			for(var k = 0; k < cast_list.length; ++k){
-				row_str += "<a class=\"castmember\" value=\"" + cast_list[k]
-						+ "\" href=\"#\">" + cast_list[k] + "</a><br>";
+				var person = cast_list[k].split(':');
+				row_str += "<a class=\"castmember\" value=\"" + person[1]
+						+ "\" href=\"#\">" + person[0] + "</a><br>";
 			}
 			row += row_str + "<br>";
 		}
 		row += "</th>"; 
 		
+		// Purchase button
 		row += "<th>";
 		row += "<button type=\"button\" class=\"cart\"> ADD TO CART </button>"; 
 		row += "</th>";
@@ -65,7 +67,7 @@ function showResult(result){
 	});
 	$("#search_result_body a.castmember").click(function(event){
 		event.preventDefault();
-		console.log("This cast member's name is " + $(this).attr("value"));
+		console.log("This cast member has ID: " + $(this).attr("value"));
 	});
 }
 function paginate(result, params){

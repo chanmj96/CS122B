@@ -63,7 +63,7 @@ public class ShowSearch extends HttpServlet {
             if(title != "" || year != "" || director != "" || name != "") {
 				String query = "SELECT m.*, "
 						+ "GROUP_CONCAT(DISTINCT g.name) AS genre, "
-						+ "GROUP_CONCAT(DISTINCT s.name) AS cast "
+						+ "GROUP_CONCAT(DISTINCT CONCAT(s.name, ':', starId)) AS cast "
 						+ "FROM movies m "
 						+ "INNER JOIN stars_in_movies sim ON m.id=sim.movieId "
 						+ "INNER JOIN stars s ON s.id=sim.starId "
