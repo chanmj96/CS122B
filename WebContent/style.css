@@ -1,15 +1,14 @@
 @charset "UTF-8";
-
+/* ========================================================== */
 /* ========================= Overall ======================== */
-body {
+/* ========================================================== */
+body, #search-wrap, #movie-wrap, #like-predicate {
 	background-color: #FDF5E6;
+	text-align: center;
 }
 h1 {
 	font-family: verdana;
 	font-size: 300%;
-	text-align: center;
-}
-#btn-container {
 	text-align: center;
 }
 .button {
@@ -25,16 +24,10 @@ h1 {
 	overflow: auto;
 	display: inline-block;
 }
-/* ======================== End Overall ===================== */
 /* ========================================================== */
-/* ======================== Search Page ===================== */
-#search-wrap {
-	background-color: #FDF5E6;
-	text-align: center;
-}
-#search-header h1{
-	margin: 0 auto;
-}
+/* =========================== Search ======================= */
+/* ========================================================== */
+
 .title {
 	display: block;
 	margin: 0 auto;
@@ -94,26 +87,20 @@ h1 {
     background-color: #ddd;
     border-radius: 5px;
 }
-/* ===================== End Search Page ==================== */
 /* ========================================================== */
 /* ========================= Report ========================= */
+/* ========================================================== */
 #like-predicate {
-	background-color: #FDF5E6;
 	margin: 0 auto;
 	padding-right: 20%;
 	padding-left: 20%;
 }
-/* ======================= End Report ======================= */
 /* ========================================================== */
 /* ========================= Movie ========================== */
-#movie-wrap {
-	background-color: #FDF5E6;
-	text-align: center;
-}
+/* ========================================================== */
 #movie-wrap #movie-title {
 	margin: 0 auto;
 	font-size: 200%;
 	padding-top: 5%;
 }
-
-/* ======================= End Movie ======================== */
+/* ========================================================== */
