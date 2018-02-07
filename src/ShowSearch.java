@@ -57,6 +57,8 @@ public class ShowSearch extends HttpServlet {
             String name = request.getParameter("name");
             String limit = request.getParameter("display");
             String page = request.getParameter("page");
+            String order = request.getParameter("sort");
+            String sortby = request.getParameter("sortby");
 			
             if(title != "" || year != "" || director != "" || name != "") {
 				String query = "SELECT m.*, "
@@ -93,7 +95,13 @@ public class ShowSearch extends HttpServlet {
 					}
 				}
 				query += " GROUP BY m.id ";
+				if(order != "") {
+					query += " ORDER BY " + sortby + " " + order;
+				}
+				
 				query += " LIMIT " + limit;
+
+				
 				if(Integer.parseInt(page) > 1) {
 					query += " OFFSET " + (Integer.parseInt(limit) * (Integer.parseInt(page) - 1));
 				}
