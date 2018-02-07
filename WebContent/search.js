@@ -89,7 +89,7 @@ function submitSearchForm(formSubmitEvent){
 	$.get("Count", params, (data)=>paginate(data, params));
 }
 
-jQuery("#search_form").submit((event) => submitSearchForm(event));
+$("#search_form").submit((event) => submitSearchForm(event));
 
 $(".pagination a").click(function(event){
     event.preventDefault();
@@ -108,3 +108,30 @@ $(".pagination a").click(function(event){
 	$.get("ShowSearch", params, (data) => showResult(data));
 	$.get("Count", params, (data) => paginate(data, params));
 });
+
+$("#search_result_head .sort_by").click(function(event){
+	event.preventDefault();
+	var value = $(this).attr("value");
+	var sort = $(this).attr("sort");
+	var url = getFullURL();
+	
+	console.log("BEFORE: " + $(this).attr("sort"));
+	if(sort == "ASC"){
+		$(this).attr("sort", "DESC");
+		url = url.replace(/(?:sort)(=.*?)[^&]*/, "sort=DESC");
+	} else {
+		$(this).attr("sort", "ASC");
+		url = url.replace(/(?:sort)(=.*?)[^&]*/, "sort=ASC");
+	}
+	window.history.pushState(null, null, url);
+	
+	console.log("AFTER: " + $(this).attr("sort"));
+	
+
+	
+
+	
+});
+	
+	
+	

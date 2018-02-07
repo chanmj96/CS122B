@@ -101,7 +101,6 @@ public class ShowSearch extends HttpServlet {
 								
 				JsonArray movieArray = new JsonArray();
 				while(result.next()) {
-					System.out.println("Hi, it got here\n");
 					String rid = result.getString("id");
 					String rtitle = result.getString("title");
 					String ryear = result.getString("year");
