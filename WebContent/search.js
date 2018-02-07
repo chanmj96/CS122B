@@ -10,6 +10,8 @@ function showResult(result){
 	
 	// Hide Search Functionality
 	jQuery("#search_form").hide();
+	
+	// Show Table Header
 	jQuery("#search_result_head").css('display', 'table-header-group');
 	
 	// Populate table
@@ -18,19 +20,26 @@ function showResult(result){
 	for(var i = 0; i < result.length; ++i){
 		var row = "";
 		row += "<tr>";
+		
+		// Movie Title
 		row += "<th><a class=\"title\" value=\"" + result[i]["id"] 
 			+ "\" href=\"#\">" + result[i]["title"] + "</a></th>";
+		
+		// Movie Year
 		row += "<th>" + result[i]["year"] + "</th>";
+		
+		// Movie Director
 		row += "<th>" + result[i]["director"] + "</th>";
 
+		// Movie Genres
 		row += "<th>";
 		for(var j = 0; j < result[i]["genres"].length; ++j){
 			row += result[i]["genres"][j] + "<br>";
 		}
 		row += "</th>"
 		
+		// Movie Cast
 		row += "<th>";
-		
 		for(var j = 0; j < result[i]["cast"].length; ++j){
 			var cast_list = result[i]["cast"][j].split(",");
 			var row_str = "";
@@ -40,7 +49,12 @@ function showResult(result){
 			}
 			row += row_str + "<br>";
 		}
-		row += "</th></tr>"
+		row += "</th>"; 
+		
+		row += "<th>";
+		row += "<button type=\"button\" class=\"cart\"> ADD TO CART </button>"; 
+		row += "</th>";
+		row += "</tr>";
 		element_body.append(row);
 	}
 		
