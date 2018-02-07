@@ -11,65 +11,65 @@
 <title>MovieJunkie</title>
 </head>
 <body id="search-wrap">
-		<header id="search-header">
-			<h1>MovieJunkie</h1><br/>
-		</header>
-		
-		<div class="title">
-			<h3><b> Advanced Search </b></h3>
-		</div>
-		<br>
-		
-		<form id="search_form" action="#" method="GET">
-			<div id="functions">
-				<strong> Title </strong><input type="text" name='title'><br>
-				<strong> Year </strong><input type="text" name='year'><br>
-				<strong> Director </strong><input type="text" name='director'><br>
-				<strong> Cast Member </strong><input type="text" name='name'><br>
-				
-				<div id="display_amount">
-					<strong> Display </strong>
-					<div id="dropdown">
-						<select name="display" form="search_form">
-		 					<option value="10">10</option>
-			 				<option value="25">25</option>
-							<option value="50">50</option>
-							<option value="100">100</option>
-						</select>
-					</div>
+	<header id="search-header">
+		<h1>MovieJunkie</h1><br/>
+	</header>
+	
+	<div class="title">
+		<h3><b> Advanced Search </b></h3>
+	</div>
+	<br>
+	
+	<form id="search_form" action="#" method="GET">
+		<div id="functions">
+			<strong> Title </strong><input type="text" name='title'><br>
+			<strong> Year </strong><input type="text" name='year'><br>
+			<strong> Director </strong><input type="text" name='director'><br>
+			<strong> Cast Member </strong><input type="text" name='name'><br>
+			
+			<div id="display_amount">
+				<strong> Display </strong>
+				<div id="dropdown">
+					<select name="display" form="search_form">
+	 					<option value="10">10</option>
+		 				<option value="25">25</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
 				</div>
 			</div>
-			
-			<br><br><br>
-			<div id="submit">			
-				<input type="submit" value="submit">
-			</div>
-		</form>
+		</div>
 		
-		<br>
-		<div id="search-result">
-			<table id="search_result_table" class="table table-striped">
-				<thead id=search_result_head>
-					<tr>
-					<th><a class="sort_by" value="title" sort="ASC" href="#">Title</a></th>
-					<th><a class="sort_by" value="year" sort="ASC" href="#">Release Date</a></th>
-					<th>Director</th>
-					<th>Genres</th>
-					<th>Cast</th>
-					<th> Purchase</th>
-					
-					</tr>
-				</thead>
-				<tbody id=search_result_body></tbody>
-			</table>
-			<div id="search_error_message"></div>
+		<br><br><br>
+		<div id="submit">			
+			<input type="submit" value="submit">
 		</div>
-		<br>
-		<br>
-		<div class="pagination">
-			<a id="previous" href="#" value="previous">Previous</a>
-			<a id="next" href="#" value="next">Next</a>
-		</div>
+	</form>
+	
+	<br>
+	<div id="search-result">
+		<table id="search_result_table" class="table table-striped">
+			<thead id=search_result_head>
+				<tr>
+				<th><a class="sort_by" value="title" sort="ASC" href="#">Title</a></th>
+				<th><a class="sort_by" value="year" sort="ASC" href="#">Release Date</a></th>
+				<th>Director</th>
+				<th>Genres</th>
+				<th>Cast</th>
+				<th> Purchase</th>
+				
+				</tr>
+			</thead>
+			<tbody id=search_result_body></tbody>
+		</table>
+		<div id="search_error_message"></div>
+	</div>
+	<br>
+	<br>
+	<div class="pagination">
+		<a id="previous" href="#" value="previous">Previous</a>
+		<a id="next" href="#" value="next">Next</a>
+	</div>
 		
 	
 	<!-- include jQuery and Bootstrap JS -->
@@ -79,7 +79,6 @@
 	
 	<!-- include JS files -->
 	<script src="./search.js"></script>
-	<script src="./pagination.js"></script>
 
 </body>
 </html>
