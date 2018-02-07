@@ -44,7 +44,7 @@ function makePage(result){
 	});
 	$("#movie-info a.castmember").click(function(event){
 		event.preventDefault();
-		console.log("This star has ID: " + $(this).attr("value"));
+		window.location.href = "star.html?starid=" + $(this).attr("value");
 	});
 }
 
