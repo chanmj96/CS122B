@@ -75,7 +75,6 @@ function submitSearchForm(formSubmitEvent){
 	var params = jQuery("#search_form").serialize();
 	params += "&sort=";
 	params += "&sortby=";
-	params += "&display=10"; // Need to eventually allow user to specify
 	params += "&page=1";
 	// look into HTML select tag
 	
@@ -124,6 +123,8 @@ $("#search_result_head .sort_by").click(function(event){
 		url = url.replace(/(?:sort)(=.*?)[^&]*/, "sort=ASC");
 	}
 	url = url.replace(/(?:sortby)(=.*?)[^&]*/, "sortby=" + value);
+	url = url.replace(/(?:page)(=.*?)[^&]*/, "page=1");
+	
 	window.history.pushState(null, null, url);
 	
 	var params = url.split("?").pop();
