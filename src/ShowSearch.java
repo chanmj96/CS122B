@@ -75,9 +75,9 @@ public class ShowSearch extends HttpServlet {
 				}
 				if(year != "") {
 					if(query.contains("WHERE")) {
-						query += " AND year LIKE '%" + year + "%'";
+						query += " AND year = '" + year + "'";
 					}  else {
-						query += "WHERE year LIKE '%" + year + "%'";
+						query += "WHERE year = '" + year + "'";
 					}
 				}
 				if(director != "") {
