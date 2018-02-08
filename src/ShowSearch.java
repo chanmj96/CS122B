@@ -90,6 +90,7 @@ public class ShowSearch extends HttpServlet {
 						query += "WHERE director LIKE '%" + director + "%'";
 					}
 				}
+				/*
 				if(name != null && name != "") {
 					if(query.contains("WHERE")) {
 						query += " AND s.name LIKE '%" + name + "%'";
@@ -97,11 +98,16 @@ public class ShowSearch extends HttpServlet {
 						query += "WHERE s.name LIKE '%" + name + "%'";
 					}
 				}
+				*/
 				query += " GROUP BY m.id ";
 				if(order != "") {
 					query += " ORDER BY " + sortby + " " + order;
 				}
 				
+				if(name != null && name != "") {
+					query = "SELECT * FROM (" + query
+							+ ") AS result WHERE cast LIKE '%" + name + "%'";
+				}
 				
 				if(genre != null && genre != "") {
 					query = "SELECT * FROM (" + query

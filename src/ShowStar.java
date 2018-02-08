@@ -73,7 +73,6 @@ public class ShowStar extends HttpServlet {
 			star.addProperty("dob", rdob);
 			star.addProperty("movies", rmovies);
 				
-			System.out.println(star.toString());
 			out.write(star.toString());
 			
             result.close();
