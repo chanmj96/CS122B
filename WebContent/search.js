@@ -84,10 +84,11 @@ function paginate(result, params){
 	}
 }
 function submitSearchForm(formSubmitEvent){
+	console.log(formSubmitEvent);
 	console.log("Search form submitted.");
 	formSubmitEvent.preventDefault();
 
-	var params = jQuery("#search_form").serialize();
+	var params = $("#search_form").serialize();
 	params += "&sort=";
 	params += "&sortby=";
 	params += "&page=1";
@@ -103,8 +104,6 @@ function submitSearchForm(formSubmitEvent){
 	$.get("ShowSearch", params, (data)=>showResult(data));
 	$.get("Count", params, (data)=>paginate(data, params));
 }
-
-$("#search_form").submit((event) => submitSearchForm(event));
 
 $(".pagination a").click(function(event){
     event.preventDefault();
@@ -146,3 +145,20 @@ $("#search_result_head .sort_by").click(function(event){
 	$.get("ShowSearch", params, (data) => showResult(data));
 	$.get("Count", params, (data) => paginate(data, params));	
 });	
+
+if(window.location.href.indexOf("?") != -1){
+	var url = getFullURL();
+	var params = url.split("?").pop();
+	params += "&display=10";
+	params += "&sort=";
+	params += "&sortby=";
+	params += "&page=1";
+	
+	$("#search-wrap .pagination").css('display', 'inline-block');
+		
+	$.get("ShowSearch", params, (data) => showResult(data));
+	$.get("Count", params, (data) => paginate(data, params));
+} else {
+	$("#search_form").submit((event) => submitSearchForm(event));
+
+}
