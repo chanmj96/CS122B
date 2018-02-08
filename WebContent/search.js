@@ -70,6 +70,7 @@ function showResult(result){
 	});
 }
 function paginate(result, params){
+	console.log(result);
 	var page = parseInt(params.split("page=").pop());
 	var display = parseInt(params.split("display=").pop().substring(0,2));
 	if(page >= Math.ceil(result / display)){
@@ -153,6 +154,8 @@ if(window.location.href.indexOf("?") != -1){
 	params += "&sort=";
 	params += "&sortby=";
 	params += "&page=1";
+	url = getBaseURL() + "?" + params;
+	window.history.pushState(null, null, url);
 	
 	$("#search-wrap .pagination").css('display', 'inline-block');
 		

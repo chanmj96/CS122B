@@ -55,11 +55,12 @@ public class Count extends HttpServlet {
             String year = request.getParameter("year");
             String director = request.getParameter("director");
             String name = request.getParameter("name");
+            String genre = request.getParameter("genre");
             String limit = request.getParameter("display");
             String offset = request.getParameter("offset");
             String page = request.getParameter("page");
 			
-            if(title != "" || year != "" || director != "" || name != "") {
+            if(title != "" || year != "" || director != "" || name != "" || genre != null) {
 				String query = "SELECT m.*, "
 						+ "GROUP_CONCAT(DISTINCT g.name) AS genre, "
 						+ "GROUP_CONCAT(DISTINCT s.name) AS cast "
@@ -69,28 +70,35 @@ public class Count extends HttpServlet {
 						+ "INNER JOIN genres_in_movies gim ON m.id=gim.movieId "
 						+ "INNER JOIN genres g ON gim.genreId=g.id ";
 				
-				if(title != "") {
+				if(title != null && title != "") {
 					query += "WHERE title LIKE '%" + title + "%'";
 				}
-				if(year != "") {
+				if(year != null && year != "") {
 					if(query.contains("WHERE")) {
 						query += " AND year LIKE '%" + year + "%'";
 					}  else {
 						query += "WHERE year LIKE '%" + year + "%'";
 					}
 				}
-				if(director != "") {
+				if(director != null && director != "") {
 					if(query.contains("WHERE")) {
 						query += " AND director LIKE '%" + director + "%'";
 					}  else {
 						query += "WHERE director LIKE '%" + director + "%'";
 					}
 				}
-				if(name != "") {
+				if(name != null && name != "") {
 					if(query.contains("WHERE")) {
 						query += " AND s.name LIKE '%" + name + "%'";
 					}  else {
 						query += "WHERE s.name LIKE '%" + name + "%'";
+					}
+				}
+				if(genre != null && genre != "") {
+					if(query.contains("WHERE")) {
+						query += " AND g.name = '" + genre + "'";
+					}  else {
+						query += "WHERE g.name = '" + genre + "'";
 					}
 				}
 				query += " GROUP BY m.id ";
