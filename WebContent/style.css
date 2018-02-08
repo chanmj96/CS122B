@@ -2,14 +2,14 @@
 /* ========================================================== */
 /* ========================= Overall ======================== */
 /* ========================================================== */
-body, #search-wrap, #movie-wrap, #like-predicate {
+body, #search-wrap, #movie-wrap, #like-predicate, #star-wrap {
 	background-color: #FDF5E6;
 	text-align: center;
 }
 h1 {
 	font-family: verdana;
 	font-size: 300%;
-	text-align: center;
+	border-bottom: 3px solid black;
 }
 .button {
 	background-color: black;
@@ -101,6 +101,8 @@ h1 {
 #movie-wrap #movie-title {
 	margin: 0 auto;
 	font-size: 200%;
-	padding-top: 5%;
 }
 /* ========================================================== */
+/* ========================== Star ========================== */
+/* ========================================================== */
+#
