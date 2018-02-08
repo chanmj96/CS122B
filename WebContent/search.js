@@ -60,14 +60,10 @@ function showResult(result){
 		element_body.append(row);
 	}
 	
-	
-	// Work in progress
 	$("#search_result_body a.title").click(function(event){
 		event.preventDefault();
 		window.location.href = "movie.html?id=" + $(this).attr("value");
-	});
-	
-	// Work in progress
+	});	
 	$("#search_result_body a.castmember").click(function(event){
 		event.preventDefault();
 		window.location.href = "star.html?starid=" + $(this).attr("value");
