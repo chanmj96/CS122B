@@ -64,15 +64,13 @@ function showResult(result){
 	// Work in progress
 	$("#search_result_body a.title").click(function(event){
 		event.preventDefault();
-		window.location.href = "movie.html?id=" + $(this).attr("value");;
-		
-		console.log("This movie has ID: " + $(this).attr("value"));
+		window.location.href = "movie.html?id=" + $(this).attr("value");
 	});
 	
 	// Work in progress
 	$("#search_result_body a.castmember").click(function(event){
 		event.preventDefault();
-		console.log("This cast member has ID: " + $(this).attr("value"));
+		window.location.href = "star.html?starid=" + $(this).attr("value");
 	});
 }
 function paginate(result, params){
