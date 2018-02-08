@@ -97,16 +97,15 @@ public class ShowSearch extends HttpServlet {
 						query += "WHERE s.name LIKE '%" + name + "%'";
 					}
 				}
-				if(genre != null && genre != "") {
-					if(query.contains("WHERE")) {
-						query += " AND g.name = '" + genre + "'";
-					}  else {
-						query += "WHERE g.name = '" + genre + "'";
-					}
-				}
 				query += " GROUP BY m.id ";
 				if(order != "") {
 					query += " ORDER BY " + sortby + " " + order;
+				}
+				
+				
+				if(genre != null && genre != "") {
+					query = "SELECT * FROM (" + query
+						+ ") AS result WHERE genre LIKE '%" + genre + "%'";
 				}
 				
 				query += " LIMIT " + limit;

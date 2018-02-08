@@ -70,7 +70,6 @@ function showResult(result){
 	});
 }
 function paginate(result, params){
-	console.log(result);
 	var page = parseInt(params.split("page=").pop());
 	var display = parseInt(params.split("display=").pop().substring(0,2));
 	if(page >= Math.ceil(result / display)){
@@ -85,7 +84,6 @@ function paginate(result, params){
 	}
 }
 function submitSearchForm(formSubmitEvent){
-	console.log(formSubmitEvent);
 	console.log("Search form submitted.");
 	formSubmitEvent.preventDefault();
 

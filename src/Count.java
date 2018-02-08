@@ -94,14 +94,14 @@ public class Count extends HttpServlet {
 						query += "WHERE s.name LIKE '%" + name + "%'";
 					}
 				}
-				if(genre != null && genre != "") {
-					if(query.contains("WHERE")) {
-						query += " AND g.name = '" + genre + "'";
-					}  else {
-						query += "WHERE g.name = '" + genre + "'";
-					}
-				}
+
 				query += " GROUP BY m.id ";
+				
+				if(genre != null && genre != "") {
+					query = "SELECT * FROM (" + query
+						+ ") AS result WHERE genre LIKE '%" + genre + "%'";
+				}
+				
 				
 				String extended_query = "SELECT COUNT(*) AS total "
 						+ "FROM (" + query + ") AS result "; 
