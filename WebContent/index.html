@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css" type="text/css">
-	<title>MovieJunkie Home</title>
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- meta tags -->
+<meta charset="UTF-8">
+
+<title>MovieJunkie</title>
 </head>
-<body>
 
-<h1 id="btn-container">Welcome to MovieJunkie!</h1>
-<br>
-
-<div class="inline_text">
-	<div style='float: left;'>
-	<form action="search.html" method="post">
-		<button action=Search>Search Movies</button>
-	</form></div>
-	<div style='float: right;'>
-	<form action="Browse" method="post">
-		<button action=Browse>Browse Movies</button>
-	</form></div>
-</div>
-
-
-
+<body id="main-wrap">
+	<h1>Welcome to MovieJunkie!</h1><br><br>
+	
+	<div id="main-buttons">
+			<form action="search.html" method="post">
+				<button class="sbutton">Search Movies</button>
+			</form>
+			
+			<form action="Browse" method="post">
+				<button class="bbutton">Browse Movies</button>
+			</form>
+	</div>
+	
 </body>
 </html>
