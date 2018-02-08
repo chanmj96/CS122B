@@ -2,12 +2,12 @@
 /* ========================================================== */
 /* ========================= Overall ======================== */
 /* ========================================================== */
-body, #search-wrap, #movie-wrap, #like-predicate, #star-wrap {
+body, #main-wrap, #search-wrap, #movie-wrap, #like-predicate, #star-wrap {
 	background-color: #FDF5E6;
 	text-align: center;
 }
 h1 {
-	font-family: verdana;
+	font-family: bookman;
 	font-size: 300%;
 	border-bottom: 3px solid black;
 }
@@ -23,6 +23,34 @@ h1 {
 	margin-left: 45%;
 	overflow: auto;
 	display: inline-block;
+}
+.section-header{
+	text-decoration: underline;
+	font-family: bookman;
+	font-size: 200%;
+}
+/* ========================================================== */
+/* ============================ Main ======================== */
+/* ========================================================== */
+#main-wrap button {
+	border-radius: 12px;
+	display: inline;
+	width: 25%;
+	float: left;
+	color: white;
+	background-color: #e38c83;
+}
+#main-wrap button:hover {
+	background-color: white;
+	color: black;
+}#main-wrap button:focus {
+	outline: none
+}
+#main-wrap #main-buttons{
+	padding-left: 33%;
+	display: block;
+	width: 100%;
+	min-height: 80px;
 }
 /* ========================================================== */
 /* =========================== Search ======================= */
@@ -105,4 +133,3 @@ h1 {
 /* ========================================================== */
 /* ========================== Star ========================== */
 /* ========================================================== */
-#
