@@ -8,6 +8,9 @@ function getFullURL(){
 	return window.location.href;
 }
 
+$("#search_result_table").hide();
+$(".pagination").hide();
+
 $(document).ready(function(){
 	var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','other'];
 	for(var i = 0; i < letters.length; i++)
@@ -18,16 +21,13 @@ $(document).ready(function(){
 	$.get("Genres", function(data,status){ 
 		for(var i=0; i < data.length; i++)
 			$("#put-genres").append('<button onclick="button_links(this)" class="myGenres">' +data[i]["name"]+'</button>')  } );
-	
-	jQuery("#search_result").css('display', 'none');
 });
 
 function showResult(result){
 	console.log("Handling search result.");	
 	
-	// Hide Search Functionality
-	jQuery("#search_form").hide();
-	
+	$("#search_result_table").show();
+	$(".pagination").show();
 	// Show Table Header
 	jQuery("#search_result_head").css('display', 'table-header-group');
 	
@@ -120,14 +120,36 @@ $(".pagination a").click(function(event){
 	$.get("Count", params, (data) => paginate(data, params));
 });
 
+
+$("#search_result_head .sort_by").click(function(event){
+	event.preventDefault();
+	var value = $(this).attr("value");
+	var sort = $(this).attr("sort");
+	var url = getFullURL();
+	
+	if(sort == "ASC"){
+		$(this).attr("sort", "DESC");
+		url = url.replace(/(?:sort)(=.*?)[^&]*/, "sort=DESC");
+	} else {
+		$(this).attr("sort", "ASC");
+		url = url.replace(/(?:sort)(=.*?)[^&]*/, "sort=ASC");
+	}
+	url = url.replace(/(?:sortby)(=.*?)[^&]*/, "sortby=" + value);
+	url = url.replace(/(?:page)(=.*?)[^&]*/, "page=1");
+	
+	window.history.pushState(null, null, url);
+	
+	var params = url.split("?").pop();
+	$.get("ShowSearch", params, (data) => showResult(data));
+	$.get("Count", params, (data) => paginate(data, params));	
+});	
+
 function button_links(elem) {
 	var text = elem.textContent || elem.innerText;
-	
 	var url = getBaseURL();
 	var params = "";
 	
-	
-	if(text.length == 1)
+	if(text.length == 1 || text.valueOf() == new String("other").valueOf())
 	{
 		if(url.indexOf("letter=") == -1){params += ("letter="+text)};
 	}
@@ -151,3 +173,21 @@ function button_links(elem) {
 }
 
 
+if(window.location.href.indexOf("?") != -1){
+	var url = getFullURL();
+	var params = url.split("?").pop();
+	if(url.indexOf("&display=") == -1){params += "&display=10"};
+	if(url.indexOf("&sort=") == -1){params += "&sort="};
+	if(url.indexOf("&sortby=") == -1){params += "&sortby="};
+	if(url.indexOf("&page=") == -1){params += "&page=1"};
+	
+	url = getBaseURL() + "?" + params;
+	window.history.pushState(null, null, url);
+	
+	$("#search-wrap .pagination").css('display', 'inline-block');
+		
+	$.get("ShowSearch", params, (data) => showResult(data));
+	$.get("Count", params, (data) => paginate(data, params));
+
+	
+}

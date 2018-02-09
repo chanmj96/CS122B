@@ -56,11 +56,12 @@ public class Count extends HttpServlet {
             String director = request.getParameter("director");
             String name = request.getParameter("name");
             String genre = request.getParameter("genre");
+            String letter = request.getParameter("letter");
             String limit = request.getParameter("display");
             String offset = request.getParameter("offset");
             String page = request.getParameter("page");
 			
-            if(title != "" || year != "" || director != "" || name != "" || genre != null) {
+            if(title != "" || year != "" || director != "" || name != "" || genre != null || letter != null) {
 				String query = "SELECT m.*, "
 						+ "GROUP_CONCAT(DISTINCT g.name) AS genre, "
 						+ "GROUP_CONCAT(DISTINCT s.name) AS cast "
@@ -70,7 +71,11 @@ public class Count extends HttpServlet {
 						+ "INNER JOIN genres_in_movies gim ON m.id=gim.movieId "
 						+ "INNER JOIN genres g ON gim.genreId=g.id ";
 				
-				if(title != null && title != "") {
+				if(letter!=null && letter != "" && letter.equals("other"))
+					query += "WHERE title REGEXP '^[^a-zA-Z]'";
+				else if(letter!=null && letter != "")
+					query += "WHERE (lower(title) LIKE '" + letter.toLowerCase() + "%')";
+				else if(title != null && title != "") {
 					query += "WHERE title LIKE '%" + title + "%'";
 				}
 				if(year != null && year != "") {
