@@ -2,14 +2,25 @@
 /* ========================================================== */
 /* ========================= Overall ======================== */
 /* ========================================================== */
-body, #main-wrap, #search-wrap, #movie-wrap, #like-predicate, #star-wrap {
+body, #search-wrap, #movie-wrap, #like-predicate, #star-wrap {
+	
+	/*
 	background-color: #FDF5E6;
+	*/
+	
+	background-color: #9099A2;
+	color: white;
 	text-align: center;
 }
 h1 {
 	font-family: bookman;
 	font-size: 300%;
 	border-bottom: 3px solid black;
+	text-align: left;
+	margin: 0 auto;
+	width: 100%;
+	padding-left: 5%;
+	background-color: #6D7993;
 }
 .button {
 	background-color: black;
@@ -30,6 +41,25 @@ h1 {
 	font-size: 200%;
 }
 /* ========================================================== */
+/* =========================== Login ======================== */
+/* ========================================================== */
+#login-form-div {
+	padding-top: 4%;
+	padding-left: 3%;
+	text-align: left;
+}
+#login-form-div #email {
+	margin-left: 4.6%;
+}
+#login-form-div #password{
+	margin-left: 2%;
+}
+#login-form-div #submit {
+	margin-left: 8%;
+	display: inline-block;
+	text-align: left;
+}
+/* ========================================================== */
 /* ============================ Main ======================== */
 /* ========================================================== */
 #main-wrap button {
@@ -37,8 +67,9 @@ h1 {
 	display: inline;
 	width: 25%;
 	float: left;
-	color: white;
-	background-color: #e38c83;
+	color: #968584;
+	background-color: #D5D5D5;
+	border: solid black 1px;
 }
 #main-wrap button:hover {
 	background-color: white;
@@ -46,8 +77,15 @@ h1 {
 }#main-wrap button:focus {
 	outline: none
 }
+#main-wrap #browse-button {
+	padding-left: 30%;
+}
+#main-wrap #search-button {
+	padding-right: 30%;
+}
 #main-wrap #main-buttons{
-	padding-left: 33%;
+	margin-top: 10%;
+	padding-left: 35%;
 	display: block;
 	width: 100%;
 	min-height: 80px;
