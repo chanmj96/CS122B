@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- stylesheets -->
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- meta tags -->
+<meta charset="UTF-8">
+
+<title>MovieJunkie</title>
+</head>
+<body id="search-wrap">
+	<header id="search-header">
+		<h1><b>MovieJunkie</b></h1>
+	</header>
+	<b>Advanced Search</b><br><br><br>
+	
+	<form id="search_form" action="#" method="GET">
+		<div id="functions">
+			<strong> Title </strong><input type="text" name='title'><br>
+			<strong> Year </strong><input type="text" name='year'><br>
+			<strong> Director </strong><input type="text" name='director'><br>
+			<strong> Cast Member </strong><input type="text" name='name'><br>
+			
+			<div id="display_amount">
+				<strong> Display </strong>
+				<div id="dropdown">
+					<select name="display" form="search_form">
+	 					<option value="10">10</option>
+		 				<option value="25">25</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<br><br><br>
+		<div id="submit">			
+			<input type="submit" value="submit">
+		</div>
+	</form>
+	
+	<br>
+	<div id="search-result">
+		<table id="search_result_table" class="table table-striped">
+			<thead id=search_result_head>
+				<tr>
+				<th><a class="sort_by" value="title" sort="ASC" href="#">Title</a></th>
+				<th><a class="sort_by" value="year" sort="ASC" href="#">Release Date</a></th>
+				<th>Director</th>
+				<th>Genres</th>
+				<th>Cast</th>
+				<th> Purchase</th>
+				
+				</tr>
+			</thead>
+			<tbody id=search_result_body></tbody>
+		</table>
+		<div id="search_error_message"></div>
+	</div>
+	<br>
+	<br>
+	<div class="pagination">
+		<a id="previous" href="#" value="previous">Previous</a>
+		<a id="next" href="#" value="next">Next</a>
+	</div>
+		
+	
+	<!-- include jQuery and Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	
+	<!-- include JS files -->
+	<script src="./search.js"></script>
+
+</body>
+</html>
