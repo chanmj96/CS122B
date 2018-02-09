@@ -6,8 +6,7 @@ function getFullURL(){
 }
 
 function showResult(result){
-	console.log("Handling search result.");	
-	
+	console.log("Handling search result.");
 	// Hide Search Functionality
 	jQuery("#search_form").hide();
 	
@@ -82,6 +81,9 @@ function paginate(result, params){
 	} else {
 		$("#search-wrap .pagination #previous").css('display', 'inline');
 	}
+	console.log(result);
+	console.log(page);
+	console.log(display);
 }
 function submitSearchForm(formSubmitEvent){
 	console.log("Search form submitted.");
@@ -91,7 +93,6 @@ function submitSearchForm(formSubmitEvent){
 	params += "&sort=";
 	params += "&sortby=";
 	params += "&page=1";
-	// look into HTML select tag
 	
 	// Attempt at supporting browser back function;
 	var new_url = [location.protocol, '//', location.host, location.pathname].join('');
@@ -162,5 +163,4 @@ if(window.location.href.indexOf("?") != -1){
 	$.get("Count", params, (data) => paginate(data, params));
 } else {
 	$("#search_form").submit((event) => submitSearchForm(event));
-
 }

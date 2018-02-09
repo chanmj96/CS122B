@@ -96,15 +96,7 @@ public class ShowSearch extends HttpServlet {
 						query += "WHERE director LIKE '%" + director + "%'";
 					}
 				}
-				/*
-				if(name != null && name != "") {
-					if(query.contains("WHERE")) {
-						query += " AND s.name LIKE '%" + name + "%'";
-					}  else {
-						query += "WHERE s.name LIKE '%" + name + "%'";
-					}
-				}
-				*/
+
 				query += " GROUP BY m.id ";
 				if(order != "") {
 					query += " ORDER BY " + sortby + " " + order;

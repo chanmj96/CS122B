@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <!-- stylesheets -->
-<link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="style.css">
 
 <!-- meta tags -->
 <meta charset="UTF-8">
@@ -14,16 +14,18 @@
 	<header id="search-header">
 		<h1><b>MovieJunkie</b></h1>
 	</header>
-	<b>Advanced Search</b><br><br><br>
+	<div id="section-title">
+		<b>Advanced Search</b><br><br><br>
+	</div>
 	
 	<form id="search_form" action="#" method="GET">
 		<div id="functions">
-			<strong> Title </strong><input type="text" name='title'><br>
-			<strong> Year </strong><input type="text" name='year'><br>
-			<strong> Director </strong><input type="text" name='director'><br>
-			<strong> Cast Member </strong><input type="text" name='name'><br>
+			<div class="search-form"><strong> Title </strong><input type="text" name='title'><br></div>
+			<div class="search-form"><strong> Year </strong><input type="text" name='year'><br></div>
+			<div class="search-form"><strong> Director </strong><input type="text" name='director'><br></div>
+			<div class="search-form"><strong> Cast Member </strong><input type="text" name='name'><br></div>
 			
-			<div id="display_amount">
+			<div id="display_amount" class="search-form">
 				<strong> Display </strong>
 				<div id="dropdown">
 					<select name="display" form="search_form">
