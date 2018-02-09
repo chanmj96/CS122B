@@ -2,8 +2,7 @@
 /* ========================================================== */
 /* ========================= Overall ======================== */
 /* ========================================================== */
-body, #search-wrap, #movie-wrap, #like-predicate, #star-wrap {
-	
+body, #movie-wrap, #like-predicate {
 	/*
 	background-color: #FDF5E6;
 	*/
@@ -22,24 +21,17 @@ h1 {
 	padding-left: 5%;
 	background-color: #6D7993;
 }
-.button {
-	background-color: black;
-	border: none;
-	color: white;
+a {
+	color: #D5D5D5;
+}
+input {
+	border-radius: 12px;
 	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
 }
-.inline_text{
-	margin-left: 45%;
-	overflow: auto;
-	display: inline-block;
+button:focus, input:focus {
+	outline: none;
 }
-.section-header{
-	text-decoration: underline;
-	font-family: bookman;
-	font-size: 200%;
-}
+
 /* ========================================================== */
 /* =========================== Login ======================== */
 /* ========================================================== */
@@ -63,19 +55,18 @@ h1 {
 /* ============================ Main ======================== */
 /* ========================================================== */
 #main-wrap button {
-	border-radius: 12px;
 	display: inline;
-	width: 25%;
+	width: auto;
 	float: left;
 	color: #968584;
+	border-radius: 12px;
 	background-color: #D5D5D5;
 	border: solid black 1px;
+	font-size: 30px;
 }
 #main-wrap button:hover {
 	background-color: white;
 	color: black;
-}#main-wrap button:focus {
-	outline: none
 }
 #main-wrap #browse-button {
 	padding-left: 30%;
@@ -93,13 +84,17 @@ h1 {
 /* ========================================================== */
 /* =========================== Search ======================= */
 /* ========================================================== */
-
-
 #functions {
 	display: inline-block;
 	margin: 0 auto;
 	text-align: right;
 	padding-right: 3%;		
+}
+#functions button {
+	border-radius: 15px;
+}
+#functions .search-form {
+	margin-top: 2%;	
 }
 #search_form #dropdown {
 	display: inline-block;
@@ -167,3 +162,13 @@ h1 {
 /* ========================================================== */
 /* ========================== Star ========================== */
 /* ========================================================== */
+
+#star-wrap #movies-section {
+	display: inline-block;
+	text-align: center;
+}
+#star-wrap .section-header{
+	font-family: bookman;
+	font-size: 200%;
+	text-decoration: bold;
+}
