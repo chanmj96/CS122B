@@ -13,11 +13,9 @@ function makePage(result){
 	// Add List of Movies
 	var movielist_body = $("#star-movielist");
 	var mlist = result["movies"].split("----");
-	console.log(result["movies"]);
 	row = "";
 	for(var i = 0; i < mlist.length; ++i){
 		var movie = mlist[i].split("~:~");
-		console.log(movie[0]);
 		row += "<a class=\"title\" value=\"" + movie[1]
 		+ "\" href=\"#\">" + movie[0] + "</a><br>";
 	}

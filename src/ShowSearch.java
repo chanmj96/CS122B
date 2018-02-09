@@ -57,22 +57,15 @@ public class ShowSearch extends HttpServlet {
             String name = request.getParameter("name");
             
             String genre = request.getParameter("genre");
-<<<<<<< HEAD
+
             String letter = request.getParameter("letter");
-=======
->>>>>>> 0e3a4a05e19c967534ccf00058321c74fc915805
             
             String limit = request.getParameter("display");
             String page = request.getParameter("page");
             String order = request.getParameter("sort");
             String sortby = request.getParameter("sortby");
-<<<<<<< HEAD
             
             if(title != "" || year != "" || director != "" || name != "" || genre != null || genre != "" || letter != null || letter != "") {
-=======
-			
-            if(title != "" || year != "" || director != "" || name != "" || genre != null || genre != "") {
->>>>>>> 0e3a4a05e19c967534ccf00058321c74fc915805
 				String query = "SELECT m.*, "
 						+ "GROUP_CONCAT(DISTINCT g.name) AS genre, "
 						+ "GROUP_CONCAT(DISTINCT CONCAT(s.name, ':', starId)) AS cast "
@@ -82,18 +75,15 @@ public class ShowSearch extends HttpServlet {
 						+ "INNER JOIN genres_in_movies gim ON m.id=gim.movieId "
 						+ "INNER JOIN genres g ON gim.genreId=g.id ";
 				
-<<<<<<< HEAD
 				if(letter!=null && letter != "")
 					query += "WHERE (lower(title) LIKE '" + letter.toLowerCase() + "%')";
 				else if(title != null && title != "") {
 					query += "WHERE title LIKE '%" + title + "%'";
 				}
 				
-=======
 				if(title != null && title != "") {
 					query += "WHERE title LIKE '%" + title + "%'";
 				}
->>>>>>> 0e3a4a05e19c967534ccf00058321c74fc915805
 				if(year != null && year != "") {
 					if(query.contains("WHERE")) {
 						query += " AND year = '" + year + "'";
@@ -108,15 +98,7 @@ public class ShowSearch extends HttpServlet {
 						query += "WHERE director LIKE '%" + director + "%'";
 					}
 				}
-				/*
-				if(name != null && name != "") {
-					if(query.contains("WHERE")) {
-						query += " AND s.name LIKE '%" + name + "%'";
-					}  else {
-						query += "WHERE s.name LIKE '%" + name + "%'";
-					}
-				}
-				*/
+
 				query += " GROUP BY m.id ";
 				if(order != "") {
 					query += " ORDER BY " + sortby + " " + order;
