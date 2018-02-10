@@ -53,11 +53,12 @@ public class ShoppingCart extends HttpServlet {
 			String movieID = request.getParameter("id");
 			if(action.equals("add"))
 			{
-				System.out.println("adding " + movieID);
+				//System.out.println("adding " + movieID);
 				user.addCartItem(movieID);
 			}
 			else if(action.equals("remove"))
 			{
+				//System.out.println("removing " + movieID);
 				user.removeCartItem(movieID);
 			}
 			return;
@@ -72,10 +73,10 @@ public class ShoppingCart extends HttpServlet {
             
             ArrayList<String> movie_list = user.getCart();
             
-            System.out.println(Arrays.toString(movie_list.toArray()));
+            //System.out.println(Arrays.toString(movie_list.toArray()));
             for(String mid: movie_list)
             {
-				String query = "SELECT * FROM movies m WHERE m.id='" + mid + "'";
+				String query = "SELECT * FROM movies m WHERE m.id=\"" + mid + "\"";
 				
 				ResultSet rs = stmt.executeQuery(query);
 		
@@ -83,12 +84,11 @@ public class ShoppingCart extends HttpServlet {
 					String rid = rs.getString("id");
 					
 					moviesObject.addProperty(rid,  "1");
-					
 				}
+				rs.close();
             }
-            System.out.println(moviesObject.toString());
+            //System.out.println(moviesObject.toString());
 			out.write(moviesObject.toString());
-            rs.close();
             stmt.close();
             dbcon.close();
             out.close();
