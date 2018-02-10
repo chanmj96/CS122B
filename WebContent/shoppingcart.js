@@ -30,6 +30,8 @@ function cart_remove(elem) {
 
 
 function showResult(result){
+	
+	
 	console.log("Handling search result.");	
 	console.log(result);
 	$("#search_result_table").show();
@@ -123,6 +125,10 @@ $("#search_result_head .sort_by").click(function(event){
 
 
 $( document ).ready(function(){
+	alert("Loading Movies.")
+	
+	$("#search-result").css('display', 'inline-block');
+	$("#search-result_table").css('display', 'inline-block');
 	var url = getFullURL();
 	var params = "";
 	if(url.indexOf("&display=") == -1){params += "&display=10"};
@@ -135,7 +141,18 @@ $( document ).ready(function(){
 	
 	$("#search-wrap .pagination").css('display', 'inline-block');
 		
-	$.get("ShoppingCart", params, (data) => showResult(data));
+	$.get("ShoppingCart", params, function() {
+		  alert( "success" );
+	})
+	  .done(function() {
+	    alert( "second success" );
+	  })
+	  .fail(function() {
+	    alert( "error" );
+	  })
+	  .always(function() {
+	    alert( "finished" );
+	});
 	//$.get("Count", params, (data) => paginate(data, params));
 });
 

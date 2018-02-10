@@ -23,6 +23,9 @@ $(document).ready(function(){
 			$("#put-genres").append('<button onclick="button_links(this)" class="myGenres">' +data[i]["name"]+'</button>')  } );
 });
 
+function cart(){
+	window.location.replace("shoppingcart.html");
+}
 function showResult(result){
 	console.log("Handling search result.");	
 	

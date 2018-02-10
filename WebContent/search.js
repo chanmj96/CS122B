@@ -4,6 +4,9 @@ function getBaseURL(){
 function getFullURL(){
 	return window.location.href;
 }
+function cart(){
+	window.location.replace("shoppingcart.html");
+}
 
 function showResult(result){
 	console.log("Handling search result.");
