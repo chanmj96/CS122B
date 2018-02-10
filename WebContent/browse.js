@@ -71,7 +71,7 @@ function showResult(result){
 		
 		// Purchase button
 		row += "<th>";
-		row += "<button type=\"button\" class=\"cart\"> ADD TO CART </button>"; 
+		row += '<button onclick="cart_add(this)" class="cart_add" value="'+result[i]["id"]+'"> ADD TO CART </button>';
 		row += "</th>";
 		row += "</tr>";
 		element_body.append(row);
@@ -144,6 +144,31 @@ $("#search_result_head .sort_by").click(function(event){
 	$.get("Count", params, (data) => paginate(data, params));	
 });	
 
+
+function cart_add(elem) {
+	
+	var text = elem.value;
+	var url = getBaseURL();
+	var params = "";
+	
+	if(url.indexOf("action=") == -1){params += ("action=add")};
+	if(url.indexOf("&id=") == -1){params += ("&id="+text)};
+	
+	if(url.indexOf("&display=") == -1){params += "&display=10"};
+	if(url.indexOf("&sort=") == -1){params += "&sort=ASC"};
+	if(url.indexOf("&sortby=") == -1){params += "&sortby=title"};
+	if(url.indexOf("&page=") == -1){params += "&page=1"};
+	
+	url += ("?" + params);
+	window.history.pushState(null, null, url);
+	
+	$("#search-wrap .pagination").css('display', 'inline-block');
+		
+	$.get("ShoppingCart", params, function(data,status){
+		alert("Movie Successfully added to Cart.")
+	});
+}
+
 function button_links(elem) {
 	var text = elem.textContent || elem.innerText;
 	var url = getBaseURL();
@@ -188,6 +213,4 @@ if(window.location.href.indexOf("?") != -1){
 		
 	$.get("ShowSearch", params, (data) => showResult(data));
 	$.get("Count", params, (data) => paginate(data, params));
-
-	
 }

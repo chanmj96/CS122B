@@ -8,6 +8,8 @@ function handleLoginResult(resultDataString) {
 
 	// if login success, redirect to index.html page
 	if (resultDataJson["status"] == "success") {
+		//var email = resultDataJson["email"];
+		//document.cookie="email="+email+"; path=/";
 		window.location.replace("index.html");
 	} else {
 		console.log("show error message");

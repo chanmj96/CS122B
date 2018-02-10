@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -7,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,7 +55,9 @@ public class Login extends HttpServlet {
 			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 			stmt = dbcon.createStatement();
 			
+			request.getSession(true);
 			request.getSession().setAttribute("user", new User(email));
+			
 			 // Emails should be unique to users as a login requirement.
 			 // test with (cc@msn.com, 1111)
 			 String query = "SELECT * from customers c WHERE c.email=\"" + email + "\"";
@@ -73,9 +75,13 @@ public class Login extends HttpServlet {
 				 if(db_password.equals(password))
 				 {
 					 responseJsonObject.addProperty("status", "success");
+					 responseJsonObject.addProperty("email", email);
 					 responseJsonObject.addProperty("message", "success");
 					 out.write(responseJsonObject.toString());
 					 ((User)request.getSession().getAttribute("user")).setAccess(true);
+					 //Cookie loginCookie = new Cookie("user",email);
+					 //loginCookie.setMaxAge(30*60);
+					 //response.addCookie(loginCookie);
 				 }
 				 else
 				 { 
