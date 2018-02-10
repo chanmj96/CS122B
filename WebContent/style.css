@@ -3,10 +3,7 @@
 /* ========================= Overall ======================== */
 /* ========================================================== */
 body, #movie-wrap, #like-predicate {
-	/*
-	background-color: #FDF5E6;
-	*/
-	
+
 	background-color: #9099A2;
 	color: white;
 	text-align: center;
@@ -151,6 +148,7 @@ button:focus, input:focus {
 	margin: 0 auto;
 	padding-right: 20%;
 	padding-left: 20%;
+	text-align: justify;
 }
 /* ========================================================== */
 /* ========================= Movie ========================== */
@@ -171,4 +169,22 @@ button:focus, input:focus {
 	font-family: bookman;
 	font-size: 200%;
 	text-decoration: bold;
+}
+/* ========================================================== */
+/* ========================= Browse ========================= */
+/* ========================================================== */
+#put-letters, #put-genres {
+	display: inline-block;
+	width: 55%;
+}
+#put-letters .myLetters {
+	display: inline-block;
+	width: 55px;
+}
+#put-letters .myLetters:hover{
+	background-color: red;
+}
+#put-genres .myGenres {
+	display: inline-block;
+	width: 115px;
 }
