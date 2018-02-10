@@ -62,52 +62,32 @@ public class ShoppingCart extends HttpServlet {
 			}
 			return;
 		}
-		JsonArray movieArray = new JsonArray();
+		JsonObject moviesObject = new JsonObject();
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
             dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
             stmt = dbcon.createStatement();
             
             ArrayList<String> movie_list = user.getCart();
-            
-            String limit = request.getParameter("display");
-            String page = request.getParameter("page");
-            String order = request.getParameter("sort");
-            String sortby = request.getParameter("sortby");
             
             System.out.println(Arrays.toString(movie_list.toArray()));
             for(String mid: movie_list)
             {
 				String query = "SELECT * FROM movies m WHERE m.id='" + mid + "'";
 				
-				if(order != "") {
-					query += " ORDER BY " + sortby + " " + order;
-				}
-				query += " LIMIT " + limit;
-				if(Integer.parseInt(page) > 1) {
-					query += " OFFSET " + (Integer.parseInt(limit) * (Integer.parseInt(page) - 1));
-				}
-				
 				ResultSet rs = stmt.executeQuery(query);
 		
-				if(rs.next()) {
+				while(rs.next()) {
 					String rid = rs.getString("id");
-					String rtitle = rs.getString("title");
-					String ryear = rs.getString("year");
-					String rdirector = rs.getString("director");
 					
-					JsonObject movie = new JsonObject();
-					movie.addProperty("id",  rid);
-					movie.addProperty("title", rtitle);
-					movie.addProperty("year",  ryear);
-					movie.addProperty("director", rdirector);
+					moviesObject.addProperty(rid,  "1");
 					
-					movieArray.add(movie);
 				}
             }
-			out.write(movieArray.toString());
+            System.out.println(moviesObject.toString());
+			out.write(moviesObject.toString());
             rs.close();
             stmt.close();
             dbcon.close();

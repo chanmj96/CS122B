@@ -15,41 +15,37 @@
 		<h1><b>MovieJunkie</b></h1>
 	</header>
 	<div id="section-title">
-		<b>Shopping Cart</b><br><br><button id="checkout" onclick="checkout()" style="float: right;">Checkout</button><br>
+		<b>Checkout</b><br><br><br>
 	</div>
 	
+	<form id="checkout-form">
+		    <label><b>Credit Card</b></label>
+		    <input type="text" placeholder="1234 1234 1234 1234"><br>
+		    
+		    <label><b>Expiration Month</b></label>
+		    <input type="text" placeholder="MM"><br>
+		    
+		    <label><b>Expiration Year</b></label>
+		    <input type="text" placeholder="YY"><br>
+		    
+		    <label><b>Security Code</b></label>
+		    <input type="text" placeholder="123"><br><br>
+		    
+	</form>
+	
+	<br>
 	
 	
-	<br>
-	<div id="search-result">
-		<table id="search_result_table" class="table table-striped">
-			<thead id=search_result_head>
-				<tr>
-				<th><a class="sort_by" value="title" sort="ASC" href="#">Title</a></th>
-				<th><a class="sort_by" value="year" sort="ASC" href="#">Release Date</a></th>
-				<th>Director</th>
-				<th> Purchase</th>
-				
-				</tr>
-			</thead>
-			<tbody id=search_result_body></tbody>
-		</table>
-		<div id="search_error_message"></div>
-	</div>
-	<br>
-	<br>
-	<div class="pagination">
-		<a id="previous" href="#" value="previous">Previous</a>
-		<a id="next" href="#" value="next">Next</a>
-	</div>
-
-
+	<button id="checkout" onclick="gotoMain()" style="float: center;">Checkout</button>
 
 	<!--include the following scripts for jQuery, Bootstrap, js-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	
-	<script type="text/javascript" src="./shoppingcart.js"></script>
+	<script>
+		function gotoMain(){ $("#checkout-form").replaceWith("<h3>Thank you for your purchase!</h3>")
+			$("#checkout").hide();
+			setTimeout(function(){window.location.replace("index.html")}, 3000); }
+	</script>
 </body>
 </html>
