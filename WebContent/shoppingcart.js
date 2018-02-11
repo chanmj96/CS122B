@@ -93,7 +93,6 @@ function showResult(result){
 }
 
 $("#checkout").hide();
-
 $( document ).ready(function(){
 	$.get("ShoppingCart", (data) => showResult(data)); 
 });

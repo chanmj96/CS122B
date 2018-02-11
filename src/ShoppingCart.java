@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -48,19 +49,15 @@ public class ShoppingCart extends HttpServlet {
 		 String paramName = (String)enParams.nextElement();
 		 System.out.println("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
 		}*/
-		User user;
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		if (httpRequest.getSession().getAttribute("user") == null || 
-				!((User)httpRequest.getSession().getAttribute("user")).hasAccess()) {
+		HttpSession session = request.getSession(false);
+		if(session == null)
+		{
 			httpResponse.sendRedirect("login.html");
 			return;
 		}
-		else
-		{
-			user = (User)request.getSession().getAttribute("user");
-		}
-		
+		User user = (User)request.getSession().getAttribute("user");
+
 		String action = request.getParameter("action");
 		if(action != null && action != "")
 		{
