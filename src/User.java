@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 /*
  * This User class only has the username field in this example.
  * 
@@ -12,13 +12,13 @@ public class User {
 	private boolean access;
 	
 	// shopping cart an arraylist of movie id numbers
-	private ArrayList<String> shoppingCart;
+	private HashMap<String,String> shoppingCart;
 	
 	
 	public User(String email) {
 		this.email = email;
 		access = false;
-		shoppingCart = new ArrayList<String>();
+		shoppingCart = new HashMap<String,String>();
 	}
 	
 	public boolean hasAccess() {
@@ -33,17 +33,36 @@ public class User {
 	public void emptyCart() {
 		shoppingCart.clear();
 	}
-	public ArrayList<String> getCart() {
+	public HashMap<String,String> getCart() {
 		return shoppingCart;
 	}
-	public void addCartItem(String s) {
-		shoppingCart.add(s);
-	}
-	public void removeCartItem(String s){
-		try { 
-			shoppingCart.remove(s);
+	public void addCartItem(String s,String quantity) {
+		String num = shoppingCart.get(s);
+		if(num == null)
+			shoppingCart.put(s,quantity);
+		else
+		{
+			int i = Integer.parseInt(num) + Integer.parseInt(quantity);
+			shoppingCart.replace(s, Integer.toString(i));
 		}
-		catch(Exception e) {}
+	}
+	public void changeQuantity(String s, String quantity){
+		String num = shoppingCart.get(s);
+		//System.out.println("Enter Function Remove");
+		//System.out.flush();
+		if(num != null && quantity != null)
+		{
+			//System.out.println(""+num);
+			//System.out.println(""+quantity);
+			//System.out.flush();
+			if(quantity.equals("0"))
+				shoppingCart.remove(s);
+			else
+				shoppingCart.replace(s, quantity);
+		}
+		else
+			System.out.println("Null quantity");
+		
 	}
 
 }

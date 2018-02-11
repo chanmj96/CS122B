@@ -8,8 +8,6 @@ function handleLoginResult(resultDataString) {
 
 	// if login success, redirect to index.html page
 	if (resultDataJson["status"] == "success") {
-		//var email = resultDataJson["email"];
-		//document.cookie="email="+email+"; path=/";
 		window.location.replace("index.html");
 	} else {
 		console.log("show error message");
@@ -28,7 +26,7 @@ function submitLoginForm(formSubmitEvent) {
 	formSubmitEvent.preventDefault();
 		
 	jQuery.post(
-		"/CS122B/Login", 
+		"Login", 
 		// serialize the login form to the data sent by POST request
 		jQuery("#login_form").serialize(),
 		(resultDataString) => handleLoginResult(resultDataString));

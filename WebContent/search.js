@@ -8,6 +8,9 @@ function cart(){
 	window.location.replace("shoppingcart.html");
 }
 
+function back(){
+	window.location.replace("index.html");
+}
 function showResult(result){
 	console.log("Handling search result.");
 	// Hide Search Functionality
@@ -54,10 +57,19 @@ function showResult(result){
 		}
 		row += "</th>"; 
 		
-		// Purchase button
+		var count_text = "";
+		for(var num = 1; num < 10; num++)
+			count_text += '<option value="'+num+'">'+num+'</option>';
+		
+		// Purchase buttons
 		row += "<th>";
+		row += '<select id=selector-'+result[i]["id"]+'>'+count_text+"</select>";
+		row += "</th>";
+		
+		row += '<th>';
 		row += '<button onclick="cart_add(this)" class="cart_add" value="'+result[i]["id"]+'"> ADD TO CART </button>';
 		row += "</th>";
+		
 		row += "</tr>";
 		element_body.append(row);
 	}
@@ -151,23 +163,19 @@ $("#search_result_head .sort_by").click(function(event){
 
 
 function cart_add(elem) {
-	
 	var text = elem.value;
+	var count = $('#selector-'+text).find(":selected").text();
+	console.log(text);
+	console.log(count);
 	var url = getBaseURL();
 	var params = "";
 	
-	if(url.indexOf("action=") == -1){params += ("action=add")};
-	if(url.indexOf("&id=") == -1){params += ("&id="+text)};
-	
-	if(url.indexOf("&display=") == -1){params += "&display=10"};
-	if(url.indexOf("&sort=") == -1){params += "&sort=ASC"};
-	if(url.indexOf("&sortby=") == -1){params += "&sortby=title"};
-	if(url.indexOf("&page=") == -1){params += "&page=1"};
+	params += ("action=add");
+	params += ("&id="+text);
+	params += ("&count="+count);
 	
 	url += ("?" + params);
 	window.history.pushState(null, null, url);
-	
-	$("#search-wrap .pagination").css('display', 'inline-block');
 		
 	$.get("ShoppingCart", params, function(data,status){
 		alert("Movie Successfully added to Cart.")

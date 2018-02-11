@@ -19,8 +19,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Arrays;
+import java.util.Enumeration;
 /**
  * Servlet implementation class ShowSearch
  */
@@ -42,62 +43,85 @@ public class ShoppingCart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginUser = "testuser";
-		String loginPasswd = "password";
-		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
-		User user = (User)request.getSession().getAttribute("user");
+		/*Enumeration<String> enParams = request.getParameterNames(); 
+		while(enParams.hasMoreElements()){
+		 String paramName = (String)enParams.nextElement();
+		 System.out.println("Attribute Name - "+paramName+", Value - "+request.getParameter(paramName));
+		}*/
+		User user;
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		if (httpRequest.getSession().getAttribute("user") == null || 
+				!((User)httpRequest.getSession().getAttribute("user")).hasAccess()) {
+			httpResponse.sendRedirect("login.html");
+			return;
+		}
+		else
+		{
+			user = (User)request.getSession().getAttribute("user");
+		}
 		
 		String action = request.getParameter("action");
 		if(action != null && action != "")
 		{
 			String movieID = request.getParameter("id");
+			String count =   request.getParameter("count");
 			if(action.equals("add"))
 			{
 				//System.out.println("adding " + movieID);
-				user.addCartItem(movieID);
+				user.addCartItem(movieID,count);
 			}
 			else if(action.equals("remove"))
 			{
 				//System.out.println("removing " + movieID);
-				user.removeCartItem(movieID);
+				user.changeQuantity(movieID,"0");
+			}
+			else if(action.equals("update"))
+			{
+				//System.out.println("removing " + movieID);
+				user.changeQuantity(movieID,count);
 			}
 			return;
 		}
-		JsonObject moviesObject = new JsonObject();
+		String loginUser = "testuser";
+		String loginPasswd = "password";
+		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+		JsonArray myArray = new JsonArray();
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-            dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-            stmt = dbcon.createStatement();
+            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+            	
+            HashMap<String,String> movie_list = user.getCart();
             
-            ArrayList<String> movie_list = user.getCart();
-            
-            //System.out.println(Arrays.toString(movie_list.toArray()));
-            for(String mid: movie_list)
+            //System.out.println(movie_list.toString());
+            for(Map.Entry<String,String> entry: movie_list.entrySet())
             {
-				String query = "SELECT * FROM movies m WHERE m.id=\"" + mid + "\"";
-				
-				ResultSet rs = stmt.executeQuery(query);
-		
-				while(rs.next()) {
-					String rid = rs.getString("id");
-					
-					moviesObject.addProperty(rid,  "1");
-				}
-				rs.close();
+            		String query = "SELECT * FROM movies m WHERE m.id='"+entry.getKey()+"'";
+            		Statement stmt = dbcon.createStatement();
+            		ResultSet rs = stmt.executeQuery(query);
+            		if(rs.next()) {
+	            		JsonObject movie = new JsonObject();
+					movie.addProperty("id", entry.getKey());
+					movie.addProperty("quantity", entry.getValue());
+					movie.addProperty("name", rs.getString("title"));
+					myArray.add(movie);
+            		}
+            		rs.close();
+            		stmt.close();
             }
-            //System.out.println(moviesObject.toString());
-			out.write(moviesObject.toString());
-            stmt.close();
+            System.out.println(myArray.toString());
+			out.write(myArray.toString());
+            
             dbcon.close();
-            out.close();
+			out.close();
 			
-		} catch (SQLException ex) {
-            while (ex != null) {
-                System.out.println("SQL Exception:  " + ex.getMessage());
-                ex = ex.getNextException();
-            }
+		}catch (SQLException ex) {
+	            while (ex != null) {
+	                System.out.println("SQL Exception:  " + ex.getMessage());
+	                ex = ex.getNextException();
+	            }
 		} catch (java.lang.Exception ex) {
 			out.println("<HTML>" + "<HEAD><TITLE>" + "MovieDB: Error" + "</TITLE></HEAD>\n<BODY>"
 					+ "<P>SQL error in doGet: " + ex.getMessage() + "</P></BODY></HTML>");

@@ -12,40 +12,37 @@
 </head>
 <body id="search-wrap">
 	<header id="search-header">
-		<h1><b>MovieJunkie</b></h1>
+		<h1>MovieJunkie</h1>
 	</header>
 	<div id="section-title">
-		<b>Checkout</b><br><br><br>
+		<b>Ask For Customer Information</b><br><br><button id="back" onclick="quit()" style="float: left;">Cancel</button><br>
 	</div>
 	
-	<form id="checkout-form">
-		    <label><b>Credit Card</b></label>
-		    <input type="text" placeholder="1234 1234 1234 1234"><br>
+	<div id="checkout-form-div">
+	<form id="checkout-form" method="post" action="#">
+		    <label><b>Credit Card Number</b></label>
+		    <input type="text" placeholder="1234 1234 1234 1234" name="number"><br>
 		    
-		    <label><b>Expiration Month</b></label>
-		    <input type="text" placeholder="MM"><br>
+		    <label><b>Expiration Date</b></label>
+		    <input type="text" placeholder="YYYY-MM-DD" name="expiration"><br>
 		    
-		    <label><b>Expiration Year</b></label>
-		    <input type="text" placeholder="YY"><br>
+		    <label><b>First Name</b></label>
+		    <input type="text" placeholder="Eddie" name="first_name"><br>
 		    
-		    <label><b>Security Code</b></label>
-		    <input type="text" placeholder="123"><br><br>
+		    <label><b>Last Name</b></label>
+		    <input type="text" placeholder="Murphy" name="last_name"><br><br>	   
 		    
+		    <div id="submit"><input type="submit" value="Verify"></div> 
 	</form>
+	</div>
 	
-	<br>
-	
-	
-	<button id="checkout" onclick="gotoMain()" style="float: center;">Checkout</button>
+	<div id="verification_error_message"></div>
 
 	<!--include the following scripts for jQuery, Bootstrap, js-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script>
-		function gotoMain(){ $("#checkout-form").replaceWith("<h3>Thank you for your purchase!</h3>")
-			$("#checkout").hide();
-			setTimeout(function(){window.location.replace("index.html")}, 3000); }
-	</script>
+	
+	<script type="text/javascript" src="./checkout.js"></script>
 </body>
 </html>

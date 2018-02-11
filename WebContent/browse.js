@@ -12,17 +12,21 @@ $("#search_result_table").hide();
 $(".pagination").hide();
 
 $(document).ready(function(){
-	var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','other'];
+	var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q',
+		'R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9','other'];
 	for(var i = 0; i < letters.length; i++)
-		$("#put-letters").append('<button onclick="button_links(this)" class="myLetters">'+letters[i]+'</button>');
+		$("#put-letters").append('<a href="#" onclick="button_links(this);"> '+letters[i]+' </a>');
 });
 
 $(document).ready(function(){
 	$.get("Genres", function(data,status){ 
 		for(var i=0; i < data.length; i++)
-			$("#put-genres").append('<button onclick="button_links(this)" class="myGenres">' +data[i]["name"]+'</button>')  } );
+			$("#put-genres").append('<a href="#" onclick="button_links(this);"> ' +data[i]["name"]+' </a>')  } );
 });
 
+function back(){
+	window.location.replace("index.html");
+}
 function cart(){
 	window.location.replace("shoppingcart.html");
 }
@@ -71,11 +75,20 @@ function showResult(result){
 			row += row_str + "<br>";
 		}
 		row += "</th>"; 
+
+		var count_text = "";
+		for(var num = 1; num < 10; num++)
+			count_text += '<option value="'+num+'">'+num+'</option>';
 		
-		// Purchase button
+		// Purchase buttons
 		row += "<th>";
+		row += '<select id=selector-'+result[i]["id"]+'>'+count_text+"</select>";
+		row += "</th>";
+		
+		row += '<th>';
 		row += '<button onclick="cart_add(this)" class="cart_add" value="'+result[i]["id"]+'"> ADD TO CART </button>';
 		row += "</th>";
+		
 		row += "</tr>";
 		element_body.append(row);
 	}
@@ -149,23 +162,19 @@ $("#search_result_head .sort_by").click(function(event){
 
 
 function cart_add(elem) {
-	
 	var text = elem.value;
+	var count = $('#selector-'+text).find(":selected").text();
+	console.log(text);
+	console.log(count);
 	var url = getBaseURL();
 	var params = "";
 	
-	if(url.indexOf("action=") == -1){params += ("action=add")};
-	if(url.indexOf("&id=") == -1){params += ("&id="+text)};
-	
-	if(url.indexOf("&display=") == -1){params += "&display=10"};
-	if(url.indexOf("&sort=") == -1){params += "&sort=ASC"};
-	if(url.indexOf("&sortby=") == -1){params += "&sortby=title"};
-	if(url.indexOf("&page=") == -1){params += "&page=1"};
+	params += ("action=add");
+	params += ("&id="+text);
+	params += ("&count="+count);
 	
 	url += ("?" + params);
 	window.history.pushState(null, null, url);
-	
-	$("#search-wrap .pagination").css('display', 'inline-block');
 		
 	$.get("ShoppingCart", params, function(data,status){
 		alert("Movie Successfully added to Cart.")
@@ -174,6 +183,7 @@ function cart_add(elem) {
 
 function button_links(elem) {
 	var text = elem.textContent || elem.innerText;
+	text = text.trim();
 	var url = getBaseURL();
 	var params = "";
 	

@@ -55,7 +55,6 @@ public class Login extends HttpServlet {
 			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 			stmt = dbcon.createStatement();
 			
-			request.getSession(true);
 			request.getSession().setAttribute("user", new User(email));
 			
 			 // Emails should be unique to users as a login requirement.
@@ -79,9 +78,6 @@ public class Login extends HttpServlet {
 					 responseJsonObject.addProperty("message", "success");
 					 out.write(responseJsonObject.toString());
 					 ((User)request.getSession().getAttribute("user")).setAccess(true);
-					 //Cookie loginCookie = new Cookie("user",email);
-					 //loginCookie.setMaxAge(30*60);
-					 //response.addCookie(loginCookie);
 				 }
 				 else
 				 { 
