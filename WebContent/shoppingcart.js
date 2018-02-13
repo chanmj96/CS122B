@@ -1,4 +1,3 @@
-
 function getBaseURL(){
 	return [location.protocol, '//', location.host, location.pathname].join('');
 }

@@ -1,3 +1,10 @@
+function back(){
+	window.location.replace("index.html");
+}
+function cart(){
+	window.location.replace("shoppingcart.html");
+}
+
 function makePage(result){
 	console.log("Generating information...");
 	
