@@ -52,7 +52,6 @@ function printMetadata(data){
 			}
 			
 			info += "</tbody></div>";
-			
 			page.append(info);	
 		}
 	}
@@ -60,11 +59,15 @@ function printMetadata(data){
 
 
 $("#navbar #addstar").click(function(e) {
+	location.hash = "";
+	history.pushState(null, "", location.href.replace("#", ""));
+	
 	$('li a').removeClass('active');
 	$(this).addClass('active');
 	e.preventDefault();
 	console.log("AddStar clicked!");
 	$("#dashboard-page").empty();
+	
 	var page = $("#dashboard-page");
 	var data = "";
 	data += "<form id=\"dashboard_form\" action=\"#\" method=\"GET\">";
@@ -80,6 +83,9 @@ $("#navbar #addstar").click(function(e) {
 });
 
 $("#navbar #addmovie").click(function(e) {
+	location.hash = "";
+	history.pushState(null, "", location.href.replace("#", ""));
+	
 	$('li a').removeClass('active');
 	$(this).addClass('active');	e.preventDefault();
 	console.log("AddMovie clicked!");
@@ -87,6 +93,9 @@ $("#navbar #addmovie").click(function(e) {
 });
 
 $("#navbar #metadata").click(function(e) {
+	location.hash = "";
+	history.pushState(null, "", location.href.replace("#", ""));
+	
 	$('li a').removeClass('active');
 	$(this).addClass('active');
 	e.preventDefault();
