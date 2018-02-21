@@ -7,9 +7,9 @@ function addSuccess(result){
 	// Otherwise print error message
 	$(".result").empty();
 	if(result){
-		$(".result").append("Star added successfully!");
+		$(".result").append("Added successfully!");
 	} else {
-		$(".result").append("Unable to complete insertion of star.");
+		$(".result").append("Unable to update database.");
 	}
 }
 
@@ -18,6 +18,13 @@ function addStar(info){
 	console.log("Data sent.");
 
 	$.get("AddStar", $("#dashboard_form").serialize(), (result) => addSuccess(result)); 
+}
+
+function addMovie(info){
+	info.preventDefault();
+	console.log("Data sent.");
+
+	$.get("AddMovie", $("#dashboard_form").serialize(), (result) => addSuccess(result)); 
 }
 
 function printMetadata(data){	
@@ -70,10 +77,9 @@ $("#navbar #addstar").click(function(e) {
 	
 	var page = $("#dashboard-page");
 	var data = "";
-	data += "<form id=\"dashboard_form\" action=\"#\" method=\"GET\">";
+	data += "<br><br><form id=\"dashboard_form\" action=\"#\" method=\"GET\">";
+	data +=	"<h3> Add Star </h3>";
 	data += "<div id=\"functions\">";
-	data +=	"<h3> Add Star</h3>";
-	data += "<div class=\"dashboard-form\"><strong> ID </strong><input type=\"text\" name=\"id\"><br></div>";
 	data += "<div class=\"dashboard-form\"><strong> Name </strong><input type=\"text\" name=\"name\"><br></div>";
 	data += "<div class=\"dashboard-form\"><strong> Birthday </strong><input type=\"text\" name=\"dob\"><br></div>";
 	data += "<br><br><br><div id=\"submit\"><input type=\"submit\" value=\"submit\"></div></form>";
@@ -90,6 +96,21 @@ $("#navbar #addmovie").click(function(e) {
 	$(this).addClass('active');	e.preventDefault();
 	console.log("AddMovie clicked!");
 	$("#dashboard-page").empty();
+	
+	var page = $("#dashboard-page");
+	var data = "";
+	data += "<br><br><form id=\"dashboard_form\" action=\"#\" method=\"GET\">";
+	data +=	"<h3> Add Movie </h3>";
+	data += "<div id=\"functions\">";
+	data += "<div class=\"dashboard-form\"><strong> Title </strong><input type=\"text\" name=\"name\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Year </strong><input type=\"text\" name=\"dob\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Director </strong><input type=\"text\" name=\"name\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Star </strong><input type=\"text\" name=\"name\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Genre </strong><input type=\"text\" name=\"name\"><br></div>";
+	data += "<br><br><br><div id=\"submit\"><input type=\"submit\" value=\"submit\"></div></form>";
+	page.append(data);
+	
+	$("#dashboard_form").submit( (event) => addMovie(event));
 });
 
 $("#navbar #metadata").click(function(e) {

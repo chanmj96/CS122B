@@ -45,30 +45,30 @@ public class AddStar extends HttpServlet {
             Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
             Statement statement = dbcon.createStatement();
             
-            String id = request.getParameter("id");
             String name = request.getParameter("name");
             String birth = request.getParameter("dob");
             
-            System.out.printf("%s -  %s - %s\n", id, name, birth);
+            System.out.printf("%s - %s\n", name, birth);
             
             System.out.println("Check 1");
-            if(id != "" && name != "") {
+            if(name != "") {
             		// Check if star already exists
             		System.out.println("Check 2");
-            		String check = "SELECT * FROM stars s WHERE s.id=\"" + id + "\"";
+            		String check = "SELECT * FROM stars s WHERE s.name=\"" + name + "\"";
             		ResultSet exists = statement.executeQuery(check);
             		if(!exists.next()) {
             			System.out.println("Check 3");
             			// Perform insertion
             			String insert = "";
             			if(birth != "") {
+            				// NOTE: MODIFY TO GET MAXIMUM ID + INCREMENT SCRIPT
             				insert += "INSERT INTO stars VALUES (\"" 
-            						+ id + "\", \"" 
+            						//+ id + "\", \"" 
             						+ name + "\", \""
             						+ birth + "\")";
             			} else {
             				insert += "INSERT INTO stars (id, name) VALUES (\""
-            						+ id + "\", \""
+            						//+ id + "\", \""
             						+ name + "\")";
             			}
             			statement.executeUpdate(insert);
