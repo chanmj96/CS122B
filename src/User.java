@@ -9,16 +9,18 @@ import java.util.HashMap;
 public class User {
 	
 	private final String email;
+	private final int userType;
 	private boolean access;
 	
 	// shopping cart an arraylist of movie id numbers
 	private HashMap<String,String> shoppingCart;
 	
 	
-	public User(String email) {
+	public User(String email, int isEmployee) {
 		this.email = email;
 		access = false;
 		shoppingCart = new HashMap<String,String>();
+		userType = isEmployee;
 	}
 	
 	public boolean hasAccess() {
@@ -29,6 +31,9 @@ public class User {
 	}
 	public String getEmail() {
 		return this.email;
+	}
+	public boolean isEmployee() {
+		return userType == 1;
 	}
 	public void emptyCart() {
 		shoppingCart.clear();

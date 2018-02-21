@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- stylesheets -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<!-- meta tags -->
+<meta charset="UTF-8">
+
+<title>MovieJunkie</title>
+</head>
+
+<body id="main-wrap">
+	<h1>This is the Dashboard</h1><br><br><button id="search-wrap" onclick="cart()" style="float: right;">Cart</button><br>
+	
+	<div id="main-buttons">
+			<div id="search-button">
+			<form action="search.html" id="b1" method="post">
+				<button class="sbutton">Search Movies</button>
+			</form>
+			</div>
+		
+			<div id="browse-button">
+			<form action="browse.html" id="b2" method="post">
+				<button class="bbutton">Browse Movies</button>
+			</form>
+			</div>
+	</div>
+	
+	<script>function cart(){window.location.replace("shoppingcart.html");}</script>
+</body>
+</html>

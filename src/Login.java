@@ -39,27 +39,49 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		String userType = request.getParameter("userType");
 		
 		String loginUser = "testuser"; 
 		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&useSSL=false";
 		
+		PrintWriter out = response.getWriter();
+		
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
+        boolean valid = VerifyUtils.verify(gRecaptchaResponse);
+        if (!valid) {
+        		JsonObject ret = new JsonObject();
+        	 	ret.addProperty("status", "fail");
+			ret.addProperty("message", "Recaptcha WRONG!!!!");
+        		out.write(ret.toString());
+        		return;
+        }
+        
 		// this example only allows username/password to be test/test
 		// in the real project, you should talk to the database to verify username/password
 		
 		JsonObject responseJsonObject = new JsonObject();
-		
-		PrintWriter out = response.getWriter();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
 			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 			stmt = dbcon.createStatement();
 			
-			request.getSession().setAttribute("user", new User(email));
+			
 			
 			 // Emails should be unique to users as a login requirement.
 			 // test with (cc@msn.com, 1111)
-			 String query = "SELECT * from customers c WHERE c.email=\"" + email + "\"";
+			 String query = "";
+			 if(userType == null)
+			 {
+				 request.getSession().setAttribute("user", new User(email, 0));
+				 query = "SELECT * from customers c WHERE c.email=\"" + email + "\"";
+			 }
+			 else
+			 {
+				 request.getSession().setAttribute("user", new User(email, 1));
+				 query = "SELECT * from employees e WHERE e.email=\"" + email + "\"";
+			 }
 			 rs = stmt.executeQuery(query);
 			 
 			 if(!rs.next())

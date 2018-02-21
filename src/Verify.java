@@ -47,16 +47,6 @@ public class Verify extends HttpServlet {
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&useSSL=false";
 
 		PrintWriter out = response.getWriter();
-        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-        System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
-        boolean valid = VerifyUtils.verify(gRecaptchaResponse);
-        if (!valid) {
-        		JsonObject ret = new JsonObject();
-        	 	ret.addProperty("status", "fail");
-			ret.addProperty("message", "Recaptcha WRONG!!!!");
-        		out.write(ret.toString());
-        		return;
-        }
 
 		response.setContentType("application/json");
 		String number = request.getParameter("number");
