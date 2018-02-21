@@ -237,9 +237,9 @@ button:focus, input:focus {
 	text-align: center;
 }
 #dashboard-page .meta-data {
-	margin: auto;
+	margin: 2em;
 	margin-top: 2%;
-	display: block;
+	display: inline-block;
 	font-size: 80%;
 	width:30%;
 	height: 30%;
