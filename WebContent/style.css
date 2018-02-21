@@ -188,3 +188,71 @@ button:focus, input:focus {
 	display: inline-block;
 	width: 115px;
 }
+/* ========================================================== */
+/* ======================== Dashboard ======================= */
+/* ========================================================== */
+#dashboard-meta #meta-result{
+	text-align: center;
+}
+#dashboard-meta #meta-table {
+	display: none;
+}
+#navbar {
+	top: 4.2em;
+	padding-top: 1%;
+	font-size: 90%;
+	width: 10%;
+    background-color: #6D7993;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+#navbar ul {
+	list-style-type: none;
+	margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+#navbar li a {
+    display: block;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 80%;
+}
+
+#navbar li a.active {
+    background-color: #7c7c7c;
+    color: white;
+}
+
+#navbar li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+#dashboard-page {
+	padding-top: 4.2em;
+	margin-left: 10%;
+	text-align: center;
+}
+#dashboard-page .meta-data {
+	margin: auto;
+	margin-top: 2%;
+	display: block;
+	font-size: 80%;
+	width:30%;
+	height: 30%;
+}
+#dashboard-page #meta-tables {
+	width: auto;
+	font-size: 130%;
+}
+#dashboard-page h3 {
+	font-size: 150%;
+}
+#dashboard-header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+}

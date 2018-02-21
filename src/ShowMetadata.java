@@ -62,7 +62,7 @@ public class ShowMetadata extends HttpServlet {
             JsonArray tables = new JsonArray();
             while(rs.next()) {
             		for(int i = 1; i <= cols; ++i) {
-            			tables.add(new JsonPrimitive(rs.getString(i).replaceAll("\"", "")));
+            			tables.add(new JsonPrimitive(rs.getString(i)));
             		}
             }
             metadata.add("tables", tables);
