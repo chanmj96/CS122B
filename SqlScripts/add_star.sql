@@ -23,9 +23,10 @@ BEGIN
         INSERT INTO stars(id,name,birthYear) VALUES (sid,sname, syear);
         UPDATE maximum
             SET star_id = sid
-            WHERE sid = old_sid;
+            WHERE star_id = old_sid;
+        SET ID = sid;
     ELSE 
-        SET sid = star_number;
+        SET ID = star_number;
     END IF;
     /*
     SELECT CONCAT("Adding stars_in_movies relation (",sid,", ",new_mid,")");
