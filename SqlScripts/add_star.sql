@@ -16,7 +16,8 @@ BEGIN
     SET sINT = sINT+1;
     SET sid = CONCAT(sCHARS,sINT);
  
-    SELECT id INTO star_number FROM stars WHERE id = id AND name = sname LIMIT 1;
+    	/* Double check; not selecting correctly / finding existing data */
+    SELECT id INTO star_number FROM stars WHERE name = sname LIMIT 1;
     IF star_number IS NULL
     THEN
         SELECT CONCAT("The star was not found. Inserting star into table with id=",sid);

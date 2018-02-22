@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/AddStar")
 public class AddStar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Connection dbcon;
+	private Statement stmt;
+	private ResultSet rs;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,68 +45,50 @@ public class AddStar extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-            Statement statement = dbcon.createStatement();
-            
             String name = request.getParameter("name");
             String birth = request.getParameter("dob");
-            
-            System.out.printf("%s - %s\n", name, birth);
-            
-            System.out.println("Check 1");
-            if(name != "") {
-            		// Check if star already exists
-            		System.out.println("Check 2");
-            		String check = "SELECT * FROM stars s WHERE s.name=\"" + name + "\"";
-            		ResultSet exists = statement.executeQuery(check);
-            		if(!exists.next()) {
-            			System.out.println("Check 3");
-            			// Perform insertion
-            			String insert = "";
-            			if(birth != "") {
-            				// NOTE: MODIFY TO GET MAXIMUM ID + INCREMENT SCRIPT
-            				insert += "INSERT INTO stars VALUES (\"" 
-            						//+ id + "\", \"" 
-            						+ name + "\", \""
-            						+ birth + "\")";
-            			} else {
-            				insert += "INSERT INTO stars (id, name) VALUES (\""
-            						//+ id + "\", \""
-            						+ name + "\")";
-            			}
-            			statement.executeUpdate(insert);
-            			
-            			// Check if new star was added successfully
-            			ResultSet added = statement.executeQuery(check);
-            			if(!added.next()) {
-            				out.write("false");
-            			} else {
-            				out.write("true");
-            			}
-            			added.close();
-            		} else {
-            			out.write("false");
-            		}
-            		exists.close();
-            } else {
-            		out.write("false");
-            } 
-            
-            statement.close();
-            	dbcon.close();
-		} catch (SQLException ex) {
-	            while (ex != null) {
-	                System.out.println("SQL Exception:  " + ex.getMessage());
-	                ex = ex.getNextException();
-	            }
-		} catch (java.lang.Exception ex) {
-			out.println("<HTML>" + "<HEAD><TITLE>" + "MovieDB: Error" + "</TITLE></HEAD>\n<BODY>"
-					+ "<P>SQL error in doGet: " + ex.getMessage() + "</P></BODY></HTML>");
-			return;
-        }
-		out.close();
-		
+            if(birth == "") {birth = null;};
+    			
+    			if(name == null)
+    			{
+    				out.println("Error: star name field not filled out.");
+    				out.close();
+    				return;
+    			}
+    			
+    			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
+    			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+    			stmt = dbcon.createStatement();
+    			
+    			CallableStatement cStmt = dbcon.prepareCall("{call add_star(?, ?, ?)}");
+    			
+    			
+    			cStmt.setString(1, name);
+    			if(birth == null) {
+    				cStmt.setNull(2,  java.sql.Types.INTEGER);
+    			} else {
+    				cStmt.setInt(2,  Integer.parseInt(birth));
+    			}
+    			cStmt.registerOutParameter(3, java.sql.Types.VARCHAR);    			
+    			cStmt.executeUpdate();
+    			
+    			String star_id = cStmt.getString(3);    			
+    		}
+    		catch (SQLException ex) {
+                while (ex != null) {
+                    System.out.println("SQL Exception:  " + ex.getMessage());
+                    ex = ex.getNextException();
+                }
+    		} catch (java.lang.Exception ex) {
+    			out.println("<HTML>" + "<HEAD><TITLE>" + "MovieDB: Error" + "</TITLE></HEAD>\n<BODY>"
+    					+ "<P>SQL error in doGet: " + ex.getMessage() + "</P></BODY></HTML>");
+    			return;
+    		}
+    		finally {
+    			try {stmt.close();} catch (Exception e) {}
+    			try {dbcon.close();} catch (Exception e) {}
+    			out.close();
+    		}
 	}
 
 	/**
