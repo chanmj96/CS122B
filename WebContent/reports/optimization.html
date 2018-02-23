@@ -17,6 +17,12 @@
 </header>
 
 <div id="page-text">
+Two optimization techniques we implemented were batch inserts and disabling auto-commit. Auto-commit prevents 
+strenuous transactions from being committed, ultimately reducing the amount of overhead over the course of a session.
+This provides us with a way to control how we perform our transactions with the database when executing statements.
+Our other optimization, which is batch insert, allows for chunk commits defined by us. Our parser stores the data
+in an arraylist where we take a sizeable amount and perform a transaction. These reduce the stress and overhead on
+our database.
 
 </div>
 
