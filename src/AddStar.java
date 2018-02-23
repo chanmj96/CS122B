@@ -60,7 +60,7 @@ public class AddStar extends HttpServlet {
     			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
     			stmt = dbcon.createStatement();
     			
-    			CallableStatement cStmt = dbcon.prepareCall("{call add_star(?, ?, ?)}");
+    			CallableStatement cStmt = dbcon.prepareCall("{call add_star(?, ?)}");
     			
     			
     			cStmt.setString(1, name);
@@ -68,11 +68,9 @@ public class AddStar extends HttpServlet {
     				cStmt.setNull(2,  java.sql.Types.INTEGER);
     			} else {
     				cStmt.setInt(2,  Integer.parseInt(birth));
-    			}
-    			cStmt.registerOutParameter(3, java.sql.Types.VARCHAR);    			
+    			}   			
     			cStmt.executeUpdate();
-    			
-    			String star_id = cStmt.getString(3);    			
+    					
     		}
     		catch (SQLException ex) {
                 while (ex != null) {

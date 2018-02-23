@@ -1,7 +1,7 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS add_movie;
 CREATE PROCEDURE add_movie(IN Atitle varchar(100), IN Ayear INT, IN Adirector varchar(100), 
-    IN Astar_name varchar(100), IN Agenre_name varchar(32), OUT message varchar(500))
+    IN Astar_name varchar(100), IN Agenre_name varchar(32))
 BEGIN
     
     SET message = "";

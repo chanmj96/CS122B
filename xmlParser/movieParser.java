@@ -43,7 +43,7 @@ public class movieParser extends DefaultHandler{
 	
 	public void run() {
 		parseDocument();
-		printData();
+		insertIntoDB();
 	}
 
 	private void parseDocument() {
@@ -73,16 +73,56 @@ public class movieParser extends DefaultHandler{
 	 * Iterate through the list and print
 	 * the contents
 	 */
-	private void printData(){
+private void insertIntoDB(){
 		
-		System.out.println("No of Movies '" + movies.size() + "'.");
+		System.out.println("No of actors '" + actors.size() + "'.");
 		//System.out.println("No of cats '" + cats.size() + "'.");
 		//System.out.println("No of movies '" + movies.size() + "'.");
+	    try{
+	        Class.forName("com.mysql.jdbc.Driver").newInstance();
+	        String loginUser = "testuser";
+		    String loginPasswd = "password";
+		    String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+		    int[] iNoRows = null;
 		
-		Iterator it = movies.iterator();
-		while(it.hasNext()) {
-			System.out.println(((Movie)it.next()).getTitle());
+		    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+            dbcon.setAutoCommit(false);
+            CallableStatement cStmt = dbcon.prepareCall("{CALL add_movie(?,?,?,?,?)}");
+
+    		Iterator it = movies.iterator();
+	    	while(it.hasNext()) {
+		    	Movie a = (Movie)it.next();
+		    	String title = a.getTitle();
+		    	int year = a.getYear();
+		    	String sname = a.getActors();
+		    	String gname = a.getCats();
+		    	String dir = a.getDirector();
+		    	cStmt.setString(1, title);
+    			if(year == -1) {
+    				cStmt.setNull(2,  java.sql.Types.INTEGER);
+    			} else {
+    				cStmt.setInt(2,  year);
+    			} 			
+    				cStmt.addBatch();
+	    	    
+	    		cStmt.setString(3, dir);
+	    		cStmt.setString(4, sname);
+	    		cStmt.setString(5, gname);
+	    	
+            iNoRows = cStmt.executeBatch();
+            dbcon.commit();
+	    	}
+            System.out.println("Successfully inserted Actors.");
+            cStmt.close();
+            dbcon.close();
 		}
+		catch(SQLException e)
+		{
+		    e.printStackTrace();
+	    }
+	    catch (java.lang.Exception ex) {
+            ex.printStackTrace();
+	    }
 	}
 	
 

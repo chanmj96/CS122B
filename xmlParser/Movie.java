@@ -4,8 +4,8 @@ public class Movie{
     private String title;
     private int year;
     private String director;
-    private ArrayList cat;
-    private ArrayList actor;
+    private String cat; 
+    private String actor;
     public Movie() {
         title = "";
         year = -1;
@@ -36,17 +36,17 @@ public class Movie{
     {
         if(s.equals("sa") || s.equals("s a") || s.equals(""))
             return;
-        actor.add(s);
+        actor = s;
     }
     public void setCat(String s)
     {
         if(s.equals(""))
             return;
-        cat.add(s);
+        cat = s;
     }
     public String getTitle(){ return title; }
     public int getYear() { return year; }
     public String getDirector() { return director; }
-    public ArrayList<String> getCats() { return cat; }
-    public ArrayList<String> getActors() { return actor; }
+    public String getCats() { return cat; }
+    public String getActors() { return actor; }
 }

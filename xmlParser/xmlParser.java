@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.CallableStatement;
+import java.io.File;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,9 +55,9 @@ public class xmlParser extends DefaultHandler{
 		
 			//get a new instance of parser
 			SAXParser sp = spf.newSAXParser();
-			
+			File f = new File("../CS122B/xmlParser/actors63.xml");
 			//parse the file and also register this class for call backs
-			sp.parse("actors63.xml", this);
+			sp.parse(f, this);
 			//sp.parse("casts124.xml", this);
 			//sp.parse("mains243.xml", this);
 			
@@ -87,20 +88,27 @@ public class xmlParser extends DefaultHandler{
 		
 		    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
             dbcon.setAutoCommit(false);
-            CallableStatement cs = dbcon.prepareCall("{CALL add_star(?,?,?)");
+            CallableStatement cStmt = dbcon.prepareCall("{CALL add_star(?,?)}");
 
     		Iterator it = actors.iterator();
 	    	while(it.hasNext()) {
 		    	Actor a = (Actor)it.next();
-                cs.setString(1, a.getName());
-                cs.setInt(2, a.getDOB());
-                cs.registerOutParameter(3,java.sql.Types.VARCHAR);
-                cs.addBatch();
-		    }
-            iNoRows = cs.executeBatch();
+		    	String name = a.getName();
+		    	int birth = a.getDOB();
+		    	cStmt.setString(1, name);
+    			if(birth == -1) {
+    				cStmt.setNull(2,  java.sql.Types.INTEGER);
+    			} else {
+    				cStmt.setInt(2,  birth);
+    			} 			
+    				cStmt.addBatch();
+	    	    }
+	    	
+            iNoRows = cStmt.executeBatch();
             dbcon.commit();
+            
             System.out.println("Successfully inserted Actors.");
-            cs.close();
+            cStmt.close();
             dbcon.close();
 		}
 		catch(SQLException e)
@@ -147,8 +155,8 @@ public class xmlParser extends DefaultHandler{
 		xmlParser xParse = new xmlParser();
 		xParse.run();
         
-        //movieParser mParse = new movieParser();
-        //mParse.run();
+        movieParser mParse = new movieParser();
+        mParse.run();
         
         //castParser cParse = new castParser();
         //cParse.run();
