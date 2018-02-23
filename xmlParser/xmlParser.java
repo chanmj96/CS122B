@@ -152,8 +152,8 @@ public class xmlParser extends DefaultHandler{
 	}
 	
 	public static void main(String[] args){
-		xmlParser xParse = new xmlParser();
-		xParse.run();
+		//xmlParser xParse = new xmlParser();
+		//xParse.run();
         
         movieParser mParse = new movieParser();
         mParse.run();

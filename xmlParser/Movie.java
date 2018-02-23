@@ -10,8 +10,8 @@ public class Movie{
         title = "";
         year = -1;
         director = "";
-        cat = new ArrayList<String>();
-        actor = new ArrayList<String>();
+        cat = "";//cat = new ArrayList<String>();
+        actor = "";//actor = new ArrayList<String>();
     }
 
     public void setTitle(String t)

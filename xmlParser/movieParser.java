@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -54,9 +55,9 @@ public class movieParser extends DefaultHandler{
 		
 			//get a new instance of parser
 			SAXParser sp = spf.newSAXParser();
-			
+			File f = new File("../CS122B/xmlParser/mains243.xml");
 			//parse the file and also register this class for call backs
-			sp.parse("mains243.xml", this);
+			sp.parse(f, this);
 			//sp.parse("casts124.xml", this);
 			//sp.parse("mains243.xml", this);
 			
@@ -103,12 +104,12 @@ private void insertIntoDB(){
     			} else {
     				cStmt.setInt(2,  year);
     			} 			
-    				cStmt.addBatch();
+    				
 	    	    
 	    		cStmt.setString(3, dir);
 	    		cStmt.setString(4, sname);
 	    		cStmt.setString(5, gname);
-	    	
+	    		cStmt.addBatch();
             iNoRows = cStmt.executeBatch();
             dbcon.commit();
 	    	}
