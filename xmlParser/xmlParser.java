@@ -155,11 +155,11 @@ public class xmlParser extends DefaultHandler{
 		//xmlParser xParse = new xmlParser();
 		//xParse.run();
         
-        movieParser mParse = new movieParser();
-        mParse.run();
+        //movieParser mParse = new movieParser();
+        //mParse.run();
         
-        //castParser cParse = new castParser();
-        //cParse.run();
+        castParser cParse = new castParser();
+        cParse.run();
     }	
 	
 }

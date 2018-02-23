@@ -74,11 +74,6 @@ public class AddStar extends HttpServlet {
     				cStmt.setNull(2,  java.sql.Types.INTEGER);
     			} else {
     				cStmt.setInt(2,  Integer.parseInt(birth));
-<<<<<<< HEAD
-    			}   			
-    			cStmt.executeUpdate();
-    					
-=======
     			}
     			cStmt.registerOutParameter(3, java.sql.Types.INTEGER);    			
     			cStmt.executeUpdate();
@@ -88,7 +83,6 @@ public class AddStar extends HttpServlet {
     			} else {
     				out.write("false");
     			}
->>>>>>> SamTesting
     		}
     		catch (SQLException ex) {
                 while (ex != null) {

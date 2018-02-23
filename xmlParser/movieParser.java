@@ -76,7 +76,7 @@ public class movieParser extends DefaultHandler{
 	 */
 private void insertIntoDB(){
 		
-		System.out.println("No of actors '" + actors.size() + "'.");
+		System.out.println("No of movies '" + movies.size() + "'.");
 		//System.out.println("No of cats '" + cats.size() + "'.");
 		//System.out.println("No of movies '" + movies.size() + "'.");
 	    try{
@@ -99,12 +99,7 @@ private void insertIntoDB(){
 		    	String gname = a.getCats();
 		    	String dir = a.getDirector();
 		    	cStmt.setString(1, title);
-    			if(year == -1) {
-    				cStmt.setNull(2,  java.sql.Types.INTEGER);
-    			} else {
-    				cStmt.setInt(2,  year);
-    			} 			
-    				
+    			cStmt.setInt(2,  year);	
 	    	    
 	    		cStmt.setString(3, dir);
 	    		cStmt.setString(4, sname);
@@ -113,7 +108,7 @@ private void insertIntoDB(){
             iNoRows = cStmt.executeBatch();
             dbcon.commit();
 	    	}
-            System.out.println("Successfully inserted Actors.");
+            System.out.println("Successfully inserted Movies.");
             cStmt.close();
             dbcon.close();
 		}

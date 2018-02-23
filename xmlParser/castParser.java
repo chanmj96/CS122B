@@ -79,13 +79,38 @@ public class castParser extends DefaultHandler{
 		//System.out.println("No of cats '" + cats.size() + "'.");
 		//System.out.println("No of movies '" + movies.size() + "'.");
 		
-		Iterator it = movies.iterator();
-		while(it.hasNext()) {
-			Movie m = ((Movie)it.next());
-			ArrayList<String> m_actors = m.getActors();
-			for(String a : m_actors)
-			    System.out.println(a);
-		}
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+	        String loginUser = "testuser";
+		    String loginPasswd = "password";
+		    String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+		    int[] iNoRows = null;
+		
+		    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+            dbcon.setAutoCommit(false);
+            CallableStatement cStmt = dbcon.prepareCall("{CALL add_star(?,?)}");
+
+    		Iterator it = actors.iterator();
+	    	while(it.hasNext()) {
+		    	Actor a = (Actor)it.next();
+		    	String name = a.getName();
+		    	int birth = a.getDOB();
+		    	cStmt.setString(1, name);
+    			if(birth == -1) {
+    				cStmt.setNull(2,  java.sql.Types.INTEGER);
+    			} else {
+    				cStmt.setInt(2,  birth);
+    			} 			
+    				cStmt.addBatch();
+	    	    }
+	    	
+            iNoRows = cStmt.executeBatch();
+            dbcon.commit();
+            
+            System.out.println("Successfully inserted Actors.");
+            cStmt.close();
+            dbcon.close();
+		}catch(Exception e) {e.printStackTrace();}
 	}
 	
 
