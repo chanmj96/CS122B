@@ -5,11 +5,12 @@
 function addSuccess(result){
 	// Print success message if the employee was successfully added
 	// Otherwise print error message
+	console.log(result);
 	$(".result").empty();
 	if(result){
-		$(".result").append("Added successfully!");
+		$(".result").append("<br>Updated the database successfully!");
 	} else {
-		$(".result").append("Unable to update database.");
+		$(".result").append("<br>Unable to update database.");
 	}
 }
 
@@ -74,6 +75,7 @@ $("#navbar #addstar").click(function(e) {
 	e.preventDefault();
 	console.log("AddStar clicked!");
 	$("#dashboard-page").empty();
+	$(".result").empty();
 	
 	var page = $("#dashboard-page");
 	var data = "";
@@ -82,7 +84,7 @@ $("#navbar #addstar").click(function(e) {
 	data += "<div id=\"functions\">";
 	data += "<div class=\"dashboard-form\"><strong> Name </strong><input type=\"text\" name=\"name\"><br></div>";
 	data += "<div class=\"dashboard-form\"><strong> Birthday </strong><input type=\"text\" name=\"dob\"><br></div>";
-	data += "<br><br><br><div id=\"submit\"><input type=\"submit\" value=\"submit\"></div></form>";
+	data += "<br><div id=\"submit\"><input type=\"submit\" value=\"submit\"></div></form>";
 	page.append(data);
 	
 	$("#dashboard_form").submit( (event) => addStar(event));
@@ -96,17 +98,18 @@ $("#navbar #addmovie").click(function(e) {
 	$(this).addClass('active');	e.preventDefault();
 	console.log("AddMovie clicked!");
 	$("#dashboard-page").empty();
+	$(".result").empty();
 	
 	var page = $("#dashboard-page");
 	var data = "";
 	data += "<br><br><form id=\"dashboard_form\" action=\"#\" method=\"GET\">";
 	data +=	"<h3> Add Movie </h3>";
 	data += "<div id=\"functions\">";
-	data += "<div class=\"dashboard-form\"><strong> Title </strong><input type=\"text\" name=\"name\"><br></div>";
-	data += "<div class=\"dashboard-form\"><strong> Year </strong><input type=\"text\" name=\"dob\"><br></div>";
-	data += "<div class=\"dashboard-form\"><strong> Director </strong><input type=\"text\" name=\"name\"><br></div>";
-	data += "<div class=\"dashboard-form\"><strong> Star </strong><input type=\"text\" name=\"name\"><br></div>";
-	data += "<div class=\"dashboard-form\"><strong> Genre </strong><input type=\"text\" name=\"name\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Title </strong><input type=\"text\" name=\"title\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Year </strong><input type=\"text\" name=\"year\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Director </strong><input type=\"text\" name=\"director\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Star </strong><input type=\"text\" name=\"star\"><br></div>";
+	data += "<div class=\"dashboard-form\"><strong> Genre </strong><input type=\"text\" name=\"genre\"><br></div>";
 	data += "<br><br><br><div id=\"submit\"><input type=\"submit\" value=\"submit\"></div></form>";
 	page.append(data);
 	
@@ -122,5 +125,7 @@ $("#navbar #metadata").click(function(e) {
 	e.preventDefault();
 	console.log("Metadata clicked!");
 	$("#dashboard-page").empty();
+	$(".result").empty();
+
 	$.get("ShowMetadata", (data) => printMetadata(data));
 });
