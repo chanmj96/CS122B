@@ -47,11 +47,17 @@ public class AddStar extends HttpServlet {
 		try {
             String name = request.getParameter("name");
             String birth = request.getParameter("dob");
-            if(birth == "") {birth = null;};
+            if(birth.equals("")) {birth = null;};
+            if(birth != null && !isInteger(birth)) {
+            		System.out.println("Error: invalid input for birthday.");
+            		out.write("false");
+				out.close();
+				return;
+            }
     			
-    			if(name == null)
-    			{
-    				out.println("Error: star name field not filled out.");
+    			if(name == null || name.equals("")) {
+    				System.out.println("Error: star name field not filled out.");
+    				out.write("false");
     				out.close();
     				return;
     			}
@@ -68,9 +74,21 @@ public class AddStar extends HttpServlet {
     				cStmt.setNull(2,  java.sql.Types.INTEGER);
     			} else {
     				cStmt.setInt(2,  Integer.parseInt(birth));
+<<<<<<< HEAD
     			}   			
     			cStmt.executeUpdate();
     					
+=======
+    			}
+    			cStmt.registerOutParameter(3, java.sql.Types.INTEGER);    			
+    			cStmt.executeUpdate();
+    			
+    			if(cStmt.getInt(3) > 0) {
+    				out.write("true");
+    			} else {
+    				out.write("false");
+    			}
+>>>>>>> SamTesting
     		}
     		catch (SQLException ex) {
                 while (ex != null) {
@@ -95,5 +113,29 @@ public class AddStar extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	public static boolean isInteger(String str) {
+	    if (str == null) {
+	        return false;
+	    }
+	    int length = str.length();
+	    if (length == 0) {
+	        return false;
+	    }
+	    int i = 0;
+	    if (str.charAt(0) == '-') {
+	        if (length == 1) {
+	            return false;
+	        }
+	        i = 1;
+	    }
+	    for (; i < length; i++) {
+	        char c = str.charAt(i);
+	        if (c < '0' || c > '9') {
+	            return false;
+	        }
+	    }
+	    return true;
 	}
 }

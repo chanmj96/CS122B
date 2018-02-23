@@ -59,19 +59,22 @@ public class AddMovie extends HttpServlet {
 			
 			if(title == null || title.equals("") || year == null || year.equals("") || director == null || director.equals(""))
 			{
-				out.println("Error: movie fields not filled out.");
+				System.out.println("Error: movie fields not filled out.");
+				out.write("false");
 				out.close();
 				return;
 			}
 			if(star == null || star.equals(""))
 			{
-				out.println("Error: provide a star name to add movie.");
+				System.out.println("Error: provide a star name to add movie.");
+				out.write("false");
 				out.close();
 				return;
 			}
 			if(genre == null || genre.equals(""))
 			{
-				out.println("Error: provide a genre name to add movie.");
+				System.out.println("Error: provide a genre name to add movie.");
+				out.write("false");
 				out.close();
 				return;
 			}
@@ -80,17 +83,21 @@ public class AddMovie extends HttpServlet {
 			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 			stmt = dbcon.createStatement();
 			
-			CallableStatement cStmt = dbcon.prepareCall("{call add_movie(?, ?, ?, ?, ?, ?)}");
+			CallableStatement cStmt = dbcon.prepareCall("{call add_movie(?, ?, ?, ?, ?, ?, ?)}");
 			cStmt.setString(1, title);
 			cStmt.setString(2, year);
 			cStmt.setString(3, director);
 			cStmt.setString(4, star);
 			cStmt.setString(5, genre);
-			cStmt.registerOutParameter(6,java.sql.Types.VARCHAR);
+			
+			cStmt.registerOutParameter(7,java.sql.Types.INTEGER);
 			cStmt.executeUpdate();
-			String message = cStmt.getString("message");
-			System.out.println(message);
-			out.write(message);
+
+			if(cStmt.getInt(7) == 1) {
+				out.write("true");
+			} else {
+				out.write("false");
+			}
 		}
 		catch (SQLException ex) {
             while (ex != null) {
