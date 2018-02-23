@@ -17,6 +17,7 @@ BEGIN
     DECLARE movie_number varchar(10);
     DECLARE star_number varchar(10);
     DECLARE genre_number INT;
+    DECLARE message varchar(500);
     SELECT LEFT(movie_id, 2), LEFT(star_id,2), genre_id, RIGHT(movie_id,7), RIGHT(star_id, 7)
            INTO mCHARS, sCHARS, new_gid, mINT, sINT
     FROM maximum WHERE movie_id = movie_id AND star_id = star_id AND genre_id = genre_id; 
