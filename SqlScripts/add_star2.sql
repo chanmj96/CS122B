@@ -1,6 +1,6 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS add_star;
-CREATE PROCEDURE add_star(IN sname varchar(100),IN syear INT,OUT ID varchar(10))
+CREATE PROCEDURE add_star(IN sname varchar(100),IN syear INT,OUT ID INT)
 BEGIN
     
     DECLARE sCHARS varchar(2);
@@ -16,25 +16,20 @@ BEGIN
     SET sINT = sINT+1;
     SET sid = CONCAT(sCHARS,sINT);
  
-    	/* Double check; not selecting correctly / finding existing data */
-    SELECT id INTO star_number FROM stars WHERE name = sname LIMIT 1;
-    IF star_number IS NULL
-    
+    IF (SELECT EXISTS (SELECT 1 FROM stars WHERE name=sname LIMIT 1)) 
     THEN
+    		UPDATE stars 
+    		SET birthYear = syear 
+    		WHERE name=sname;
+    		SET ID = 1;
+    ELSE
         SELECT CONCAT("The star was not found. Inserting star into table with id=",sid);
         INSERT INTO stars(id,name,birthYear) VALUES (sid,sname, syear);
+        SET ID = ROW_COUNT();
         UPDATE maximum
             SET star_id = sid
             WHERE star_id = old_sid;
-        SET ID = sid;
-    ELSE 
-        SET ID = star_number;
     END IF;
-    
-    /*
-    SELECT CONCAT("Adding stars_in_movies relation (",sid,", ",new_mid,")");
-    INSERT INTO stars_in_movies(starId,movieId) VALUES (new_sid,new_mid);
-    */
 END
 $$
 

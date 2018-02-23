@@ -1,7 +1,7 @@
 DELIMITER $$
 DROP PROCEDURE IF EXISTS add_movie;
 CREATE PROCEDURE add_movie(IN Atitle varchar(100), IN Ayear INT, IN Adirector varchar(100), 
-    IN Astar_name varchar(100), IN Agenre_name varchar(32), OUT message varchar(500))
+    IN Astar_name varchar(100), IN Agenre_name varchar(32), OUT message varchar(500), OUT ID INT)
 BEGIN
     
     
@@ -62,6 +62,7 @@ BEGIN
     END IF; 
     SET message = CONCAT(message,"Adding genres_in_movies relation (",new_gid,", ",new_mid,")");
     INSERT INTO genres_in_movies(genreId,movieId) VALUES (new_gid,new_mid);
+    SET ID = 1;
 END
 $$
 
