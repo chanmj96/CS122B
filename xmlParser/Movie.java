@@ -1,11 +1,18 @@
+import java.util.ArrayList;
 public class Movie{
 
     private String title;
     private int year;
     private String director;
-    private String cat;
-    private String actor;
-    public Movie() {}
+    private ArrayList cat;
+    private ArrayList actor;
+    public Movie() {
+        title = "";
+        year = -1;
+        director = "";
+        cat = new ArrayList<String>();
+        actor = new ArrayList<String>();
+    }
 
     public void setTitle(String t)
     {
@@ -27,11 +34,19 @@ public class Movie{
     }
     public void setActor(String s)
     {
-        actor = s;
+        if(s.equals("sa") || s.equals("s a") || s.equals(""))
+            return;
+        actor.add(s);
+    }
+    public void setCat(String s)
+    {
+        if(s.equals(""))
+            return;
+        cat.add(s);
     }
     public String getTitle(){ return title; }
     public int getYear() { return year; }
     public String getDirector() { return director; }
-    public String getCat() { return cat; }
-    public String getActor() { return actor; }
+    public ArrayList<String> getCats() { return cat; }
+    public ArrayList<String> getActors() { return actor; }
 }

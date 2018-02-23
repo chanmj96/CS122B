@@ -22,7 +22,7 @@ import org.xml.sax.XMLReader;
 
 import org.xml.sax.helpers.DefaultHandler;
 
-public class xmlParser extends DefaultHandler{
+public class movieParser extends DefaultHandler{
 
 	List movies;
     List cats;
@@ -35,7 +35,7 @@ public class xmlParser extends DefaultHandler{
 	private Cat tempCat;
 	private Actor tempAct;
 	
-	public xmlParser(){
+	public movieParser(){
 		movies = new ArrayList<Movie>();
 		cats = new ArrayList<Cat>();
 		actors = new ArrayList<Actor>();
@@ -43,7 +43,7 @@ public class xmlParser extends DefaultHandler{
 	
 	public void run() {
 		parseDocument();
-		insertIntoDB();
+		printData();
 	}
 
 	private void parseDocument() {
@@ -56,7 +56,7 @@ public class xmlParser extends DefaultHandler{
 			SAXParser sp = spf.newSAXParser();
 			
 			//parse the file and also register this class for call backs
-			sp.parse("actors63.xml", this);
+			sp.parse("mains243.xml", this);
 			//sp.parse("casts124.xml", this);
 			//sp.parse("mains243.xml", this);
 			
@@ -73,43 +73,16 @@ public class xmlParser extends DefaultHandler{
 	 * Iterate through the list and print
 	 * the contents
 	 */
-	private void insertIntoDB(){
+	private void printData(){
 		
-		System.out.println("No of actors '" + actors.size() + "'.");
+		System.out.println("No of Movies '" + movies.size() + "'.");
 		//System.out.println("No of cats '" + cats.size() + "'.");
 		//System.out.println("No of movies '" + movies.size() + "'.");
-	    try{
-	        Class.forName("com.mysql.jdbc.Driver").newInstance();
-	        String loginUser = "testuser";
-		    String loginPasswd = "password";
-		    String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
-		    int[] iNoRows = null;
 		
-		    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-            dbcon.setAutoCommit(false);
-            CallableStatement cs = dbcon.prepareCall("{CALL add_star(?,?,?)");
-
-    		Iterator it = actors.iterator();
-	    	while(it.hasNext()) {
-		    	Actor a = (Actor)it.next();
-                cs.setString(1, a.getName());
-                cs.setInt(2, a.getDOB());
-                cs.registerOutParameter(3,java.sql.Types.VARCHAR);
-                cs.addBatch();
-		    }
-            iNoRows = cs.executeBatch();
-            dbcon.commit();
-            System.out.println("Successfully inserted Actors.");
-            cs.close();
-            dbcon.close();
+		Iterator it = movies.iterator();
+		while(it.hasNext()) {
+			System.out.println(((Movie)it.next()).getTitle());
 		}
-		catch(SQLException e)
-		{
-		    e.printStackTrace();
-	    }
-	    catch (java.lang.Exception ex) {
-            ex.printStackTrace();
-	    }
 	}
 	
 
@@ -117,9 +90,9 @@ public class xmlParser extends DefaultHandler{
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		//reset
 		tempVal = "";
-		if(qName.equalsIgnoreCase("Actor")) {
+		if(qName.equalsIgnoreCase("film")) {
 			//create a new instance of employee
-			tempAct = new Actor();
+			tempMov = new Movie();
 			//tempEmp.setType(attributes.getValue("type"));
 		}
 	}
@@ -131,29 +104,27 @@ public class xmlParser extends DefaultHandler{
 	
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
-		if(qName.equalsIgnoreCase("Actor")) {
+		if(qName.equalsIgnoreCase("film")) {
 			//add it to the list
-			actors.add(tempAct);
+			movies.add(tempMov);
 			
-		}else if (qName.equalsIgnoreCase("stagename")) {
-			tempAct.setName(tempVal);
-		}else if (qName.equalsIgnoreCase("dob")) {
-			tempAct.setDOB(tempVal);
+		}else if (qName.equalsIgnoreCase("t")) {
+			tempMov.setTitle(tempVal);
+		}else if (qName.equalsIgnoreCase("year")) {
+			tempMov.setYear(tempVal);
+		}else if (qName.equalsIgnoreCase("dirn")) {
+		    tempMov.setDirector(tempVal);
+		}else if (qName.equalsIgnoreCase("cats")) {
+            tempMov.setCat(tempVal);
 		}
 		
 	}
 	
 	public static void main(String[] args){
-		xmlParser xParse = new xmlParser();
-		xParse.run();
-        
-        //movieParser mParse = new movieParser();
-        //mParse.run();
-        
-        //castParser cParse = new castParser();
-        //cParse.run();
-    }	
-	
+        movieParser mParser = new movieParser();
+        mParser.run();
+    
+    }
 }
 
 

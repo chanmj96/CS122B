@@ -173,10 +173,10 @@ function cart_add(elem) {
 	params += ("action=add");
 	params += ("&id="+text);
 	params += ("&count="+count);
-	if(url.indexOf("&display=") == -1){params += "&display=10"};
-	if(url.indexOf("&sort=") == -1){params += "&sort="};
-	if(url.indexOf("&sortby=") == -1){params += "&sortby="};
-	if(url.indexOf("&page=") == -1){params += "&page=1"};
+	//if(url.indexOf("&display=") == -1){params += "&display=10"};
+	//if(url.indexOf("&sort=") == -1){params += "&sort="};
+	//if(url.indexOf("&sortby=") == -1){params += "&sortby="};
+	//if(url.indexOf("&page=") == -1){params += "&page=1"};
 	
 	url += ("?" + params);
 	window.history.pushState(null, null, url);

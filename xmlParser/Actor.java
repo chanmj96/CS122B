@@ -8,7 +8,10 @@ public class Actor {
     private String name;
     private int dob;
 
-    public Actor(){}
+    public Actor(){
+        name = "";
+        dob = -1;
+    }
 
     public void setName(String new_name){
         name = new_name;
