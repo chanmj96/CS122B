@@ -257,5 +257,43 @@ button:focus, input:focus {
 	width: 100%;
 	top: 0;
 }
-#dashboard-page #functions {
+
+
+/* ========================================================== */
+/* =========================== Test ========================= */
+/* ========================================================== */
+.live-search-list {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+padding: 1em;
+background-color: #2c3e50;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+font-family: 'Lato', sans-serif;
+color: #fff;
+}
+
+.live-search-list li {
+color: fff;
+list-style: none;
+padding: 0;
+margin: 5px 0;
+}
+.live-search-box, .live-search-list {
+	display: block;
+	width: 35%;
+	padding: 0.5em;
+	border: 1px solid #3498db;
+	margin: auto
+}
+.live-search-list {
+	width: 30%;
+}
+#live-search {
+	padding-top: 15em;
+}
+#live-search a {
+	text-decoration: none;
 }
