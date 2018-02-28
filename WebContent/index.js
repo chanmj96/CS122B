@@ -129,8 +129,11 @@ $('#autocomplete').keypress(function(event) {
 		// pass the value of the input box to the hanlder function
 		handleNormalSearch($('#autocomplete').val())
 	}
-})
+});
 
-// TODO: if you have a "search" button, you may want to bind the onClick event as well of that button
-
-
+//TODO: if you have a "search" button, you may want to bind the onClick event as well of that button
+$('#fsearch .button').click(function(event) {
+	console.log("Submit button pressed.");
+	event.preventDefault();
+	handleNormalSearch($('#autocomplete').val());
+});
