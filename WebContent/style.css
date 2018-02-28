@@ -51,45 +51,68 @@ button:focus, input:focus {
 /* ========================================================== */
 /* ============================ Main ======================== */
 /* ========================================================== */
-#main-wrap button {
-	display: inline;
-	width: auto;
-	float: left;
+
+#main-wrap .btn {
 	color: #968584;
 	border-radius: 12px;
 	background-color: #D5D5D5;
 	border: solid black 1px;
-	font-size: 30px;
+	font-size: 22px;
+	display: inline-block;
+	width: 20%;
+	text-align: right;
 }
-#main-wrap button:hover {
+.b {
+	padding-left: 15%;
+	padding-right: 15%;
+}
+#main-wrap {
+	text-align: left;
+}
+#search, #browse {
+	position: fixed;
+	top: 3em;
+	left: -6em;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+#browse {
+	top: 5.5em;
+}
+#main-wrap .btn {
+	position: fixed;
+	top: 3em;
+	left: -6em;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+#browse .btn {
+	top: 5.5em;
+}
+#search:hover, #browse:hover {
+	left: -5em;
+  	background-color: white;
+	color: black;
+}
+#search:hover .btn, #browse:hover .btn{
+	left: -5em;
 	background-color: white;
 	color: black;
 }
-#main-wrap #browse-button {
-	padding-left: 30%;
-}
-#main-wrap #search-button {
-	padding-right: 30%;
-}
-#main-wrap #main-buttons{
-	margin-top: 10%;
-	padding-left: 35%;
-	display: block;
-	width: 100%;
-	min-height: 80px;
-	border: 2px solid black;
-}
+
 #main-wrap #fsearch {
 	display: block;
 	text-align: center;
 	margin: auto;
-	border: 2px solid black;
 }
 #fsearch #autocomplete{
 	display: block;
-	width: 35%;
+	width: 40%;
 	padding: 0.5em;
-	border: 1px solid #3498db;
 	margin: auto
 }
 /* ========================================================== */
