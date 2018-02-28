@@ -5,6 +5,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="style.css">
 
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- autocomplete script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.7/jquery.autocomplete.min.js"></script>
+
+
 <!-- meta tags -->
 <meta charset="UTF-8">
 
@@ -26,8 +33,18 @@
 				<button class="bbutton">Browse Movies</button>
 			</form>
 			</div>
+			
+	</div>
+	
+	<br><br><br>
+	<div id="fsearch">
+		<input type="text" id="autocomplete" placeholder="Search movies and stars" /><br>
+		<input type="button" value="Submit"/>
 	</div>
 	
 	<script>function cart(){window.location.replace("shoppingcart.html");}</script>
+	<script type="text/javascript" src="./index.js"></script>
+	<script type="text/javascript" src="./search.js"></script>
+	
 </body>
 </html>

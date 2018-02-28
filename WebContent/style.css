@@ -77,6 +77,20 @@ button:focus, input:focus {
 	display: block;
 	width: 100%;
 	min-height: 80px;
+	border: 2px solid black;
+}
+#main-wrap #fsearch {
+	display: block;
+	text-align: center;
+	margin: auto;
+	border: 2px solid black;
+}
+#fsearch #autocomplete{
+	display: block;
+	width: 35%;
+	padding: 0.5em;
+	border: 1px solid #3498db;
+	margin: auto
 }
 /* ========================================================== */
 /* =========================== Search ======================= */
