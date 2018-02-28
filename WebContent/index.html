@@ -21,26 +21,22 @@
 <body id="main-wrap">
 	<h1>MovieJunkie</h1><br><br><button id="search-wrap" onclick="cart()" style="float: right;">Cart</button><br>
 	
-	<div id="search">
-		<div class="btn">
-			<form action="search.html" id="b1" method="post">
+	<div id="search" >
+		<div class="btn" value="search.html">
 				<button class="b">Search</button>
-			</form>
 		</div>
 	</div>
 	
-	<div id="browse">
-		<div class="btn">
-			<form action="browse.html" id="b2" method="post">
+	<div id="browse" >
+		<div class="btn" value="browse.html">
 				<button class="b">Browse</button>
-			</form>
 		</div>
 	</div>
 	
 	<br><br><br><br>
 	<div id="fsearch">
 		<input type="text" id="autocomplete" placeholder="Search movies and stars" /><br>
-		<input type="button" value="Submit"/>
+		<input type="button" id="fbutton" value="Submit"/>
 	</div>
 	
 	<script>function cart(){window.location.replace("shoppingcart.html");}</script>

@@ -132,8 +132,18 @@ $('#autocomplete').keypress(function(event) {
 });
 
 //TODO: if you have a "search" button, you may want to bind the onClick event as well of that button
-$('#fsearch .button').click(function(event) {
+$('#fsearch #fbutton').click(function(event) {
 	console.log("Submit button pressed.");
 	event.preventDefault();
 	handleNormalSearch($('#autocomplete').val());
+});
+$('#main-wrap .btn').click(function(event) {
+	console.log("Browse / Search button pressed.");
+	event.preventDefault();
+	var url = "";
+	url += window.location.protocol + "//";
+	url += window.location.hostname + ":";
+	url += window.location.port + "/CS122B/";
+	url += $(this).attr('value');
+	window.location.href = url;
 });

@@ -57,49 +57,49 @@ button:focus, input:focus {
 	border-radius: 12px;
 	background-color: #D5D5D5;
 	border: solid black 1px;
-	font-size: 22px;
+	font-size: 18px;
 	display: inline-block;
 	width: 20%;
 	text-align: right;
 }
 .b {
-	padding-left: 15%;
-	padding-right: 15%;
+	padding-left: 10%;
+	padding-right: 10%;
 }
 #main-wrap {
 	text-align: left;
 }
 #search, #browse {
 	position: fixed;
-	top: 3em;
-	left: -6em;
+	top: 5em;
+	left: -10%;
 	-webkit-transition-duration: 0.3s;
 	-moz-transition-duration: 0.3s;
 	-o-transition-duration: 0.3s;
 	transition-duration: 0.3s;
 }
 #browse {
-	top: 5.5em;
+	top: 7.7em;
 }
 #main-wrap .btn {
 	position: fixed;
-	top: 3em;
-	left: -6em;
+	top: 5em;
+	left: -10%;
 	-webkit-transition-duration: 0.3s;
 	-moz-transition-duration: 0.3s;
 	-o-transition-duration: 0.3s;
 	transition-duration: 0.3s;
 }
 #browse .btn {
-	top: 5.5em;
+	top: 7.7em;
 }
 #search:hover, #browse:hover {
-	left: -5em;
+	left: -7em;
   	background-color: white;
 	color: black;
 }
 #search:hover .btn, #browse:hover .btn{
-	left: -5em;
+	left: -7em;
 	background-color: white;
 	color: black;
 }
