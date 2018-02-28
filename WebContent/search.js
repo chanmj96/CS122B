@@ -179,7 +179,7 @@ function cart_add(elem) {
 	//if(url.indexOf("&page=") == -1){params += "&page=1"};
 	
 	url += ("?" + params);
-	window.history.pushState(null, null, url);
+	//window.history.pushState(null, null, url);
 		
 	$.get("ShoppingCart", params, function(data,status){
 		alert("Movie Successfully added to Cart.")

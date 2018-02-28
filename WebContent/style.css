@@ -69,6 +69,9 @@ button:focus, input:focus {
 #main-wrap {
 	text-align: left;
 }
+#main-wrap button {
+	cursor: pointer;
+}
 #search, #browse {
 	position: fixed;
 	top: 5em;
