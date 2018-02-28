@@ -56,9 +56,9 @@ public class Search extends HttpServlet {
             		qstring += "+" + st.nextToken() + "* ";
             }
             
-            String query = ("SELECT id, entry "
-            		+ "FROM ft "
-            		+ "WHERE MATCH (entry) "
+            String query = ("SELECT * "
+            		+ "FROM movies "
+            		+ "WHERE MATCH (title) "
             		+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE);");
             
             ResultSet result = statement.executeQuery(query);
