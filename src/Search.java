@@ -49,32 +49,65 @@ public class Search extends HttpServlet {
             Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
             Statement statement = dbcon.createStatement();
             
-            String input = request.getParameter("input");
-            StringTokenizer st = new StringTokenizer(input);
+            JsonArray suggestions = new JsonArray();
+            String query = request.getParameter("query");
+            if (query == null || query.trim().isEmpty()) {
+            		response.getWriter().write(suggestions.toString());
+            		return;
+            }
+            StringTokenizer st = new StringTokenizer(query);
             String qstring = "";
+            
             while(st.hasMoreTokens()) {
             		qstring += "+" + st.nextToken() + "* ";
             }
             
-            String query = ("SELECT * "
+            String stmt = ("SELECT * "
             		+ "FROM movies "
             		+ "WHERE MATCH (title) "
+            		+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE);");            
+            ResultSet movie_result = statement.executeQuery(stmt);
+
+            
+            String stmt2 = ("SELECT * "
+            		+ "FROM stars "
+            		+ "WHERE MATCH (name) "
             		+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE);");
+            ResultSet star_result = statement.executeQuery(stmt2);
             
-            ResultSet result = statement.executeQuery(query);
-            
-            JsonArray ids = new JsonArray();
-            while(result.next()) {
-            		JsonObject id = new JsonObject();
-            		id.addProperty("id",  result.getString("id"));
-            		id.addProperty("title", result.getString("entry"));
-            		ids.add(id);
+            // Populate suggestions with movies
+            while(movie_result.next()) {
+            		JsonObject entry = new JsonObject();
+            		entry.addProperty("value", movie_result.getString("title"));
+            		
+            		JsonObject info = new JsonObject();
+            		info.addProperty("category", "movie");
+            		info.addProperty("id", movie_result.getString("id"));
+            		
+            		entry.add("data", info);
+            		suggestions.add(entry);
             }
-            out.write(ids.toString());
             
-            result.close();
+            // Populate suggestions with stars
+            while(star_result.next()) {
+            		JsonObject entry = new JsonObject();
+            		entry.addProperty("value", star_result.getString("name"));
+            		
+            		JsonObject info = new JsonObject();
+            		info.addProperty("category", "star");
+            		info.addProperty("id", star_result.getString("id"));
+            		
+            		entry.add("data", info);
+            		suggestions.add(entry);
+            }           
+     
+            response.getWriter().write(suggestions.toString());
+            
+            movie_result.close();
+            star_result.close();
             statement.close();
             dbcon.close();
+            return;
             
 		} catch (SQLException ex) {
             while (ex != null) {
