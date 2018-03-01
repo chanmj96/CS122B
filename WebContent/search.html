@@ -16,7 +16,7 @@
 	</header>
 	<div id="section-title">
 		<b>Advanced Search</b><br><br><button id="back" onclick="back()" style="float: left;">Back</button>
-									<button id="cart" onclick="cart()" style="float: right;">Cart</button><br>
+									<button id="shoppingcart" onclick="cart()" style="float: right;">Cart</button><br>
 	</div>
 	
 	<form id="search_form" action="#" method="GET">
@@ -78,6 +78,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	
 	<!-- include JS files -->
+	<script>function cart(){window.location.replace("shoppingcart.html");}</script>
+	
 	<script type="text/javascript" src="./search.js"></script>
 
 </body>
