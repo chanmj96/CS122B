@@ -113,13 +113,14 @@ $('#autocomplete').autocomplete({
  */
 function handleNormalSearch(query) {
 	console.log("doing normal search with query: " + query);
+	// TODO: you should do normal search here
 	var url = "";
 	url += window.location.protocol + "//";
 	url += window.location.hostname + ":"
 	url += window.location.port + "/CS122B/search.html?title=";
 	url += query;
 	window.location.href = url;
-	// TODO: you should do normal search here
+
 }
 
 // bind pressing enter key to a hanlder function
