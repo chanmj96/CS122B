@@ -30,7 +30,7 @@ function handleLookup(query, doneCallback) {
 		if(cache[i]["query"] == query)
 		{
 			doneCallback( {suggestions: cache[i]["data"]}  );
-			//console.log("got cache results");
+			console.log("got cache results");
 			return;
 		}
 	}

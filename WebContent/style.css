@@ -124,6 +124,13 @@ button:focus, input:focus {
 	padding: 0.5em;
 	margin: auto
 }
+.autocomplete-suggestions { border: 1px solid #999; background: #ffcc99; overflow: auto; border-radius: 5px;}
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; color: #000}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
 /* ========================================================== */
 /* =========================== Search ======================= */
 /* ========================================================== */
