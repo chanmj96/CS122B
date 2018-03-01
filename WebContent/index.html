@@ -5,6 +5,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="style.css">
 
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- autocomplete script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.7/jquery.autocomplete.min.js"></script>
+
+
 <!-- meta tags -->
 <meta charset="UTF-8">
 
@@ -12,22 +19,33 @@
 </head>
 
 <body id="main-wrap">
-	<h1>MovieJunkie</h1><br><br><button id="search-wrap" onclick="cart()" style="float: right;">Cart</button><br>
+	<h1>MovieJunkie</h1><br><br>
 	
-	<div id="main-buttons">
-			<div id="search-button">
-			<form action="search.html" id="b1" method="post">
-				<button class="sbutton">Search Movies</button>
-			</form>
-			</div>
-		
-			<div id="browse-button">
-			<form action="browse.html" id="b2" method="post">
-				<button class="bbutton">Browse Movies</button>
-			</form>
-			</div>
+	<div id="cart">
+		<div class="btn" value="shoppingcart.html">
+				<button class="b">Cart</button>
+		</div>
 	</div>
 	
-	<script>function cart(){window.location.replace("shoppingcart.html");}</script>
+	<div id="search">
+		<div class="btn" value="search.html">
+				<button class="b">Search</button>
+		</div>
+	</div>
+	
+	<div id="browse" >
+		<div class="btn" value="browse.html">
+				<button class="b">Browse</button>
+		</div>
+	</div>
+	
+	<div id="fsearch">
+		<input type="text" id="autocomplete" placeholder="Search movies and stars" /><br>
+		<input type="button" id="fbutton" value="Submit"/>
+	</div>
+	
+	<script type="text/javascript" src="./index.js"></script>
+	<script type="text/javascript" src="./search.js"></script>
+	
 </body>
 </html>
