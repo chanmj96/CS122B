@@ -138,12 +138,22 @@ $('#fsearch #fbutton').click(function(event) {
 	handleNormalSearch($('#autocomplete').val());
 });
 $('#main-wrap .btn').click(function(event) {
-	console.log("Browse / Search button pressed.");
+	console.log("Browse / Search / Cart button pressed.");
 	event.preventDefault();
 	var url = "";
 	url += window.location.protocol + "//";
 	url += window.location.hostname + ":";
 	url += window.location.port + "/CS122B/";
 	url += $(this).attr('value');
+	window.location.href = url;
+});
+$('#cart').click(function(event){
+	console.log("Cart button pressed.");
+	event.preventDefault();
+	var url = "";
+	url += window.location.protocol + "//";
+	url += window.location.hostname + ":";
+	url += window.location.port + "/CS122B/";
+	url += "shoppingcart.html";
 	window.location.href = url;
 });

@@ -51,7 +51,32 @@ button:focus, input:focus {
 /* ========================================================== */
 /* ============================ Main ======================== */
 /* ========================================================== */
-
+.b {
+	padding-left: 5%;
+	padding-right: 5%;
+	margin: auto;
+	width: 100%;
+	margin-right: 10%;
+	text-align: right;
+}
+#main-wrap button {
+	cursor: pointer;
+}
+#search, #browse, #cart {
+	position: fixed;
+	top: 5em;
+	left: -12%;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+#browse {
+	top: 7.7em;
+}
+#cart {
+	top: 12em;
+}
 #main-wrap .btn {
 	color: #968584;
 	border-radius: 12px;
@@ -61,33 +86,9 @@ button:focus, input:focus {
 	display: inline-block;
 	width: 20%;
 	text-align: right;
-}
-.b {
-	padding-left: 10%;
-	padding-right: 10%;
-}
-#main-wrap {
-	text-align: left;
-}
-#main-wrap button {
-	cursor: pointer;
-}
-#search, #browse {
 	position: fixed;
 	top: 5em;
-	left: -10%;
-	-webkit-transition-duration: 0.3s;
-	-moz-transition-duration: 0.3s;
-	-o-transition-duration: 0.3s;
-	transition-duration: 0.3s;
-}
-#browse {
-	top: 7.7em;
-}
-#main-wrap .btn {
-	position: fixed;
-	top: 5em;
-	left: -10%;
+	left: -13%;
 	-webkit-transition-duration: 0.3s;
 	-moz-transition-duration: 0.3s;
 	-o-transition-duration: 0.3s;
@@ -96,17 +97,19 @@ button:focus, input:focus {
 #browse .btn {
 	top: 7.7em;
 }
-#search:hover, #browse:hover {
-	left: -7em;
+#cart .btn {
+	top: 12em;
+}
+#search:hover, #browse:hover, #cart:hover {
+	left: -12%;
   	background-color: white;
 	color: black;
 }
-#search:hover .btn, #browse:hover .btn{
-	left: -7em;
+#search:hover .btn, #browse:hover .btn, #cart:hover .btn{
+	left: -12%;
 	background-color: white;
 	color: black;
 }
-
 #main-wrap #fsearch {
 	display: block;
 	text-align: center;
