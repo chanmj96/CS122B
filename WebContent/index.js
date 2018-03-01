@@ -22,22 +22,21 @@
 var cache = [];
 function handleLookup(query, doneCallback) {
 	console.log("autocomplete initiated")
-	console.log("sending AJAX request to backend Java Servlet")
 	
 	// TODO: if you want to check past query results first, you can do it here
-	
-	for(element in cache)
+	console.log(cache);
+	for(var i = 0; i < cache.length; i++)
 	{
-		if(element["query"] == query)
-		{	
-			doneCallback( {suggestions: element["data"]}  );
+		if(cache[i]["query"] == query)
+		{
+			doneCallback( {suggestions: cache[i]["data"]}  );
+			console.log("got cache results");
 			return;
 		}
 	}
-		
 	
 	
-	
+	console.log("sending AJAX request to backend Java Servlet")
 	// sending the HTTP GET request to the Java Servlet endpoint hero-suggestion
 	// with the query data
 	/*[
@@ -80,20 +79,14 @@ function handleLookupAjaxSuccess(data, query, doneCallback) {
 	
 	if(data == null && data.length() == 0)
 		return
-	if(cache.indexOf(query) == -1)
-		cache.push({"query": query, "data": data});
-			
 		
-	
-	
-	// TODO: if you want to cache the result into a global variable you can do it here
-	/*if(jsonData != null && jsonData.length() > 0)
-		if(!cache.hasOwnProperty(searchString))
-			for(element in jsonData.keys())
-				if(!cache.hasOwnProperty(element))
-					cache[element] = jsonData[element];*/
-			
-	
+	for(var i = 0; i < cache.length; i++)
+		if(cache[i]["query"] == query)
+		{
+			doneCallback( {suggestions: data}  );
+			return;
+		}
+	cache.push({"query": query, "data": data});
 	
 	
 	// call the callback function provided by the autocomplete library
@@ -111,9 +104,7 @@ function handleLookupAjaxSuccess(data, query, doneCallback) {
  */
 function handleSelectSuggestion(suggestion) {
 	// TODO: jump to the specific result page based on the selected suggestion
-	
-	
-	
+
 	console.log("you select " + suggestion["value"])
 	//var url = suggestion["data"]["category"] + "-hero" + "?id=" + suggestion["data"]["heroID"]
 	var url = suggestion["value"];
