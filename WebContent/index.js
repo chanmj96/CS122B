@@ -24,13 +24,13 @@ function handleLookup(query, doneCallback) {
 	console.log("autocomplete initiated")
 	
 	// TODO: if you want to check past query results first, you can do it here
-	console.log(cache);
+	//console.log(cache);
 	for(var i = 0; i < cache.length; i++)
 	{
 		if(cache[i]["query"] == query)
 		{
 			doneCallback( {suggestions: cache[i]["data"]}  );
-			console.log("got cache results");
+			//console.log("got cache results");
 			return;
 		}
 	}
@@ -72,7 +72,7 @@ function handleLookup(query, doneCallback) {
  */
 function handleLookupAjaxSuccess(data, query, doneCallback) {
 	console.log("lookup ajax successful")
-	console.log(data);
+	//console.log(data);
 	// parse the string into JSON
 	//var jsonData = JSON.parse(data);
 	//console.log(jsonData)
@@ -105,10 +105,22 @@ function handleLookupAjaxSuccess(data, query, doneCallback) {
 function handleSelectSuggestion(suggestion) {
 	// TODO: jump to the specific result page based on the selected suggestion
 
-	console.log("you select " + suggestion["value"])
+	console.log("you selected " + suggestion["value"])
 	//var url = suggestion["data"]["category"] + "-hero" + "?id=" + suggestion["data"]["heroID"]
-	var url = suggestion["value"];
-	console.log(url)
+	var url = "";
+	url += window.location.protocol + "//";
+	url += window.location.hostname + ":"
+	url += window.location.port + "/CS122B/";
+	
+	if(suggestion["data"]["category"] == "movie")
+		url += "movie.html?id=";
+	else
+		url += "star.html?starid=";
+	
+	url += encodeURI(suggestion["data"]["id"]);
+	window.location.href = url;
+	//console.log(suggestion);
+	//console.log(url);
 }
 
 
