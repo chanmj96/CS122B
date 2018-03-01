@@ -62,52 +62,41 @@ public class Search extends HttpServlet {
             		qstring += "+" + st.nextToken() + "* ";
             }
             
-            String stmt = ("SELECT * "
+            String stmt = ("SELECT id,title "
             		+ "FROM movies "
             		+ "WHERE MATCH (title) "
-            		+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE);");            
-            ResultSet movie_result = statement.executeQuery(stmt);
-
+            		+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE) "
+    				+ "UNION SELECT id,name FROM stars "
+    				+ "WHERE MATCH (name) "
+    				+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE) LIMIT 10;");            
+            ResultSet result = statement.executeQuery(stmt);
             
-            String stmt2 = ("SELECT * "
-            		+ "FROM stars "
-            		+ "WHERE MATCH (name) "
-            		+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE);");
-            ResultSet star_result = statement.executeQuery(stmt2);
-            
-            // Populate suggestions with movies
-            while(movie_result.next()) {
+            // Populate suggestions with movies and stars
+            while(result.next()) {
             		JsonObject entry = new JsonObject();
-            		entry.addProperty("value", movie_result.getString("title"));
+            		entry.addProperty("value", result.getString("title"));
             		
             		JsonObject info = new JsonObject();
-            		info.addProperty("category", "movie");
-            		info.addProperty("id", movie_result.getString("id"));
+            		if(result.getString("id").substring(0,2).equals("tt")) {
+            			info.addProperty("category", "movie");
+            		} else {
+            			info.addProperty("category", "star");
+            		}
+            			
+            		info.addProperty("id", result.getString("id"));
             		
             		entry.add("data", info);
             		suggestions.add(entry);
-            }
-            
-            // Populate suggestions with stars
-            while(star_result.next()) {
-            		JsonObject entry = new JsonObject();
-            		entry.addProperty("value", star_result.getString("name"));
-            		
-            		JsonObject info = new JsonObject();
-            		info.addProperty("category", "star");
-            		info.addProperty("id", star_result.getString("id"));
-            		
-            		entry.add("data", info);
-            		suggestions.add(entry);
-            }           
+            } 
      
             response.getWriter().write(suggestions.toString());
+            System.out.println(suggestions.toString());
+
             
-            movie_result.close();
-            star_result.close();
+            result.close();
             statement.close();
             dbcon.close();
-            return;
+
             
 		} catch (SQLException ex) {
             while (ex != null) {
@@ -120,6 +109,7 @@ public class Search extends HttpServlet {
 			return;
 	    }
 		out.close();
+		return;
 	}
 
 	/**
