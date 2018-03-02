@@ -17,7 +17,6 @@ function addSuccess(result){
 function addStar(info){
 	info.preventDefault();
 	console.log("Data sent.");
-
 	$.get("AddStar", $("#dashboard_form").serialize(), (result) => addSuccess(result)); 
 }
 

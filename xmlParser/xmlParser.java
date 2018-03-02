@@ -55,7 +55,7 @@ public class xmlParser extends DefaultHandler{
 		
 			//get a new instance of parser
 			SAXParser sp = spf.newSAXParser();
-			File f = new File("../CS122B/xmlParser/actors63.xml");
+			File f = new File("xmlParser/actors63.xml");
 			//parse the file and also register this class for call backs
 			sp.parse(f, this);
 			//sp.parse("casts124.xml", this);
@@ -88,7 +88,7 @@ public class xmlParser extends DefaultHandler{
 		
 		    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
             dbcon.setAutoCommit(false);
-            CallableStatement cStmt = dbcon.prepareCall("{CALL add_star(?,?)}");
+            CallableStatement cStmt = dbcon.prepareCall("{CALL add_star(?, ?)}");
 
     		Iterator it = actors.iterator();
 	    	while(it.hasNext()) {
@@ -102,10 +102,11 @@ public class xmlParser extends DefaultHandler{
     				cStmt.setInt(2,  birth);
     			} 			
     				cStmt.addBatch();
+    	            iNoRows = cStmt.executeBatch();
+    	            dbcon.commit();
 	    	    }
 	    	
-            iNoRows = cStmt.executeBatch();
-            dbcon.commit();
+
             
             System.out.println("Successfully inserted Actors.");
             cStmt.close();
