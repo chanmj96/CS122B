@@ -189,6 +189,12 @@ function cart_add(elem) {
 if(window.location.href.indexOf("?") != -1){
 	var url = getFullURL();
 	var params = url.split("?").pop();
+
+	var useFT = false;
+	if(params.split("&").length <= 1){
+		useFT = true;
+	}
+	
 	if(url.indexOf("&display=") == -1){params += "&display=10"};
 	if(url.indexOf("&sort=") == -1){params += "&sort="};
 	if(url.indexOf("&sortby=") == -1){params += "&sortby="};
@@ -198,8 +204,15 @@ if(window.location.href.indexOf("?") != -1){
 	window.history.pushState(null, null, url);
 	
 	$("#search-wrap .pagination").css('display', 'inline-block');
-		
-	$.get("ShowSearch", params, (data) => showResult(data));
+	
+	if(useFT){
+		console.log("Using FullText on Normal Search...");
+		$.get("ModifiedShowSearch", params, (data) => showResult(data));
+
+	} else {
+		console.log("Using EQUALITY and LIKE in Normal Search...")
+		$.get("ShowSearch", params, (data) => showResult(data));
+	}
 	$.get("Count", params, (data) => paginate(data, params));
 } else {
 	$("#search_form").submit((event) => submitSearchForm(event));

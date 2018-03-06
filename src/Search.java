@@ -59,7 +59,12 @@ public class Search extends HttpServlet {
             String qstring = "";
             
             while(st.hasMoreTokens()) {
-            		qstring += "+" + st.nextToken() + "* ";
+            		String word = st.nextToken();
+            		if(word.length() <= 3) {
+            			qstring += word + "* ";
+            		} else {
+            			qstring += "+" + word + "* ";
+            		}
             }
             
             String stmt = ("SELECT id,title "

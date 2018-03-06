@@ -55,7 +55,7 @@ public class movieParser extends DefaultHandler{
 		
 			//get a new instance of parser
 			SAXParser sp = spf.newSAXParser();
-			File f = new File("../CS122B/xmlParser/mains243.xml");
+			File f = new File("xmlParser/mains243.xml");
 			//parse the file and also register this class for call backs
 			sp.parse(f, this);
 			//sp.parse("casts124.xml", this);
