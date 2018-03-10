@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CS122B</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="login_to_moviejunkie">Login to MovieJunkie</string>
+    <string name="chen_li">user@email.com</string>
+    <string name="_123abc">123abc</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="submit">Submit</string>
+    <string name="edit_message">Movies</string>
+    <string name="button_send">Search</string>
+    <string name="prev">Prev</string>
+    <string name="next">Next</string>
+</resources>

@@ -49,16 +49,16 @@ public class LoginFilter implements Filter {
 		}
 		
 		// redirect to login page if the "user" attribute doesn't exist in session
-		if (httpRequest.getSession().getAttribute("user") == null || 
+		/*if (httpRequest.getSession().getAttribute("user") == null || 
 				!((User)httpRequest.getSession().getAttribute("user")).hasAccess()   ) {
 			
 				httpResponse.sendRedirect("login.html");
 			return;
 			
-		} else {
+		} else { */
 			chain.doFilter(request, response);
 			return;
-		}
+		//}
 	}
 	
 	// Setup your own rules here to allow accesssing some resources without logging in
@@ -67,9 +67,9 @@ public class LoginFilter implements Filter {
 	private boolean isUrlAllowedWithoutLogin(String requestURI) {
 		requestURI = requestURI.toLowerCase();
 		
-		if (requestURI.endsWith("login.html") || requestURI.endsWith("login.js") || requestURI.endsWith(".css") 
-				|| requestURI.endsWith("login") || requestURI.endsWith("dashboardLogin.html")
-				|| requestURI.endsWith("dashboardLogin.js")) {
+		if (requestURI.endsWith("login.html") || requestURI.endsWith("login.js") || requestURI.endsWith(".css") || requestURI.endsWith("login") 
+				|| requestURI.endsWith("dashboardLogin.html") || requestURI.endsWith("dashboardLogin.js")
+			    || requestURI.endsWith("MobileLogin")  || requestURI.endsWith("MobileSearch")){
 			return true;
 		}
 		return false;

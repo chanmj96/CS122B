@@ -29,8 +29,8 @@ function handleLookup(query, doneCallback) {
 	{
 		if(cache[i]["query"] == query)
 		{
+			console.log("query found in cache storage")
 			doneCallback( {suggestions: cache[i]["data"]}  );
-			console.log("got cache results");
 			return;
 		}
 	}
@@ -77,15 +77,10 @@ function handleLookupAjaxSuccess(data, query, doneCallback) {
 	//var jsonData = JSON.parse(data);
 	//console.log(jsonData)
 	
+	
 	if(data == null && data.length() == 0)
 		return
-		
-	for(var i = 0; i < cache.length; i++)
-		if(cache[i]["query"] == query)
-		{
-			doneCallback( {suggestions: data}  );
-			return;
-		}
+
 	cache.push({"query": query, "data": data});
 	
 	
