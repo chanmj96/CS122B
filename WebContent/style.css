@@ -203,6 +203,13 @@ button:focus, input:focus {
 	padding-left: 20%;
 	text-align: justify;
 }
+.report .code-excerpt{
+	font-size: 70%;
+	font-style: italic;
+	font-color: white;
+	padding-left: 5em;
+	padding-right: 5em;
+}
 
 /* ========================================================== */
 /* ========================= Movie ========================== */
