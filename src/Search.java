@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,11 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -37,17 +41,37 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+
+		/*
 		String loginUser = "testuser";
 		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+		*/
 		
-		response.setContentType("application/json");
-		
-		PrintWriter out = response.getWriter();
 		try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-            Statement statement = dbcon.createStatement();
+			Context initCtx = new InitialContext();
+			if(initCtx == null)
+				out.println("initCtx is NULL");
+			
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			if(envCtx == null)
+				out.println("envCtx is NULL");
+			
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+			
+			//# Removing direct connections to use pooling
+            //Class.forName("com.mysql.jdbc.Driver").newInstance();
+            //Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			//Statement statement = dbcon.createStatement();
+            
+			if(ds == null)
+				out.println("ds is NULL.");
+			
+			Connection dbcon = ds.getConnection();
+			if(dbcon == null)
+				out.println("dbcon is NULL.");			
             
             JsonArray suggestions = new JsonArray();
             String query = request.getParameter("query");
@@ -67,13 +91,19 @@ public class Search extends HttpServlet {
             		}
             }
             
+			//# Switching to using prepared statements
+            PreparedStatement statement = null;
+            
             String stmt = ("SELECT id,title "
             		+ "FROM movies "
             		+ "WHERE MATCH (title) "
             		+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE) "
     				+ "UNION SELECT id,name FROM stars "
     				+ "WHERE MATCH (name) "
-    				+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE) LIMIT 10;");            
+    				+ "AGAINST ('" + qstring + "' IN BOOLEAN MODE) LIMIT 10;");                        
+            
+            dbcon.setAutoCommit(false);
+            statement = dbcon.prepareStatement(stmt);
             ResultSet result = statement.executeQuery(stmt);
             
             // Populate suggestions with movies and stars
@@ -112,7 +142,7 @@ public class Search extends HttpServlet {
 			out.println("<HTML>" + "<HEAD><TITLE>" + "MovieDB: Error" + "</TITLE></HEAD>\n<BODY>"
 					+ "<P>SQL error in doGet: " + ex.getMessage() + "</P></BODY></HTML>");
 			return;
-	    }
+	    } 
 		out.close();
 		return;
 	}

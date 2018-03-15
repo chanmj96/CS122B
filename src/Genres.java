@@ -8,11 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -40,9 +43,11 @@ public class Genres extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
 		String loginUser = "testuser"; 
 		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&useSSL=false";
+		*/
 		
 		response.setContentType("application/json");
 		// this example only allows username/password to be test/test
@@ -50,8 +55,26 @@ public class Genres extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
-			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			//Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
+			//dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			
+			Context initCtx = new InitialContext();
+			if(initCtx == null)
+				out.println("initCtx is NULL");
+			
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			if(envCtx == null)
+				out.println("envCtx is NULL");
+			
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+			
+			if(ds == null)
+				out.println("ds is NULL.");
+			
+			Connection dbcon = ds.getConnection();
+			if(dbcon == null)
+				out.println("dbcon is NULL.");	
+			
 			stmt = dbcon.createStatement();
 			
 			 String query = "SELECT DISTINCT g.name FROM genres g";
