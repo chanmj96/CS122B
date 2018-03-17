@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", password);
 
-        String url = "http://10.0.2.2:9999/CS122B/MobileLogin";
+        String url = "http://18.220.133.52:9999/CS122B/MobileLogin";
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override

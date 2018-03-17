@@ -73,7 +73,7 @@ public class SearchActivity extends TimerActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         final Context context = this;
-        String url = "http://10.0.2.2:9999/CS122B/MobileSearch?title=";
+        String url = "http://18.220.133.52:9999/CS122B/MobileSearch?title=";
 
         url += input.getText().toString();
         StringRequest postRequest = new StringRequest(Request.Method.GET, url,

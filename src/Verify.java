@@ -9,11 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import com.google.gson.JsonObject;
 import java.util.Calendar;
@@ -42,9 +45,11 @@ public class Verify extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		/*
 		String loginUser = "testuser"; 
 		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&useSSL=false";
+		*/
 
 		PrintWriter out = response.getWriter();
 
@@ -59,8 +64,26 @@ public class Verify extends HttpServlet {
 		if(number != "" && expiration != "" && expiration != "" && first_name != "" && last_name != "")
 		{
 			try {
-				Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
-				dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+				//Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
+				//dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+				
+	    			Context initCtx = new InitialContext();
+	    			if(initCtx == null)
+	    				out.println("initCtx is NULL");
+	    			
+	    			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+	    			if(envCtx == null)
+	    				out.println("envCtx is NULL");
+	    			
+	    			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+	    			
+	    			if(ds == null)
+	    				out.println("ds is NULL.");
+	    			
+	    			Connection dbcon = ds.getConnection();
+	    			if(dbcon == null)
+	    				out.println("dbcon is NULL.");	
+				
 				stmt = dbcon.createStatement();
 				
 				 String customerInfo = "SELECT c.* FROM customers c "

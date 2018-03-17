@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- stylesheets -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../style.css">
+
+<!-- meta tags -->
+<meta charset="UTF-8">
+
+<title>Report</title>
+</head>
+<body class="report">
+<header>
+	<h1>Connection Pooling and Prepared Statements</h1><br>
+</header>
+
+<div id="page-text">
+	We updated our servlets as per the instructions included in project 5 task 1. JDBC connection pooling is enabled in much the same way as the example 
+	which is by modifying the content.xml and web.xml files as well as the appropriate Java files. The Java servlets are found in the src folder
+	and only files that connect to the database were modified to accommodate connection pooling. For the most part, the process of switching from a 
+	direct connection to pooling is the same across the servlet in that we commented out our variables storing the login credentials, creation of an instance
+	of the JDBC driver, and establishment of a connection. Once we've commented them out, we added the necessary lines outlined in the example which were:
+	<br><br>
+		<div class="code-excerpt">
+				<pre>
+		    			Context initCtx = new InitialContext();
+	    			if(initCtx == null)
+	    				out.println("initCtx is NULL");
+	    			
+	    			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+	    			if(envCtx == null)
+	    				out.println("envCtx is NULL");
+	    			
+	    			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+	    			
+	    			if(ds == null)
+	    				out.println("ds is NULL.");
+	    			
+	    			Connection dbcon = ds.getConnection();
+	    			if(dbcon == null)
+	    				out.println("dbcon is NULL.");
+	    			</pre>	
+		</div>
+	For implementing prepared statements, we modified the servlets involved in the search. While we attempted to use the prepared statement format
+	of parameterization, we encountered issues with the MATCH AGAINST statements due to the syntax which generated SQL syntax errors. Since the 
+	statements do not change during the time of the query and only at the beginning, we defined the statement first without the use of prepared statement
+	parameters and then created it into a prepared statement. The strings were completed prior to becoming prepared statement objects. This prevented the error while satisfying the requirement of making the queries into 
+	prepared statements.
+</div>
+
+</body>
+</html>

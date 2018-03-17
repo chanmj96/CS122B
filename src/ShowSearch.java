@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,11 +10,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -39,17 +43,38 @@ public class ShowSearch extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		/*
 		String loginUser = "testuser";
 		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+		*/
 		
 		response.setContentType("application/json");
 		
 		PrintWriter out = response.getWriter();
 		try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-            Statement statement = dbcon.createStatement();
+			Context initCtx = new InitialContext();
+			if(initCtx == null)
+				out.println("initCtx is NULL");
+			
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			if(envCtx == null)
+				out.println("envCtx is NULL");
+			
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+			
+			//# Removing direct connections to use pooling
+            //Class.forName("com.mysql.jdbc.Driver").newInstance();
+            //Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+            //Statement statement = dbcon.createStatement();
+			
+			if(ds == null)
+				out.println("ds is NULL.");
+			
+			Connection dbcon = ds.getConnection();
+			if(dbcon == null)
+				out.println("dbcon is NULL.");
             
             String title = request.getParameter("title");
             String year = request.getParameter("year");
@@ -65,6 +90,7 @@ public class ShowSearch extends HttpServlet {
             String sortby = request.getParameter("sortby");
             
             if(title != "" || year != "" || director != "" || name != "" || genre != null || letter != null ) {
+                PreparedStatement statement = null;
 				String query = "SELECT m.*, "
 						+ "GROUP_CONCAT(DISTINCT g.name) AS genre, "
 						+ "GROUP_CONCAT(DISTINCT CONCAT(s.name, ':', starId)) AS cast "
@@ -118,8 +144,11 @@ public class ShowSearch extends HttpServlet {
 				if(Integer.parseInt(page) > 1) {
 					query += " OFFSET " + (Integer.parseInt(limit) * (Integer.parseInt(page) - 1));
 				}
-				ResultSet result = statement.executeQuery(query);
-								
+				
+	            dbcon.setAutoCommit(false);
+	            statement = dbcon.prepareStatement(query);
+	            ResultSet result = statement.executeQuery(query);
+	            
 				JsonArray movieArray = new JsonArray();
 				while(result.next()) {
 					String rid = result.getString("id");

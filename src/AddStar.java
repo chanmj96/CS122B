@@ -9,11 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 /**
  * Servlet implementation class AddStar
@@ -37,9 +40,11 @@ public class AddStar extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*
 		String loginUser = "testuser";
 		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+		*/
 		
 		response.setContentType("application/json");
 		
@@ -62,8 +67,25 @@ public class AddStar extends HttpServlet {
     				return;
     			}
     			
-    			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
-    			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+    			//Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
+    			//dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+    			Context initCtx = new InitialContext();
+    			if(initCtx == null)
+    				out.println("initCtx is NULL");
+    			
+    			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+    			if(envCtx == null)
+    				out.println("envCtx is NULL");
+    			
+    			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+    			
+    			if(ds == null)
+    				out.println("ds is NULL.");
+    			
+    			Connection dbcon = ds.getConnection();
+    			if(dbcon == null)
+    				out.println("dbcon is NULL.");			
+    			
     			stmt = dbcon.createStatement();
     			
     			CallableStatement cStmt = dbcon.prepareCall("{call add_star(?, ?)}");

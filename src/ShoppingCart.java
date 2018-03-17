@@ -9,10 +9,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -80,16 +83,35 @@ public class ShoppingCart extends HttpServlet {
 			}
 			return;
 		}
+		/*
 		String loginUser = "testuser";
 		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+		*/
 		JsonArray myArray = new JsonArray();
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			//Class.forName("com.mysql.jdbc.Driver").newInstance();
+            //Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
             	
+			Context initCtx = new InitialContext();
+			if(initCtx == null)
+				out.println("initCtx is NULL");
+			
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			if(envCtx == null)
+				out.println("envCtx is NULL");
+			
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+			
+			if(ds == null)
+				out.println("ds is NULL.");
+			
+			Connection dbcon = ds.getConnection();
+			if(dbcon == null)
+				out.println("dbcon is NULL.");	
+			
             HashMap<String,String> movie_list = user.getCart();
             
             //System.out.println(movie_list.toString());

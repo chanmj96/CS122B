@@ -7,11 +7,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.http.Cookie;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import com.google.gson.JsonObject;
 
@@ -41,9 +44,11 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 		String userType = request.getParameter("userType");
 		
+		/*
 		String loginUser = "testuser"; 
 		String loginPasswd = "password";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&useSSL=false";
+		*/
 		
 		PrintWriter out = response.getWriter();
 		
@@ -63,8 +68,26 @@ public class Login extends HttpServlet {
 		
 		JsonObject responseJsonObject = new JsonObject();
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
-			dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			//Class.forName("com.mysql.cj.jdbc.Driver").getConstructor().newInstance();
+			//dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			
+			Context initCtx = new InitialContext();
+			if(initCtx == null)
+				out.println("initCtx is NULL");
+			
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			if(envCtx == null)
+				out.println("envCtx is NULL");
+			
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+			
+			if(ds == null)
+				out.println("ds is NULL.");
+			
+			Connection dbcon = ds.getConnection();
+			if(dbcon == null)
+				out.println("dbcon is NULL.");	
+			
 			stmt = dbcon.createStatement();
 			
 			

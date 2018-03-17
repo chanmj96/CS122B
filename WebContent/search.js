@@ -57,17 +57,10 @@ function showResult(result){
 		}
 		row += "</th>"; 
 		
-		var count_text = "";
-		for(var num = 1; num < 10; num++)
-			count_text += '<option value="'+num+'">'+num+'</option>';
-		
 		// Purchase buttons
 		row += "<th>";
-		row += '<select id=selector-'+result[i]["id"]+'>'+count_text+"</select>";
-		row += "</th>";
-		
-		row += '<th>';
-		row += '<button onclick="cart_add(this)" class="cart_add" value="'+result[i]["id"]+'"> ADD TO CART </button>';
+		row += '<input type="text" value="1" id=input-'+result[i]["id"]+'><br>';
+		row += '<br><button onclick="cart_add(this)" class="cart_add" value="'+result[i]["id"]+'"> ADD TO CART </button>';
 		row += "</th>";
 		
 		row += "</tr>";
@@ -164,26 +157,12 @@ $("#search_result_head .sort_by").click(function(event){
 
 function cart_add(elem) {
 	var text = elem.value;
-	var count = $('#selector-'+text).find(":selected").text();
-	console.log(text);
-	console.log(count);
-	var url = getBaseURL();
-	var params = "";
+	var count = document.getElementById("input-"+text).value;
 	
-	params += ("action=add");
-	params += ("&id="+text);
-	params += ("&count="+count);
-	//if(url.indexOf("&display=") == -1){params += "&display=10"};
-	//if(url.indexOf("&sort=") == -1){params += "&sort="};
-	//if(url.indexOf("&sortby=") == -1){params += "&sortby="};
-	//if(url.indexOf("&page=") == -1){params += "&page=1"};
-	
-	url += ("?" + params);
-	//window.history.pushState(null, null, url);
-		
-	$.get("ShoppingCart", params, function(data,status){
-		alert("Movie Successfully added to Cart.")
-	});
+	if(setCookie(text,count))
+		alert("Cart has been updated with Movie " + text + ".");
+	else
+		alert("Enter a valid number of Movies.");
 }
 
 if(window.location.href.indexOf("?") != -1){
