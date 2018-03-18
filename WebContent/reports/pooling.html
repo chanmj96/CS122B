@@ -48,6 +48,10 @@
 	statements do not change during the time of the query and only at the beginning, we defined the statement first without the use of prepared statement
 	parameters and then created it into a prepared statement. The strings were completed prior to becoming prepared statement objects. This prevented the error while satisfying the requirement of making the queries into 
 	prepared statements.
+	
+	An example of the changes can be found in src/Search.java in lines 48 to 74. The Github link is https://github.com/UCI-Chenli-teaching/cs122b-winter18-team-35/commit/c0256c738cf34900527f7125e3cc8e671c7b512c. This shows
+	how we commented out the parts that performed a direct connection and added the code displayed above and found in the instructions to use pooling. Moving further down, lines 94 to 106 shows the transition to using
+	prepared statements. Similar changes can be found throughout the src folder containing the Java files and servlets.
 </div>
 
 </body>
