@@ -45,7 +45,7 @@ function showResult(){
 	
 	var cookies = cookiesToJSON();
 	for(var id in cookies){
-		if(cookies[id]==null || cookies[id]=="")
+		if(cookies[id]==null || cookies[id]=="" || id=="ROUTEID")
 			continue;
 		var row = "";
 		row += "<tr>";
