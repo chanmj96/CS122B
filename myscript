@@ -1,0 +1,4 @@
+#!/bin/bash
+
+awk '{ total += $1 } END { printf "Average TS: %.10g\n", total/NR/10^9 }' output.txt
+awk '{ total += $2 } END { printf "Average TJ: %.10g\n", total/NR/10^9 }' output.txt
