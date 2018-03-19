@@ -65,7 +65,7 @@ public class AddMovie extends HttpServlet {
 			if(envCtx == null)
 				out.println("envCtx is NULL");
 			
-			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+			DataSource ds = (DataSource) envCtx.lookup("read-write");
 			
 			String title = request.getParameter("title");
 			String year = request.getParameter("year");
