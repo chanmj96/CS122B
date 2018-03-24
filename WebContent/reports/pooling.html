@@ -52,6 +52,10 @@
 	An example of the changes can be found in src/Search.java in lines 48 to 74. The Github link is https://github.com/UCI-Chenli-teaching/cs122b-winter18-team-35/commit/c0256c738cf34900527f7125e3cc8e671c7b512c. This shows
 	how we commented out the parts that performed a direct connection and added the code displayed above and found in the instructions to use pooling. Moving further down, lines 94 to 106 shows the transition to using
 	prepared statements. Similar changes can be found throughout the src folder containing the Java files and servlets.
+	
+	Connection pooling with two backend servers divides the work by distributing the connections across the different servers. The effective load for reads in our
+	case is doubled because both master and slave instances can handle them while the writes remains with the master instance. This may be visible in src/Search in lines 48 to 74
+	as well because that file implements connection pooling and observing the logs will show that the search is divided between the instances per connection.
 </div>
 
 </body>
