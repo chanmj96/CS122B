@@ -6,13 +6,13 @@ An Android application supporting many features of the site can be found in the 
 Originally served on an Ubuntu instance running apache-tomcat 8 and mysql.
 
 Programming Features:  
-Frontend javascript,css,html,jQuery  
-Backend java servlets  
+Frontend Javascript, CSS, HTML, jQuery  
+Backend Java Servlets  
 Use of HTTP Cookies  
 Pagination  
-HTTPS and recaptcha support  
+HTTPS and Recaptcha support  
 Database loading with XML SAX Parser  
 MySQL Full-Text Search  
 Autocomplete  
 Connection Pooling  
-Master/slave load balancing  
+Master/Slave Load Balancing  
