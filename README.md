@@ -8,7 +8,7 @@ Originally served on an Ubuntu instance running apache-tomcat 8 and mysql.
 Programming Features:  
 Frontend Javascript, CSS, HTML, jQuery  
 Backend Java Servlets  
-Use of HTTP Cookies  
+Use of Cookies  
 Pagination  
 HTTPS and Recaptcha support  
 Database loading with XML SAX Parser  
