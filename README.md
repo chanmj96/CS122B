@@ -16,3 +16,6 @@ MySQL Full-Text Search
 Autocomplete  
 Connection Pooling  
 Master/Slave Load Balancing  
+
+
+Course site: https://grape.ics.uci.edu/wiki/public/wiki/cs122b-2018-winter
