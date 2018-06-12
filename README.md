@@ -1,4 +1,4 @@
-# CS122B
+# MovieJunkies
 This project is a website named MovieJunkies which queries movie and actor information from a local database. It serves a login page, movie and actor search pages, and a shopping cart checkout page. Also present is employee access login for database changes.
 
 An Android application supporting many features of the site can be found in the Mobile directory.
@@ -17,5 +17,3 @@ Autocomplete
 Connection Pooling  
 Master/Slave Load Balancing  
 
-
-Course site: https://grape.ics.uci.edu/wiki/public/wiki/cs122b-2018-winter
