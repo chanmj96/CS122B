@@ -1,8 +1,8 @@
 class MyConstants {
 
 
-    public static final String SITE_KEY ="6LfnukQUAAAAAITwJ5fGDjIb29pRfn2CMPaWGt-A";
+    public static final String SITE_KEY ="6LeIxogUAAAAAI8cXe6V9jdaDFhTjm1Q2z2g0VsO";
 
-    public static final String SECRET_KEY = "6LfnukQUAAAAAOxF4R52bXr-7NPc3GuHxqfI-mRP";
+    public static final String SECRET_KEY = "6LeIxogUAAAAAEJhOTUilBLb3TjXk-lrXzerwWWl";
 
 }
