@@ -1,13 +1,14 @@
 # MovieJunkies
-This project is a website named MovieJunkies which queries movie and actor information from a local database. It serves a login page, movie and actor search pages, and a shopping cart checkout page. Also present is employee access login for database changes.
+This project is a web application that allows customers to browse/search for movie information, add interesting movies to their shopping cart, and check out. The following figure shows the flow of this website's interface.
 
-An Android application supporting many features of the site can be found in the Mobile directory.
+![Alt text](design-diagram.jpg?raw=true "Design Diagram")
 
-Originally served on an Ubuntu instance running apache-tomcat 8 and mysql.
+The site runs on java servlets in the backend and html/css/javascript in the frontend.
+It was originally served on an Ubuntu instance running apache-tomcat 8 and mysql.
+
+An Android app supporting many of the search features can be found in the Mobile directory.
 
 Programming Features:  
-Frontend Javascript, CSS, HTML, jQuery  
-Backend Java Servlets  
 Use of Cookies  
 Pagination  
 HTTPS and Recaptcha support  
@@ -17,5 +18,3 @@ Autocomplete
 Connection Pooling  
 Master/Slave Load Balancing  
 
-The following figure shows the flow of this website's interface.
-![Alt text](design-diagram.jpg?raw=true "Design Diagram")
