@@ -8,13 +8,12 @@ It was originally served on an Ubuntu instance running apache-tomcat 8 and mysql
 
 An Android app supporting many of the search features can be found in the Mobile directory.
 
-List of programming features:  
-Use of Cookies  
-Pagination  
-HTTPS and Recaptcha support  
-Database loading with XML SAX Parser  
-MySQL Full-Text Search  
-Autocomplete  
-Connection Pooling  
-Master/Slave Load Balancing  
-
+## List of programming features
+* Use of Cookies  
+* Pagination  
+* HTTPS and Recaptcha support  
+* Database loading with XML SAX Parser  
+* MySQL Full-Text Search  
+* Autocomplete  
+* Connection Pooling  
+* Master/Slave Load Balancing  
