@@ -8,7 +8,7 @@ It was originally served on an Ubuntu instance running apache-tomcat 8 and mysql
 
 An Android app supporting many of the search features can be found in the Mobile directory.
 
-Programming Features:  
+List of programming features:  
 Use of Cookies  
 Pagination  
 HTTPS and Recaptcha support  
