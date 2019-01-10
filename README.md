@@ -17,3 +17,5 @@ Autocomplete
 Connection Pooling  
 Master/Slave Load Balancing  
 
+The following figure shows the flow of this website's interface.
+![Alt text](design-diagram.jpg?raw=true "Design Diagram")
