@@ -1,5 +1,6 @@
 # MovieJunkies
-This project is a web application that allows customers to browse/search for movie information, add interesting movies to their shopping cart, and check out. The following figure shows the flow of this website's interface.
+This project is a web application that allows customers to browse/search for movie information, add interesting movies to their shopping cart, and check out. See the web app running at http://chanmj96.asuscomm.com:8888/CS122B/.
+The following figure shows the flow of this website's interface.
 
 ![Alt text](design-diagram.jpg?raw=true "Design Diagram")
 
