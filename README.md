@@ -1,5 +1,5 @@
 # MovieJunkies
-This project is a web application that allows customers to browse/search for movie information, add interesting movies to their shopping cart, and check out. You can view the server running at http://chanmj96.asuscomm.com:8888/CS122B/.
+This project is a web application that allows customers to browse/search for movie information, add interesting movies to their shopping cart, and check out. You can view the project running at http://chanmj96.asuscomm.com:8888/CS122B/.
 The following figure shows the flow of this website's interface.
 
 ![Alt text](design-diagram.jpg?raw=true "Design Diagram")
